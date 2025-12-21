@@ -12,12 +12,11 @@ import { AnyCard } from "@/types/CardTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const PageHeader = () => (
-  <div className="rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-center shadow-md opacity-90">
-    <h1 className="text-lg font-semibold text-white leading-tight">
-      クラロワ
-      <br />
-      ダメージシミュレーター
+  <div className="rounded-lg border bg-card p-4 text-center shadow-sm">
+    <h1 className="text-lg font-semibold leading-tight text-foreground">
+      クラロワ ダメージシミュレーター
     </h1>
+    <p className="mt-1 text-xs text-muted-foreground">攻撃回数を入れて、残りHPをチェック</p>
   </div>
 );
 
@@ -27,8 +26,8 @@ type ActionButtonsProps = {
 };
 
 const ActionButtons = ({ onToggleInfo, onReset }: ActionButtonsProps) => (
-  <div className="flex items-center justify-center gap-4">
-    <Button variant="ghost" size="sm" onClick={onToggleInfo}>
+  <div className="flex items-center justify-center gap-3">
+    <Button variant="secondary" size="sm" onClick={onToggleInfo}>
       <Info className="mr-2 h-4 w-4" />
       ヘルプ
     </Button>
@@ -40,15 +39,15 @@ const ActionButtons = ({ onToggleInfo, onReset }: ActionButtonsProps) => (
 );
 
 const InfoBox = () => (
-  <div className="rounded-lg border bg-muted px-3 py-2 text-xs text-foreground/80">
+  <div className="rounded-lg border bg-card px-3 py-2 text-xs text-muted-foreground">
     <p>
-      <strong>使い方:</strong> 防衛カードを選択し、攻撃カードを追加してダメージ計算を行います。計算結果は、防衛カードの残りHPとして表示されます。
+      <strong className="text-foreground">使い方:</strong> 防衛カードを選択し、攻撃カードを追加してダメージ計算を行います。計算結果は、防衛カードの残りHPとして表示されます。
     </p>
   </div>
 );
 
 const PageFooter = () => (
-  <footer className="mt-10 border-t bg-muted py-6">
+  <footer className="mt-10 border-t bg-card py-6">
     <div className="mx-auto max-w-3xl px-4">
       <div className="flex flex-col items-center gap-2 text-center">
         <p className="text-xs text-muted-foreground">© 2024-2025 クラロワ ダメージシミュレーター</p>

@@ -10,6 +10,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SelectableCardListItem from "./SelectableCardListItem";
@@ -176,6 +177,7 @@ const SelectCardOverlay = ({
       <DialogContent className="max-h-[80vh] overflow-hidden p-0">
         <DialogHeader className="px-6 py-4">
           <DialogTitle>{modalTitle}</DialogTitle>
+          <DialogDescription>検索してカードを選択してください。</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 px-6 pb-4">

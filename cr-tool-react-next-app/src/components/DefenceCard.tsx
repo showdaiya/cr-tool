@@ -10,6 +10,8 @@ import { useCardContext } from "@/context/CardContext";
 import { getInitialHp, getCardImageFilename } from "@/utils/cardUtils";
 import { LOW_HP_THRESHOLD } from "@/constants";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 type DefenceCardProps = {
   onSelectClick: () => void;
 };
@@ -44,7 +46,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
           <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/resized_cards/${getCardImageFilename(defenceCard)}`}
+              src={`${BASE_PATH}/resized_cards/${getCardImageFilename(defenceCard)}`}
               alt={defenceCard.JpName}
               className="h-full w-full object-contain"
             />

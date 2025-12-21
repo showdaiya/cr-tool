@@ -26,6 +26,8 @@ import {
 import { parseDamage, getCardImageFilename } from "@/utils/cardUtils";
 import { cn } from "@/lib/utils";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 type AttackCardProps = {
   attackCard: AttackCardState;
   index: number;
@@ -90,7 +92,7 @@ const AttackCardComponent = ({
         <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`/resized_cards/${getCardImageFilename(cardData)}`}
+            src={`${BASE_PATH}/resized_cards/${getCardImageFilename(cardData)}`}
             alt={cardData.JpName}
             className="h-full w-full object-contain"
           />

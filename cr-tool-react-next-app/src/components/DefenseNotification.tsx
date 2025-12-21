@@ -26,15 +26,16 @@ const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) 
   // 防衛カードが選択されていない場合
   if (!defenceCard) {
     return (
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         className={cn(
           "fixed left-1/2 top-3 z-50 w-[90%] max-w-[320px] -translate-x-1/2 rounded-md border",
           "bg-card px-3 py-2 text-left shadow-lg transition hover:-translate-y-[1px]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         )}
         onClick={scrollToDefenseCard}
-        onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
+        onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             scrollToDefenseCard();
@@ -58,7 +59,7 @@ const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) 
             </Button>
           )}
         </div>
-      </button>
+      </div>
     );
   }
 
@@ -67,15 +68,16 @@ const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) 
   const hpColor = hpPercentage <= LOW_HP_THRESHOLD * 100 ? "text-red-500" : "text-green-500";
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       className={cn(
         "fixed left-1/2 top-3 z-50 w-[90%] max-w-[320px] -translate-x-1/2 rounded-md border",
         "bg-card px-3 py-2 text-left shadow-lg transition hover:-translate-y-[1px]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       )}
       onClick={scrollToDefenseCard}
-      onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
+      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           scrollToDefenseCard();
@@ -106,7 +108,7 @@ const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) 
           </div>
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 
