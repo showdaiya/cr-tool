@@ -7,15 +7,16 @@ import {
   useDisclosure,
   Button,
   HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { InfoIcon, RepeatIcon } from "@chakra-ui/icons";
 import { useState, useEffect, useRef, useCallback } from "react";
 import DefenceCard from "./DefenceCard";
 import AttackCardSection from "./AttackCardSection";
-import SelectCardOverlay from "./SelectCardOverlay"; // Import the unified overlay
+import SelectCardOverlay from "./SelectCardOverlay";
 import DefenseNotification from "./DefenseNotification";
 import { useCardContext } from "@/context/CardContext";
-import { AnyCard } from "@/types/CardTypes"; // Import AnyCard type
+import { AnyCard } from "@/types/CardTypes";
 
 // --- Internal Components ---
 
@@ -78,8 +79,8 @@ const InfoBox = () => (
     p={2}
     borderWidth="1px"
     borderRadius="lg"
-    bg="gray.50"
-    borderColor="gray.200"
+    bg="bg.footer"
+    borderColor="border.default"
     fontSize="xs"
   >
     <Text>
@@ -94,14 +95,33 @@ const PageFooter = () => (
   <Box
     as="footer"
     py={6}
-    bg="gray.50"
+    bg="bg.footer"
     borderTop="1px"
-    borderColor="gray.200"
+    borderColor="border.default"
   >
     <Container maxW="container.sm">
-      <Text fontSize="xs" textAlign="center" color="gray.600">
-        © 2024 クラロワ ダメージシミュレーター
-      </Text>
+      <VStack spacing={2}>
+        <Text fontSize="xs" textAlign="center" color="text.secondary">
+          © 2024-2025 クラロワ ダメージシミュレーター
+        </Text>
+        <Text fontSize="2xs" textAlign="center" color="text.muted">
+          カードデータ出典:{" "}
+          <Text
+            as="a"
+            href="https://clashroyale.fandom.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="blue.500"
+            textDecoration="underline"
+          >
+            Clash Royale Wiki (Fandom)
+          </Text>{" "}
+          - CC-BY-SA 3.0
+        </Text>
+        <Text fontSize="2xs" textAlign="center" color="text.muted">
+          ※ 本ツールはファン作成の非公式ツールです。Supercellとは一切関係ありません。
+        </Text>
+      </VStack>
     </Container>
   </Box>
 );

@@ -3,7 +3,7 @@ import {
   extendTheme,
   ThemeConfig,
 } from "@chakra-ui/react";
-import { ReactNode, useEffect, useState } from "react"; // Add back useEffect, useState imports
+import { ReactNode, useEffect, useState } from "react";
 
 type ChakraProviderProps = {
   children: ReactNode;
@@ -11,8 +11,8 @@ type ChakraProviderProps = {
 
 // Chakra UIの設定
 const config: ThemeConfig = {
-  initialColorMode: "light",
-  useSystemColorMode: false,
+  initialColorMode: "system",
+  useSystemColorMode: true,
 };
 
 // テーマの拡張
@@ -29,14 +29,46 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: `'Noto Sans JP', sans-serif`,
-    body: `'Noto Sans JP', sans-serif`,
+    heading: `var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif`,
+    body: `var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif`,
+  },
+  semanticTokens: {
+    colors: {
+      "bg.page": {
+        default: "white",
+        _dark: "gray.900",
+      },
+      "bg.card": {
+        default: "white",
+        _dark: "gray.800",
+      },
+      "bg.footer": {
+        default: "gray.50",
+        _dark: "gray.900",
+      },
+      "text.primary": {
+        default: "gray.800",
+        _dark: "gray.100",
+      },
+      "text.secondary": {
+        default: "gray.600",
+        _dark: "gray.400",
+      },
+      "text.muted": {
+        default: "gray.500",
+        _dark: "gray.500",
+      },
+      "border.default": {
+        default: "gray.200",
+        _dark: "gray.700",
+      },
+    },
   },
   styles: {
     global: {
       body: {
-        bg: "white",
-        color: "gray.800",
+        bg: "bg.page",
+        color: "text.primary",
       },
     },
   },
@@ -44,11 +76,6 @@ const theme = extendTheme({
     Badge: {
       baseStyle: {
         bg: "gray.100",
-      },
-    },
-    Box: {
-      baseStyle: {
-        borderColor: "gray.200",
       },
     },
   },

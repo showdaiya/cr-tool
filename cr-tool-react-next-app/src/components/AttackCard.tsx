@@ -118,7 +118,7 @@ const AttackCardComponent = ({ attackCard, index, onEditClick, onRemove }: Attac
       overflow="hidden"
       width="100%"
       shadow="sm" // Reduced shadow
-      bg="white"
+      bg="bg.card"
     >
       <VStack spacing={2} align="stretch">
         {" "}

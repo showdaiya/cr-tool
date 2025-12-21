@@ -36,7 +36,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
         p={4}
         width="100%"
         shadow="md"
-        bg="gray.50"
+        bg="bg.footer"
         minHeight="150px" // Ensure minimum height
         display="flex"
         alignItems="center"
@@ -75,7 +75,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
       borderRadius="lg"
       width="100%"
       shadow="sm" // Keep only one shadow prop, using 'sm' to match AttackCard
-      bg="white"
+      bg="bg.card"
       overflow="hidden" // Match overflow
     >
       <VStack spacing={0} align="stretch">
