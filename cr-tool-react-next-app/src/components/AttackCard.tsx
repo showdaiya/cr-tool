@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, ChangeEvent } from "react";
+import { Minus, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,17 +45,22 @@ const AttackCardComponent = ({
   const { findCardById, updateAttackCard, getDamageOptions } = useCardContext();
   const cardData: AnyCard | undefined = findCardById(attackCard.cardId);
 
-  const handleAttackNumberChange = (damageKey: string, e: ChangeEvent<HTMLInputElement>) => {
-    const valueAsNumber = parseInt(e.target.value, 10);
-    const newAttackNumber = isNaN(valueAsNumber) ? 0 : Math.max(0, valueAsNumber);
+  const setAttackCount = (damageKey: string, nextCount: number) => {
+    const safeCount = Math.min(100, Math.max(0, nextCount));
     const currentAttackNumbers = attackCard.attackNumbers || {};
     updateAttackCard(index, {
       ...attackCard,
       attackNumbers: {
         ...currentAttackNumbers,
-        [damageKey]: newAttackNumber,
+        [damageKey]: safeCount,
       },
     });
+  };
+
+  const handleAttackNumberChange = (damageKey: string, e: ChangeEvent<HTMLInputElement>) => {
+    const valueAsNumber = parseInt(e.target.value, 10);
+    const nextCount = isNaN(valueAsNumber) ? 0 : valueAsNumber;
+    setAttackCount(damageKey, nextCount);
   };
 
   if (!cardData) {
@@ -119,45 +125,93 @@ const AttackCardComponent = ({
 
       <CardContent className="space-y-3">
         {damageOptions.length > 0 ? (
-          damageOptions.map((option) => {
-            const damageKey = option.key;
-            const damageValue = parseDamage(option.value);
-            const currentAttackNumber = attackCard.attackNumbers?.[damageKey] ?? 0;
-            return (
-              <div
-                key={damageKey}
-                className="flex items-center justify-between gap-3 rounded-md border px-3 py-2"
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <p className="line-clamp-1 text-xs text-muted-foreground">
-                      {translateDamageType(damageKey as DamageType)}:{" "}
-                      <span className="font-semibold text-foreground">{damageValue}</span>
-                    </p>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    {translateDamageType(damageKey as DamageType)}: {damageValue}
-                  </TooltipContent>
-                </Tooltip>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">x</span>
-                  <Input
-                    type="number"
-                    min={0}
-                    max={100}
-                    value={currentAttackNumber}
-                    onChange={(e) => handleAttackNumberChange(damageKey, e)}
-                    className={cn("h-8 w-20 text-right text-sm")}
-                  />
+          <div className="space-y-3">
+            {damageOptions.map((option) => {
+              const damageKey = option.key;
+              const damageValue = parseDamage(option.value);
+              const currentAttackNumber = attackCard.attackNumbers?.[damageKey] ?? 0;
+              const subtotal = damageValue * currentAttackNumber;
+
+              return (
+                <div key={damageKey} className="rounded-lg border bg-card p-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <p className="line-clamp-2 text-sm font-medium">
+                            {translateDamageType(damageKey as DamageType)}
+                          </p>
+                        </TooltipTrigger>
+                        <TooltipContent side="top">
+                          {translateDamageType(damageKey as DamageType)}
+                        </TooltipContent>
+                      </Tooltip>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        1回あたり <span className="font-semibold text-foreground">{damageValue}</span>
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
+                        aria-label="回数を減らす"
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <Input
+                        type="number"
+                        min={0}
+                        max={100}
+                        inputMode="numeric"
+                        value={currentAttackNumber}
+                        onChange={(e) => handleAttackNumberChange(damageKey, e)}
+                        className={cn("h-8 w-16 text-right text-sm")}
+                        aria-label="回数"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
+                        aria-label="回数を増やす"
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                    <span>小計</span>
+                    <span className="font-semibold tabular-nums text-foreground">{subtotal}</span>
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+          </div>
         ) : (
           <p className="py-2 text-center text-xs text-muted-foreground">
             利用可能なダメージ情報がありません。
           </p>
         )}
+
+        <div className="rounded-lg border bg-muted/20 px-3 py-2">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span>このカードの合計</span>
+            <span className="font-semibold tabular-nums text-foreground">
+              {damageOptions.reduce((sum, option) => {
+                const damageKey = option.key;
+                const damageValue = parseDamage(option.value);
+                const count = attackCard.attackNumbers?.[damageKey] ?? 0;
+                return sum + damageValue * count;
+              }, 0)}
+            </span>
+          </div>
+        </div>
 
         <div className="flex justify-end gap-2 pt-1">
           <Button variant="outline" size="sm" onClick={onEditClick}>

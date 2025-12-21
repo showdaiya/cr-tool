@@ -77,7 +77,7 @@ describe("AttackCard (shadcn)", () => {
     );
 
     expect(screen.getByText("ナイト")).toBeInTheDocument();
-    expect(screen.getByText(/ダメージ:/)).toBeInTheDocument();
+    expect(screen.getByText("ダメージ")).toBeInTheDocument();
     expect(screen.getByDisplayValue("2")).toBeInTheDocument();
     expect(screen.getByText("編集")).toBeInTheDocument();
     expect(screen.getByText("削除")).toBeInTheDocument();
