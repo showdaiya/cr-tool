@@ -1,0 +1,17 @@
+# Monorepo / multi-app ignores
+**/node_modules/
+**/.next/
+**/out/
+**/dist/
+**/dist-ssr/
+**/.vercel/
+**/*.tsbuildinfo
+
+# Logs
+**/*.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
