@@ -1,108 +1,86 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+"use client";
+
 import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useCardContext } from "@/context/CardContext";
 import AttackCard from "@/components/AttackCard";
-import SelectCardOverlay from "./SelectCardOverlay"; // Import the unified overlay
+import SelectCardOverlay from "./SelectCardOverlay";
 import { AttackCardState } from "@/types/CardTypes";
 
 const AttackCardSection = () => {
-  // updateAttackCard を context から取得
   const { attackCards, addAttackCard, removeAttackCard, updateAttackCard } = useCardContext();
   const [isSelectingCard, setIsSelectingCard] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null); // editingIndex state を復元
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const handleAddCardClick = () => {
     setIsSelectingCard(true);
-    // setEditingIndex(null); // No longer needed
+    setEditingIndex(null);
   };
 
-  // handleEditCard 関数を復元・実装
   const handleEditCard = (index: number) => {
-    setEditingIndex(index); // 編集中のカードのインデックスを設定
-    setIsSelectingCard(true); // 選択オーバーレイを開く
+    setEditingIndex(index);
+    setIsSelectingCard(true);
   };
 
   const handleSelectCard = (card: AttackCardState) => {
-    // editingIndex の値に基づいて追加または更新を行う
     if (editingIndex !== null) {
-      updateAttackCard(editingIndex, card); // 既存のカードを更新
+      updateAttackCard(editingIndex, card);
     } else {
-      addAttackCard(card); // 新しいカードを追加
+      addAttackCard(card);
     }
-    setIsSelectingCard(false); // オーバーレイを閉じる
-    setEditingIndex(null); // 編集インデックスをリセット
+    setIsSelectingCard(false);
+    setEditingIndex(null);
   };
 
   const handleCancel = () => {
     setIsSelectingCard(false);
-    // setEditingIndex(null); // No longer needed
+    setEditingIndex(null);
   };
 
   return (
-    <Box width="100%">
-      <VStack spacing={4} align="stretch">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Text fontSize="lg" fontWeight="bold">
-            攻撃カード
-          </Text>
-          <Button
-            leftIcon={<AddIcon />}
-            colorScheme="green"
-            onClick={handleAddCardClick} // Use updated handler name
-            size="sm"
-          >
-            追加
-          </Button>
-        </Flex>
+    <div className="w-full space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-lg font-bold">攻撃カード</p>
+        <Button size="sm" onClick={handleAddCardClick}>
+          <Plus className="mr-2 h-4 w-4" />
+          追加
+        </Button>
+      </div>
 
-        {attackCards.length > 0 ? (
-          <Grid templateColumns="repeat(1, 1fr)" gap={4} width="100%">
-            {attackCards.map((card, index) => (
-              <GridItem key={`${card.cardId}-${index}`} width="100%">
-                {" "}
-                {/* Use a more stable key */}
-                <AttackCard
-                  attackCard={card}
-                  index={index}
-                  onEditClick={() => handleEditCard(index)} // onEditClick プロパティを追加し、handleEditCard を接続
-                  onRemove={() => removeAttackCard(index)}
-                />
-              </GridItem>
-            ))}
-          </Grid>
-        ) : (
-          <Text color="gray.500">攻撃カードを追加してください</Text>
-        )}
-      </VStack>
+      {attackCards.length > 0 ? (
+        <div className="grid gap-4 sm:grid-cols-1">
+          {attackCards.map((card, index) => (
+            <AttackCard
+              key={`${card.cardId}-${index}`}
+              attackCard={card}
+              index={index}
+              onEditClick={() => handleEditCard(index)}
+              onRemove={() => removeAttackCard(index)}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-muted-foreground">攻撃カードを追加してください</p>
+      )}
 
       {isSelectingCard && (
         <SelectCardOverlay
           isOpen={isSelectingCard}
           onClose={handleCancel}
           modalTitle="攻撃カードを選択"
-          cardFilter={(card) => card.attack === true} // Filter for attack cards
-          allowedCardTypes={["Troop", "Building", "Spell"]} // All types allowed for attack
+          cardFilter={(card) => card.attack === true}
+          allowedCardTypes={["Troop", "Building", "Spell"]}
           onConfirm={(selected) => {
-            // Type guard to ensure selected is AttackCardState
-            if ('cardId' in selected && 'attackNumbers' in selected) {
-              handleSelectCard(selected as AttackCardState); // Cast is safe here
+            if ("cardId" in selected && "attackNumbers" in selected) {
+              handleSelectCard(selected as AttackCardState);
             } else {
               console.error("Unexpected AnyCard received for attack selection.");
             }
           }}
-          // No initialSelectedCard needed for attack overlay
         />
       )}
-    </Box>
+    </div>
   );
 };
 

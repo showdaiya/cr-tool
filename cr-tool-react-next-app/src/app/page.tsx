@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { CardProvider } from "@/context/CardContext";
-import ChakraProvider from "@/context/ChakraProvider";
 import ErrorBoundary from "@/components/ErrorBoundary"; // Import ErrorBoundary
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // サーバーコンポーネントではなくクライアントコンポーネントとして読み込む
 const CardBattlePage = dynamic(() => import("@/components/CardBattlePage"), {
@@ -12,12 +12,12 @@ const CardBattlePage = dynamic(() => import("@/components/CardBattlePage"), {
 
 export default function Home() {
   return (
-    <ChakraProvider>
-      <CardProvider>
+    <CardProvider>
+      <TooltipProvider>
         <ErrorBoundary>
           <CardBattlePage />
         </ErrorBoundary>
-      </CardProvider>
-    </ChakraProvider>
+      </TooltipProvider>
+    </CardProvider>
   );
 }

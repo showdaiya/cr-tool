@@ -1,21 +1,19 @@
-import { Box, Flex, Text, HStack, Icon, Button } from "@chakra-ui/react";
-import React, { KeyboardEvent, MouseEvent } from "react"; // Import event types
+"use client";
+
+import React, { KeyboardEvent, MouseEvent } from "react";
+import { ChevronDown, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useCardContext } from "@/context/CardContext";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-// import { AnyCard } from "@/types/CardTypes"; // Import AnyCard - No longer needed
-import { Badge } from "@chakra-ui/react";
-// Import helper functions from utils
-import { LOW_HP_THRESHOLD } from "@/constants"; // Import constant
 import { getInitialHp } from "@/utils/cardUtils";
+import { LOW_HP_THRESHOLD } from "@/constants";
+import { cn } from "@/lib/utils";
 
 type DefenseNotificationProps = {
   onSelectDefenseCard?: () => void;
 };
 
-const DefenseNotification = ({
-  onSelectDefenseCard,
-}: DefenseNotificationProps) => {
-  // Get memoized values directly from context
+const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) => {
   const { defenceCard, totalDamage, remainingHP } = useCardContext();
 
   const scrollToDefenseCard = () => {
@@ -28,46 +26,29 @@ const DefenseNotification = ({
   // 防衛カードが選択されていない場合
   if (!defenceCard) {
     return (
-      <Box
-        as="button" // Use button semantics for accessibility
-        role="button" // Explicitly set role
-        tabIndex={0} // Make it focusable
-        position="fixed"
-        top="12px"
-        left="50%"
-        transform="translateX(-50%)"
-        width="90%"
-        maxWidth="300px"
-        bg="bg.card"
-        borderRadius="md"
-        boxShadow="lg"
-        p={2}
-        zIndex={1000}
-        borderWidth="1px"
-        borderColor="border.default"
-        opacity={0.95}
-        cursor="pointer"
+      <button
+        type="button"
+        className={cn(
+          "fixed left-1/2 top-3 z-50 w-[90%] max-w-[320px] -translate-x-1/2 rounded-md border",
+          "bg-card px-3 py-2 text-left shadow-lg transition hover:-translate-y-[1px]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        )}
         onClick={scrollToDefenseCard}
-        onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+        onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
           if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault(); // Prevent default space bar scroll
+            e.preventDefault();
             scrollToDefenseCard();
           }
         }}
-        transition="all 0.2s"
-        _hover={{
-          transform: "translateX(-50%) translateY(2px)",
-          boxShadow: "md",
-        }}
       >
-        <Flex justifyContent="space-between" alignItems="center">
-          <Text fontWeight="bold" fontSize="sm" color="gray.600">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+            <Shield className="h-4 w-4 text-primary" />
             防衛カードが選択されていません
-          </Text>
+          </div>
           {onSelectDefenseCard && (
             <Button
-              size="xs"
-              colorScheme="blue"
+              size="sm"
               onClick={(e: MouseEvent<HTMLButtonElement>) => {
                 e.stopPropagation();
                 onSelectDefenseCard();
@@ -76,93 +57,56 @@ const DefenseNotification = ({
               選択
             </Button>
           )}
-        </Flex>
-      </Box>
+        </div>
+      </button>
     );
   }
 
-  // 防衛カードが選択されている場合
-  const initialHP = getInitialHp(defenceCard); // Get initial HP from utils
-
-  // Determine color based on remaining HP percentage
+  const initialHP = getInitialHp(defenceCard);
   const hpPercentage = initialHP > 0 ? (remainingHP / initialHP) * 100 : 0;
-  const hpColor = hpPercentage <= LOW_HP_THRESHOLD * 100 ? "red.500" : "green.500";
+  const hpColor = hpPercentage <= LOW_HP_THRESHOLD * 100 ? "text-red-500" : "text-green-500";
 
   return (
-    <Box
-      as="button" // Use button semantics for accessibility
-      role="button" // Explicitly set role
-      tabIndex={0} // Make it focusable
-      position="fixed"
-      top="12px"
-      left="50%"
-      transform="translateX(-50%)"
-      width="90%"
-      maxWidth="300px"
-      bg="bg.card"
-      borderRadius="md"
-      boxShadow="lg"
-      p={2}
-      zIndex={1000}
-      borderWidth="1px"
-      borderColor="border.default"
-      opacity={0.95}
-      cursor="pointer"
+    <button
+      type="button"
+      className={cn(
+        "fixed left-1/2 top-3 z-50 w-[90%] max-w-[320px] -translate-x-1/2 rounded-md border",
+        "bg-card px-3 py-2 text-left shadow-lg transition hover:-translate-y-[1px]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      )}
       onClick={scrollToDefenseCard}
-      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
         if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault(); // Prevent default space bar scroll
+          e.preventDefault();
           scrollToDefenseCard();
         }
       }}
-      transition="all 0.2s"
-      _hover={{
-        transform: "translateX(-50%) translateY(2px)",
-        boxShadow: "md",
-      }}
     >
-      <Flex justifyContent="space-between" alignItems="center">
-        <Box>
-          <Flex alignItems="center">
-            <Text fontWeight="bold" fontSize="sm" noOfLines={1}>
-              {defenceCard.JpName}
-            </Text>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <p className="line-clamp-1 text-sm font-semibold">{defenceCard.JpName}</p>
             {defenceCard.isEvo && (
-              <Badge colorScheme="purple" fontSize="2xs" ml={1}>
+              <Badge variant="outline" className="text-[10px]">
                 EVO
               </Badge>
-            )}{" "}
-            {/* Show Evo badge */}
-            <Icon as={ChevronDownIcon} ml={1} fontSize="xs" color="gray.500" />
-          </Flex>
-          <Text fontSize="xs" color="gray.500">
-            タップでスクロール
-          </Text>
-        </Box>
-        <HStack spacing={3}>
-          <Box textAlign="center">
-            <Text fontSize="xs" color="gray.500">
-              受けたダメージ
-            </Text>
-            <Text fontSize="sm" color="red.500" fontWeight="bold">
-              {totalDamage}
-            </Text>
-          </Box>
-          <Box textAlign="center">
-            <Text fontSize="xs" color="gray.500">
-              残りHP
-            </Text>
-            <Text
-              fontSize="sm"
-              fontWeight="bold"
-              color={hpColor} // Use calculated color
-            >
-              {remainingHP}
-            </Text>
-          </Box>
-        </HStack>
-      </Flex>
-    </Box>
+            )}
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          </div>
+          <p className="text-[11px] text-muted-foreground">タップでスクロール</p>
+        </div>
+        <div className="flex items-center gap-4 text-right text-xs">
+          <div>
+            <p className="text-muted-foreground">受けたダメージ</p>
+            <p className="text-sm font-semibold text-destructive">{totalDamage}</p>
+          </div>
+          <div>
+            <p className="text-muted-foreground">残りHP</p>
+            <p className={cn("text-sm font-bold", hpColor)}>{remainingHP}</p>
+          </div>
+        </div>
+      </div>
+    </button>
   );
 };
 

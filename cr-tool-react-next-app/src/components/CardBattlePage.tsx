@@ -1,49 +1,24 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Stack,
-  Text,
-  useDisclosure,
-  Button,
-  HStack,
-  VStack,
-} from "@chakra-ui/react";
-import { InfoIcon, RepeatIcon } from "@chakra-ui/icons";
+"use client";
+
 import { useState, useEffect, useRef, useCallback } from "react";
-import DefenceCard from "./DefenceCard";
+import { Info, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import AttackCardSection from "./AttackCardSection";
+import DefenceCard from "./DefenceCard";
 import SelectCardOverlay from "./SelectCardOverlay";
 import DefenseNotification from "./DefenseNotification";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard } from "@/types/CardTypes";
-
-// --- Internal Components ---
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const PageHeader = () => (
-  <Box
-    bgGradient="linear(to-r, blue.500, purple.600)"
-    p={4} // Reduced padding
-    borderRadius="lg"
-    shadow="md"
-    textAlign="center" // Center align text within the box
-    opacity={0.5}
-    //_hover={{ opacity: 1 }}
-  >
-    <Heading
-      as="h1"
-      size="lg"
-      color="white"
-      lineHeight="1.2"
-      opacity={0.9}
-    >
-      {" "}
-      {/* Reduced size, adjusted line height */}
+  <div className="rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-center shadow-md opacity-90">
+    <h1 className="text-lg font-semibold text-white leading-tight">
       クラロワ
       <br />
-      ダメージシミュレーター {/* Added line break */}
-    </Heading>
-  </Box>
+      ダメージシミュレーター
+    </h1>
+  </div>
 );
 
 type ActionButtonsProps = {
@@ -52,218 +27,142 @@ type ActionButtonsProps = {
 };
 
 const ActionButtons = ({ onToggleInfo, onReset }: ActionButtonsProps) => (
-  <HStack spacing={4} justifyContent="center">
-    <Button
-      leftIcon={<InfoIcon />}
-      colorScheme="blue" // Changed color scheme for visibility
-      variant="ghost"
-      size="sm"
-      onClick={onToggleInfo}
-    >
+  <div className="flex items-center justify-center gap-4">
+    <Button variant="ghost" size="sm" onClick={onToggleInfo}>
+      <Info className="mr-2 h-4 w-4" />
       ヘルプ
     </Button>
-    <Button
-      leftIcon={<RepeatIcon />}
-      size="sm"
-      colorScheme="red" // Changed color scheme for visibility
-      variant="outline" // Changed variant for visibility
-      onClick={onReset}
-    >
+    <Button variant="outline" size="sm" onClick={onReset}>
+      <RotateCcw className="mr-2 h-4 w-4" />
       リセット
     </Button>
-  </HStack>
+  </div>
 );
 
 const InfoBox = () => (
-  <Box
-    p={2}
-    borderWidth="1px"
-    borderRadius="lg"
-    bg="bg.footer"
-    borderColor="border.default"
-    fontSize="xs"
-  >
-    <Text>
-      <strong>使い方:</strong>{" "}
-      防衛カードを選択し、攻撃カードを追加してダメージ計算を行います。
-      計算結果は、防衛カードの残りHPとして表示されます。
-    </Text>
-  </Box>
+  <div className="rounded-lg border bg-muted px-3 py-2 text-xs text-foreground/80">
+    <p>
+      <strong>使い方:</strong> 防衛カードを選択し、攻撃カードを追加してダメージ計算を行います。計算結果は、防衛カードの残りHPとして表示されます。
+    </p>
+  </div>
 );
 
 const PageFooter = () => (
-  <Box
-    as="footer"
-    py={6}
-    bg="bg.footer"
-    borderTop="1px"
-    borderColor="border.default"
-  >
-    <Container maxW="container.sm">
-      <VStack spacing={2}>
-        <Text fontSize="xs" textAlign="center" color="text.secondary">
-          © 2024-2025 クラロワ ダメージシミュレーター
-        </Text>
-        <Text fontSize="2xs" textAlign="center" color="text.muted">
+  <footer className="mt-10 border-t bg-muted py-6">
+    <div className="mx-auto max-w-3xl px-4">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <p className="text-xs text-muted-foreground">© 2024-2025 クラロワ ダメージシミュレーター</p>
+        <p className="text-[10px] text-muted-foreground">
           カードデータ出典:{" "}
-          <Text
-            as="a"
+          <a
             href="https://clashroyale.fandom.com/"
             target="_blank"
             rel="noopener noreferrer"
-            color="blue.500"
-            textDecoration="underline"
+            className="text-blue-500 underline"
           >
             Clash Royale Wiki (Fandom)
-          </Text>{" "}
+          </a>{" "}
           - CC-BY-SA 3.0
-        </Text>
-        <Text fontSize="2xs" textAlign="center" color="text.muted">
+        </p>
+        <p className="text-[10px] text-muted-foreground">
           ※ 本ツールはファン作成の非公式ツールです。Supercellとは一切関係ありません。
-        </Text>
-      </VStack>
-    </Container>
-  </Box>
+        </p>
+      </div>
+    </div>
+  </footer>
 );
 
-
-// --- Main Component ---
-
 const CardBattlePage = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { defenceCard, resetState, setDefenceCard } = useCardContext(); // Get setDefenceCard
+  const { defenceCard, resetState, setDefenceCard } = useCardContext();
+  const [isOpen, setIsOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isDefenseCardVisible, setIsDefenseCardVisible] = useState(true);
   const defenseCardRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // 可視性の変更を処理するコールバック関数
-  const handleVisibilityChange = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      if (entries[0]) {
-        // console.log("IntersectionObserver Callback:", entries[0].isIntersecting); // Keep commented for now
-        setIsDefenseCardVisible(entries[0].isIntersecting);
-      }
-    },
-    [],
-  );
+  const handleVisibilityChange = useCallback((entries: IntersectionObserverEntry[]) => {
+    if (entries[0]) setIsDefenseCardVisible(entries[0].isIntersecting);
+  }, []);
 
-  // マウント時に実行
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // IntersectionObserverの設定（マウント・アンマウント時のみ）
   useEffect(() => {
-    // マウントされ、refが利用可能な場合のみObserverを設定・監視開始
     if (mounted && defenseCardRef.current) {
-      // console.log("Setting up IntersectionObserver"); // Keep commented for now
-      const currentElement = defenseCardRef.current; // Capture ref value
-
-      // 既存のObserverがあれば切断
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      const currentElement = defenseCardRef.current;
+      if (observerRef.current) observerRef.current.disconnect();
 
       observerRef.current = new IntersectionObserver(handleVisibilityChange, {
         root: null,
         threshold: 0.5,
       });
-
-      // console.log("Observing element:", currentElement); // Keep commented for now
       observerRef.current.observe(currentElement);
 
-      // このeffectインスタンスに対応するクリーンアップ
       const currentObserver = observerRef.current;
-      return () => {
-        // console.log("Cleaning up specific IntersectionObserver"); // Keep commented for now
-        if (currentObserver) {
-          currentObserver.disconnect();
-        }
-      };
+      return () => currentObserver.disconnect();
     }
-
-    // マウント前、またはrefがまだ利用できない場合は何もしない
-    // コンポーネントのアンマウント時の全体的なクリーンアップ
     return () => {
       if (observerRef.current) {
-        // console.log("General Cleanup: Disconnecting observer on unmount"); // Keep commented for now
         observerRef.current.disconnect();
         observerRef.current = null;
       }
     };
-  }, [mounted, handleVisibilityChange]); // mounted を依存配列に追加
+  }, [mounted, handleVisibilityChange]);
 
-  const resetCalculation = () => {
-    resetState(); // Call the reset function from context
-  };
+  const resetCalculation = () => resetState();
+  if (!mounted) return null;
 
-  if (!mounted) {
-    return null;
-  }
-
-  // 通知を表示する条件: (元に戻す)
-  // 1. 防衛カードセクションが画面に表示されていない、または
-  // 2. 防衛カードが選択されていない
   const shouldShowNotification = !isDefenseCardVisible || !defenceCard;
-  // console.log("Render - isDefenseCardVisible:", isDefenseCardVisible, "shouldShowNotification:", shouldShowNotification, "defenceCard:", !!defenceCard); // Keep commented for now
 
   return (
-    <Box minH="100vh" display="flex" flexDirection="column">
-      {/* 防衛カードの通知 */}
-      {shouldShowNotification && (
-        <DefenseNotification onSelectDefenseCard={onOpen} />
-      )}
+    <div className="min-h-screen bg-background text-foreground">
+      {shouldShowNotification && <DefenseNotification onSelectDefenseCard={() => setIsOpen(true)} />}
 
-      <Container maxW="container.sm" py={4} px={4} flex="1">
-        <Stack spacing={6}>
-          {/* Header Section */}
-          <PageHeader />
+      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-6">
+        <PageHeader />
 
-          {/* Buttons Section */}
-          <ActionButtons
-            onToggleInfo={() => setShowInfo(!showInfo)}
-            onReset={resetCalculation}
-          />
+        <ActionButtons onToggleInfo={() => setShowInfo((v) => !v)} onReset={resetCalculation} />
 
-          {showInfo && <InfoBox />}
+        {showInfo && <InfoBox />}
 
-          <Stack spacing={6}>
-            <Box id="defense-card-section" ref={defenseCardRef}>
-              <Text fontSize="lg" fontWeight="bold" mb={3}>
-                防衛カード
-              </Text>
-              <DefenceCard onSelectClick={onOpen} />
-            </Box>
+        <div className="space-y-6">
+          <div id="defense-card-section" ref={defenseCardRef} className="space-y-3">
+            <div className="flex items-center gap-2">
+              <p className="text-lg font-bold">防衛カード</p>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="cursor-help text-xs text-muted-foreground">?</span>
+                </TooltipTrigger>
+                <TooltipContent>防衛側のHPや残量を確認できます</TooltipContent>
+              </Tooltip>
+            </div>
+            <DefenceCard onSelectClick={() => setIsOpen(true)} />
+          </div>
 
-            <Box>
-              <AttackCardSection />
-            </Box>
-          </Stack>
-        </Stack>
+          <AttackCardSection />
+        </div>
 
         <SelectCardOverlay
           isOpen={isOpen}
-          onClose={onClose}
+          onClose={() => setIsOpen(false)}
           modalTitle="防衛カードを選択"
-          cardFilter={(card) => card.defence === true} // Filter for defence cards
-          allowedCardTypes={["Troop", "Building"]} // Defence cards are Troops or Buildings
+          cardFilter={(card) => card.defence === true}
+          allowedCardTypes={["Troop", "Building"]}
           onConfirm={(selected) => {
-            // Type guard to ensure selected is AnyCard (not AttackCardState)
-            if ('cardId' in selected && 'attackNumbers' in selected) {
-              // This case should not happen for defence selection, but handle defensively
+            if ("cardId" in selected && "attackNumbers" in selected) {
               console.error("Unexpected AttackCardState received for defence selection.");
             } else {
-              setDefenceCard(selected as AnyCard); // Cast is safe here due to filter/logic
+              setDefenceCard(selected as AnyCard);
             }
           }}
-          initialSelectedCard={defenceCard} // Pass current defence card
+          initialSelectedCard={defenceCard}
         />
-      </Container>
+      </main>
 
       <PageFooter />
-    </Box>
+    </div>
   );
 };
 

@@ -1,83 +1,51 @@
 import { memo } from "react";
-import {
-  ListItem,
-  VStack,
-  HStack,
-  Text,
-  Badge,
-  // BoxProps, // No longer needed
-} from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { AnyCard } from "@/types/CardTypes";
 
-// Define specific props instead of extending BoxProps to avoid type conflicts
 type SelectableCardListItemProps = {
   card: AnyCard;
   isSelected: boolean;
   onSelect: (card: AnyCard) => void;
 };
 
-/**
- * カード選択オーバーレイ内で使用される、メモ化されたリストアイテムコンポーネント。
- * カード情報を表示し、選択状態に応じてスタイルを変更する。
- */
 const SelectableCardListItem = memo(
-  ({ card, isSelected, onSelect }: SelectableCardListItemProps) => { // Removed ...rest
-    // console.log(`Rendering SelectableCardListItem: ${card.JpName}`); // Debugging
-
-    // Determine which stats to display based on card type (optional enhancement)
-    const statsToDisplay = [];
-    if (card.stats.hitpoints) {
-      statsToDisplay.push(`HP: ${card.stats.hitpoints}`);
-    }
-    if (card.stats.damage) {
-      statsToDisplay.push(`ダメージ: ${card.stats.damage}`);
-    }
-    if (card.stats.area_damage) {
-      statsToDisplay.push(`範囲ダメ: ${card.stats.area_damage}`);
-    }
-    if (card.stats.ranged_damage) {
-      statsToDisplay.push(`遠距離ダメ: ${card.stats.ranged_damage}`);
-    }
-    // Add more stats as needed
+  ({ card, isSelected, onSelect }: SelectableCardListItemProps) => {
+    const statsToDisplay: string[] = [];
+    if (card.stats.hitpoints) statsToDisplay.push(`HP: ${card.stats.hitpoints}`);
+    if (card.stats.damage) statsToDisplay.push(`ダメージ: ${card.stats.damage}`);
+    if (card.stats.area_damage) statsToDisplay.push(`範囲ダメ: ${card.stats.area_damage}`);
+    if (card.stats.ranged_damage) statsToDisplay.push(`遠距離ダメ: ${card.stats.ranged_damage}`);
 
     return (
-      <ListItem
+      <li
         onClick={() => onSelect(card)}
-        cursor="pointer"
-        p={2}
-        borderWidth="1px"
-        borderRadius="md"
-        bg={isSelected ? "blue.50" : "transparent"}
-        borderColor={isSelected ? "blue.500" : "gray.200"}
-        _hover={{ borderColor: "blue.300", bg: "gray.50" }}
-        // Removed {...rest}
+        className={cn(
+          "cursor-pointer rounded-md border p-3 transition-colors",
+          isSelected
+            ? "border-primary/60 bg-primary/5"
+            : "border-border hover:border-primary/40 hover:bg-muted",
+        )}
       >
-        <VStack align="stretch" spacing={1} flex="1">
-          {/* Card Name and Evo Badge */}
-          <HStack justify="space-between">
-            <Text fontWeight="bold" fontSize="md" noOfLines={1}>
-              {card.JpName}
-            </Text>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-between gap-2">
+            <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
             {card.isEvo && (
-              <Badge colorScheme="purple" fontSize="xs">
+              <Badge variant="secondary" className="text-[10px]">
                 EVO
               </Badge>
             )}
-          </HStack>
-          {/* Elixir Cost and Key Stats */}
-          <HStack justify="flex-end" spacing={3}>
-            <Text fontSize="xs" minW="40px" textAlign="right">
-              エリクサー: {card.ElixirCost}
-            </Text>
-            {/* Display a few key stats dynamically */}
+          </div>
+          <div className="flex flex-wrap items-center justify-end gap-3 text-[11px] text-muted-foreground">
+            <span className="min-w-[60px] text-right">エリクサー: {card.ElixirCost}</span>
             {statsToDisplay.slice(0, 2).map((statText, index) => (
-              <Text key={index} fontSize="xs" minW="70px" textAlign="right">
+              <span key={index} className="min-w-[90px] text-right">
                 {statText}
-              </Text>
+              </span>
             ))}
-          </HStack>
-        </VStack>
-      </ListItem>
+          </div>
+        </div>
+      </li>
     );
   },
 );

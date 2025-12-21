@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import { Box, Heading, Text, Button, VStack } from "@chakra-ui/react";
-import { RepeatIcon } from "@chakra-ui/icons";
+import { RefreshCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   children: ReactNode;
@@ -35,35 +35,23 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          minHeight="100vh"
-          textAlign="center"
-          p={4}
-        >
-          <VStack spacing={4}>
-            <Heading as="h2" size="lg" color="red.500">
-              問題が発生しました
-            </Heading>
-            <Text color="gray.600">
+        <div className="flex min-h-screen items-center justify-center p-6 text-center">
+          <div className="flex max-w-md flex-col items-center gap-4 rounded-lg border bg-card p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-destructive">問題が発生しました</h2>
+            <p className="text-sm text-muted-foreground">
               予期せぬエラーが発生しました。ページを再読み込みしてください。
-            </Text>
+            </p>
             {this.state.error && (
-              <Text fontSize="sm" color="gray.500">
+              <p className="text-xs text-muted-foreground">
                 エラー詳細: {this.state.error.message}
-              </Text>
+              </p>
             )}
-            <Button
-              leftIcon={<RepeatIcon />}
-              colorScheme="red"
-              onClick={this.handleReload}
-            >
+            <Button variant="destructive" onClick={this.handleReload}>
+              <RefreshCcw className="mr-2 h-4 w-4" />
               再読み込み
             </Button>
-          </VStack>
-        </Box>
+          </div>
+        </div>
       );
     }
 
