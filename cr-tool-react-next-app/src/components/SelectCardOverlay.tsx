@@ -17,7 +17,7 @@ import SelectableCardListItem from "./SelectableCardListItem";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard, AttackCardState } from "@/types/CardTypes";
 import { getStatValue } from "@/utils/cardUtils";
-import { OVERLAY_LIST_RENDER_DELAY_MS, CARD_DIALOG_MAX_HEIGHT } from "@/constants";
+import { OVERLAY_LIST_RENDER_DELAY_MS } from "@/constants";
 import { cn } from "@/lib/utils";
 
 type SortKey =
@@ -174,7 +174,7 @@ const SelectCardOverlay = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => (!open ? onClose() : null)}>
-      <DialogContent className="flex flex-col overflow-hidden p-0" style={{ maxHeight: CARD_DIALOG_MAX_HEIGHT }}>
+      <DialogContent className="flex max-h-[90vh] flex-col overflow-hidden p-0">
         <DialogHeader className="shrink-0 px-6 py-4">
           <DialogTitle>{modalTitle}</DialogTitle>
           <DialogDescription>検索してカードを選択してください。</DialogDescription>
