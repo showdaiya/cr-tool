@@ -64,7 +64,7 @@ const PageFooter = () => (
 );
 
 const CardBattlePage = () => {
-  const { defenceCard, resetState, setDefenceCard, totalDamage, remainingHP } = useCardContext();
+  const { defenceCard, resetState, setDefenceCard, totalDamage, remainingHP, attackCards } = useCardContext();
   const [isOpen, setIsOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -127,6 +127,18 @@ const CardBattlePage = () => {
           )}
 
           <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="rounded-lg border bg-muted/20 px-3 py-2">
+              <p className="text-[11px] text-muted-foreground">防衛</p>
+              <p className="mt-0.5 line-clamp-1 text-sm font-semibold text-foreground">
+                {defenceCard ? defenceCard.JpName : "未選択"}
+              </p>
+            </div>
+            <div className="rounded-lg border bg-muted/20 px-3 py-2">
+              <p className="text-[11px] text-muted-foreground">攻撃カード数</p>
+              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+                {attackCards.length}
+              </p>
+            </div>
             <div className="rounded-lg border bg-muted/20 px-3 py-2">
               <p className="text-[11px] text-muted-foreground">合計ダメージ</p>
               <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
