@@ -1,0 +1,2797 @@
+{
+  "Normal": {
+    "Troops": {
+      "Ice-Spirit": {
+        "id": 31,
+        "EnName": "Ice Spirit",
+        "JpName": "アイススピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 230,
+          "targets": "AIR & GROUND",
+          "range": 2.5,
+          "area_damage": 110,
+          "freeze_duration": "1.2 sec",
+          "speed": "Very Fast"
+        }
+      },
+      "Spear-Goblins": {
+        "id": 20,
+        "EnName": "Spear Goblins",
+        "JpName": "槍ゴブリン",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 133,
+          "hit_speed": "1.7 sec",
+          "speed": "Very Fast",
+          "count": "x3",
+          "ranged_damage": 81,
+          "targets": "AIR & GROUND",
+          "range": 5.5
+        }
+      },
+      "Electro-Spirit": {
+        "id": 75,
+        "EnName": "Electro Spirit",
+        "JpName": "エレクトロスピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 230,
+          "chained_attacks": 9,
+          "targets": "AIR & GROUND",
+          "range": 2.5,
+          "ranged_damage": 99,
+          "stun_duration": "0.5 sec",
+          "speed": "Very Fast"
+        }
+      },
+      "Goblins": {
+        "id": 3,
+        "EnName": "Goblins",
+        "JpName": "ゴブリン",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 109,
+          "hit_speed": "1.1 sec",
+          "speed": "Very Fast",
+          "deploy_time": "1.2 sec",
+          "damage": 120,
+          "hitpoints": 202,
+          "targets": "GROUND",
+          "range": "Melee: Short",
+          "count": "x4"
+        }
+      },
+      "Fire-Spirit": {
+        "id": 32,
+        "EnName": "Fire Spirit",
+        "JpName": "ファイアスピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 230,
+          "speed": "Very Fast",
+          "area_damage": 207,
+          "targets": "AIR & GROUND",
+          "range": 2.5
+        }
+      },
+      "Bats": {
+        "id": 50,
+        "EnName": "Bats",
+        "JpName": "コウモリ",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 62,
+          "hit_speed": "1.3 sec",
+          "speed": "Very Fast",
+          "count": "x5",
+          "damage": 81,
+          "hitpoints": 81,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Berserker": {
+        "EnName": "Berserker",
+        "JpName": "バーサーカー",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 204,
+          "hit_speed": "0.5 sec",
+          "speed": "Fast",
+          "damage": 102,
+          "hitpoints": 832,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Suspicious-Bush": {
+        "id": 81,
+        "EnName": "Suspicious Bush",
+        "JpName": "ステルスブッシュ",
+        "ElixirCost": 2,
+        "rarity": "RARE",
+        "attack": false,
+        "defence": true,
+        "stats": {
+          "hitpoints": 81,
+          "targets": "BUILDINGS",
+          "speed": "Medium",
+          "bush_goblin_count": "x2",
+          "bush_goblin_level": 11
+        }
+      },
+      "Bush-Goblin": {
+        "id": 81,
+        "EnName": "Bush-Goblin",
+        "JpName": "ブッシュゴブリン",
+        "ElixirCost": 2,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 304,
+          "hit_speed": "1.4 sec",
+          "range": "Melee: Short",
+          "damage": 227,
+          "speed": "Medium",
+          "targets": "GROUND"
+        }
+      },
+      "Skeletons": {
+        "id": 11,
+        "EnName": "Skeletons",
+        "JpName": "スケルトン",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 81,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "count": "x3",
+          "damage": 81,
+          "hitpoints": 81,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Heal-Spirit": {
+        "id": 113,
+        "EnName": "Heal Spirit",
+        "JpName": "ヒールスピリット",
+        "ElixirCost": 1,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 231,
+          "healing_per_sec": 400,
+          "speed": "Very Fast",
+          "area_damage": 110,
+          "duration": "1 sec",
+          "targets": "AIR & GROUND",
+          "range": 2.5
+        }
+      },
+      "Bomber": {
+        "id": 14,
+        "EnName": "Bomber",
+        "JpName": "ボンバー",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "area_damage": 225,
+          "hit_speed": "1.8 sec",
+          "speed": "Medium",
+          "hitpoints": 332,
+          "targets": "GROUND",
+          "range": 4.5
+        }
+      },
+      "Ice-Golem": {
+        "id": 39,
+        "EnName": "Ice Golem",
+        "JpName": "アイスゴーレム",
+        "ElixirCost": 2,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage": 84,
+          "damage_per_second": 33,
+          "hit_speed": "2.5 sec",
+          "speed": "Slow",
+          "death_damage": 84,
+          "hitpoints": 1197,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Wall-Breakers": {
+        "id": 59,
+        "EnName": "Wall Breakers",
+        "JpName": "ウォールブレイカー",
+        "ElixirCost": 2,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 331,
+          "speed": "Very Fast",
+          "count": "x2",
+          "area_damage": 392,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Knight": {
+        "id": 1,
+        "EnName": "Knight",
+        "JpName": "ナイト",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 168,
+          "hit_speed": "1.2 sec",
+          "speed": "Medium",
+          "damage": 202,
+          "hitpoints": 1766,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Archers": {
+        "id": 2,
+        "EnName": "Archers",
+        "JpName": "アーチャー",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 304,
+          "hit_speed": "0.9 sec",
+          "speed": "Medium",
+          "count": "x2",
+          "ranged_damage": 107,
+          "targets": "AIR & GROUND",
+          "range": 5
+        }
+      },
+      "Minions": {
+        "id": 6,
+        "EnName": "Minions",
+        "JpName": "ガーゴイル",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 230,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "count": "x3",
+          "ranged_damage": 117,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Long"
+        }
+      },
+      "Mega-Minion": {
+        "id": 40,
+        "EnName": "Mega Minion",
+        "JpName": "メガガーゴイル",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 837,
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "ranged_damage": 311,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Long"
+        }
+      },
+      "Skeleton-Army": {
+        "id": 13,
+        "EnName": "Skeleton Army",
+        "JpName": "スケルトン部隊",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": false,
+        "defence": false,
+        "stats": {
+          "skeleton_count": "x15",
+          "skeleton_level": 11
+        }
+      },
+      "Guards": {
+        "id": 26,
+        "EnName": "Guards",
+        "JpName": "盾の戦士",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 121,
+          "shield_hitpoints": 256,
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "damage": 121,
+          "hitpoints": 81,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "count": "x3"
+        }
+      },
+      "Guards-Shield": {
+        "id": 26,
+        "EnName": "Guards-shield",
+        "JpName": "盾の戦士（盾）",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": false,
+        "defence": true,
+        "stats": {
+          "hitpoints": 256
+        }
+      },
+      "Goblin-Gang": {
+        "id": 42,
+        "EnName": "Goblin Gang",
+        "JpName": "ゴブリンギャング",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": false,
+        "defence": false,
+        "stats": {
+          "goblin_level": 11,
+          "spear_goblin_level": 11,
+          "goblin_count": "x3",
+          "spear_goblin_count": "x3"
+        }
+      },
+      "Skeleton-Barrel": {
+        "id": 57,
+        "EnName": "Skeleton Barrel",
+        "JpName": "スケルトンバレル",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "death_damage": 145,
+          "skeleton_count": "x7",
+          "skeleton_level": 11,
+          "hitpoints": 532,
+          "targets": "BUILDINGS",
+          "speed": "Fast"
+        }
+      },
+      "Dart-Goblin": {
+        "id": 41,
+        "EnName": "Dart Goblin",
+        "JpName": "吹き矢ゴブリン",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 260,
+          "hit_speed": "0.7 sec",
+          "speed": "Very Fast",
+          "ranged_damage": 135,
+          "targets": "AIR & GROUND",
+          "range": 6.5
+        }
+      },
+      "Princess": {
+        "id": 27,
+        "EnName": "Princess",
+        "JpName": "プリンセス",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 56,
+          "hit_speed": "3 sec",
+          "speed": "Medium",
+          "deploy_time": "1.2 sec",
+          "area_damage": 169,
+          "hitpoints": 261,
+          "targets": "AIR & GROUND",
+          "range": 9
+        }
+      },
+      "Miner": {
+        "id": 33,
+        "EnName": "Miner",
+        "JpName": "ディガー",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 160,
+          "hit_speed": "1.2 sec",
+          "speed": "Fast",
+          "crown_tower_damage": 49,
+          "hitpoints": 1210,
+          "targets": "GROUND",
+          "range": "Melee: Medium",
+          "damage": 193
+        }
+      },
+      "Firecracker": {
+        "id": 65,
+        "EnName": "Firecracker",
+        "JpName": "ロケット砲士",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 304,
+          "hit_speed": "3 sec",
+          "speed": "Fast",
+          "ranged_damage": "64",
+          "targets": "AIR & GROUND",
+          "range": 6
+        }
+      },
+      "Bandit": {
+        "id": 47,
+        "EnName": "Bandit",
+        "JpName": "アサシン ユーノ",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 193,
+          "dash_range": "3.5-6",
+          "targets": "GROUND",
+          "range": "Melee: Short",
+          "dash_damage": 387,
+          "hitpoints": 907,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "damage": 193
+        }
+      },
+      "Royal-Ghost": {
+        "id": 51,
+        "EnName": "Royal Ghost",
+        "JpName": "ロイヤルゴースト",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 145,
+          "hit_speed": "1.8 sec",
+          "speed": "Fast",
+          "area_damage": 261,
+          "hitpoints": 1210,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Ice-Wizard": {
+        "id": 24,
+        "EnName": "Ice Wizard",
+        "JpName": "アイスウィザード",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "spawn_damage": 83,
+          "hit_speed": "1.7 sec",
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "area_damage": 90,
+          "hitpoints": 688,
+          "deploy_slow_duration": "1 sec",
+          "speed": "Medium"
+        }
+      },
+      "Elixir-Golem": {
+        "id": 67,
+        "EnName": "Elixir Golem",
+        "JpName": "エリクサーゴーレム",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 230,
+          "elixirmite_level": 11,
+          "hit_speed": "1.1 sec",
+          "speed": "Slow",
+          "damage": 254,
+          "hitpoints": 1568,
+          "elixir_blob_level": 11,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Elixir-Golemite": {
+        "id": 67,
+        "EnName": "Elixir Golemite",
+        "JpName": "小型エリクサーゴーレム",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hit_speed": "1.1 sec",
+          "speed": "Medium",
+          "damage": 127,
+          "hitpoints": 763,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Elixir-Blob": {
+        "id": 67,
+        "EnName": "Elixir Blob",
+        "JpName": "エリクサースライム",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hit_speed": "1.1 sec",
+          "speed": "Fast",
+          "damage": 63,
+          "hitpoints": 360,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Fisherman": {
+        "id": 62,
+        "EnName": "Fisherman",
+        "JpName": "漁師トリトン",
+        "ElixirCost": 3,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 148,
+          "ranged_attack_range": "3.5-7",
+          "targets": "GROUND",
+          "range": "Melee: Medium",
+          "damage": 193,
+          "hitpoints": 871,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium"
+        }
+      },
+      "Little-Prince": {
+        "id": 78,
+        "EnName": "Little Prince",
+        "JpName": "リトルプリンス",
+        "ElixirCost": 3,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 698,
+          "hit_speed": "1.2 sec / 0.4 sec",
+          "speed": "Medium",
+          "ranged_damage": 99,
+          "targets": "AIR & GROUND",
+          "range": 5.5
+        }
+      },
+      "Musketeer": {
+        "id": 15,
+        "EnName": "Musketeer",
+        "JpName": "マスケット銃士",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 720,
+          "hit_speed": "1 sec",
+          "speed": "Medium",
+          "ranged_damage": 218,
+          "targets": "AIR & GROUND",
+          "range": 6
+        }
+      },
+      "Valkyrie": {
+        "id": 12,
+        "EnName": "Valkyrie",
+        "JpName": "バルキリー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 178,
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "area_damage": 267,
+          "hitpoints": 1908,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Mini-PEKKA": {
+        "id": 19,
+        "EnName": "Mini P.E.K.K.A",
+        "JpName": "ミニP.E.K.K.A.",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 471,
+          "hit_speed": "1.6 sec",
+          "speed": "Fast",
+          "damage": 754,
+          "hitpoints": 1361,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Battle-Ram": {
+        "id": 37,
+        "EnName": "Battle Ram",
+        "JpName": "攻城バーバリアン",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "charge_damage": 572,
+          "barbarian_level": 11,
+          "speed": "Medium",
+          "damage": 286,
+          "hitpoints": 966,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Skeleton-Dragons": {
+        "id": 73,
+        "EnName": "Skeleton Dragons",
+        "JpName": "スケルトンドラゴン",
+        "ElixirCost": 4,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 560,
+          "targets": "AIR & GROUND",
+          "range": 3.5,
+          "area_damage": 161,
+          "hit_speed": "1.9 sec",
+          "speed": "Fast",
+          "count": "x2"
+        }
+      },
+      "Hog-Rider": {
+        "id": 22,
+        "EnName": "Hog Rider",
+        "JpName": "ホグライダー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 198,
+          "hit_speed": "1.6 sec",
+          "speed": "Very Fast",
+          "damage": 318,
+          "hitpoints": 1696,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Flying-Machine": {
+        "id": 58,
+        "EnName": "Flying Machine",
+        "JpName": "ホバリング砲",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 614,
+          "hit_speed": "1.1 sec",
+          "speed": "Fast",
+          "ranged_damage": 171,
+          "targets": "AIR & GROUND",
+          "range": 6
+        }
+      },
+      "Baby-Dragon": {
+        "id": 16,
+        "EnName": "Baby Dragon",
+        "JpName": "ベビードラゴン",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1152,
+          "targets": "AIR & GROUND",
+          "range": 3.5,
+          "area_damage": 160,
+          "hit_speed": "1.5 sec",
+          "speed": "Fast"
+        }
+      },
+      "Dark-Prince": {
+        "id": 28,
+        "EnName": "Dark Prince",
+        "JpName": "ダークプリンス",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "charge_damage": 496,
+          "hitpoints": 1200,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium",
+          "area_damage": 248,
+          "damage_per_second": 190,
+          "shield_hitpoints": 240,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Dark-Prince-Shield": {
+        "id": 28,
+        "EnName": "Dark Prince Shield",
+        "JpName": "ダークプリンス（盾）",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": false,
+        "defence": true,
+        "stats": {
+          "shield_hitpoints": 240
+        }
+      },
+      "Battle-Healer": {
+        "id": 68,
+        "EnName": "Battle Healer",
+        "JpName": "バトルヒーラー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 98,
+          "duration": "1 sec",
+          "hit_speed": "1.5 sec",
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "damage": 148,
+          "hitpoints": 1717,
+          "healing_per_sec": 100,
+          "spawn_heal": 200,
+          "speed": "Medium"
+        }
+      },
+      "Rune-Giant": {
+        "id": 83,
+        "EnName": "Rune Giant",
+        "JpName": "鍛冶屋ジャイアント",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 80,
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "bonus_damage": 220,
+          "enchant_range": 7,
+          "enchant_limit": 2,
+          "damage": 120,
+          "hitpoints": 2508,
+          "targets": "BUILDINGS",
+          "range": "Melee: Medium"
+        }
+      },
+      "Zappies": {
+        "id": 53,
+        "EnName": "Zappies",
+        "JpName": "ザッピー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 55,
+          "hit_speed": "2.1 sec",
+          "targets": "AIR & GROUND",
+          "range": 4.5,
+          "damage": 116,
+          "hitpoints": 530,
+          "stun_duration": "0.5 sec",
+          "speed": "Medium",
+          "count": "x3"
+        }
+      },
+      "Hunter": {
+        "id": 45,
+        "EnName": "Hunter",
+        "JpName": "ハンター",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 884,
+          "hit_speed": "2.2 sec",
+          "speed": "Medium",
+          "projectile_range": 6.5,
+          "ranged_damage": "84 x10",
+          "targets": "AIR & GROUND",
+          "range": 4
+        }
+      },
+      "Inferno-Dragon": {
+        "id": 38,
+        "EnName": "Inferno Dragon",
+        "JpName": "インフェルノドラゴン",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": false,
+        "defence": true,
+        "stats": {
+          "damage_per_second": "90-1057",
+          "hit_speed": "0.4 sec",
+          "speed": "Medium",
+          "damage": "36-423",
+          "hitpoints": 1294,
+          "targets": "AIR & GROUND",
+          "range": 3.5
+        }
+      },
+      "Electro-Wizard": {
+        "id": 43,
+        "EnName": "Electro Wizard",
+        "JpName": "エレクトロウィザード",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "spawn_damage": 192,
+          "hitpoints": 713,
+          "stun_duration": "0.5 sec",
+          "speed": "Fast",
+          "damage": "116",
+          "damage_per_second": "64",
+          "hit_speed": "1.8 sec",
+          "targets": "AIR & GROUND",
+          "range": 5
+        }
+      },
+      "Goblin-Demolisher": {
+        "id": 79,
+        "EnName": "Goblin Demolisher",
+        "JpName": "ダイナマイトゴブリン",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "death_damage": 404,
+          "hit_speed": "1.2 sec",
+          "speed": "Medium",
+          "activation": "50%",
+          "charge_speed": "Very Fast",
+          "area_damage": 185,
+          "hitpoints": 1300,
+          "targets": "GROUND",
+          "range": 5,
+          "charge_targets": "BUILDINGS"
+        }
+      },
+      "Phoenix": {
+        "id": 77,
+        "EnName": "Phoenix",
+        "JpName": "フェニックス",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "death_damage": 163,
+          "damage_per_second": 217,
+          "phoenix_egg_level": 11,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Long",
+          "damage": 217,
+          "crown_tower_death_damage": 49,
+          "hitpoints": 1052,
+          "hit_speed": "1 sec",
+          "speed": "Medium"
+        }
+      },
+      "Magic-Archer": {
+        "id": 63,
+        "EnName": "Magic Archer",
+        "JpName": "マジックアーチャー",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 531,
+          "targets": "AIR & GROUND",
+          "range": 7,
+          "area_damage": 134,
+          "hit_speed": "1 sec",
+          "speed": "Medium",
+          "projectile_range": 11
+        }
+      },
+      "Lumberjack": {
+        "id": 36,
+        "EnName": "Lumberjack",
+        "JpName": "ランバージャック",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 320,
+          "hit_speed": "0.8 sec",
+          "speed": "Very Fast",
+          "damage": 256,
+          "hitpoints": 1282,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Night-Witch": {
+        "id": 49,
+        "EnName": "Night Witch",
+        "JpName": "ナイトネクロ",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 241,
+          "spawn_on_death": "Bat x1",
+          "spawn_speed": "5 sec",
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "damage": 314,
+          "hitpoints": 907,
+          "bat_level": 11,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium"
+        }
+      },
+      "Mother-Witch": {
+        "id": 74,
+        "EnName": "Mother Witch",
+        "JpName": "マザーネクロ",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 581,
+          "hit_speed": "1 sec",
+          "speed": "Medium",
+          "cursed_hog_level": 11,
+          "ranged_damage": 133,
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "effect_duration": "5 sec"
+        }
+      },
+      "Skeleton-King": {
+        "id": 69,
+        "EnName": "Skeleton King",
+        "JpName": "スケルトンキング",
+        "ElixirCost": 4,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 127,
+          "hit_speed": "1.6 sec",
+          "speed": "Medium",
+          "area_damage": 204,
+          "hitpoints": 2298,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Golden-Knight": {
+        "id": 71,
+        "EnName": "Golden Knight",
+        "JpName": "ゴールデンナイト",
+        "ElixirCost": 4,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 178,
+          "hit_speed": "0.9 sec",
+          "speed": "Medium",
+          "damage": 161,
+          "hitpoints": 1799,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Mighty-Miner": {
+        "id": 66,
+        "EnName": "Mighty Miner",
+        "JpName": "マイティー",
+        "ElixirCost": 4,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": "100-1022",
+          "hit_speed": "0.4 sec",
+          "speed": "Medium",
+          "damage": "40-409",
+          "hitpoints": 2250,
+          "targets": "GROUND",
+          "range": "Melee: Long"
+        }
+      },
+      "Giant": {
+        "id": 4,
+        "EnName": "Giant",
+        "JpName": "ジャイアント",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 169,
+          "hit_speed": "1.5 sec",
+          "speed": "Slow",
+          "damage": 254,
+          "hitpoints": 4091,
+          "targets": "BUILDINGS",
+          "range": "Melee: Medium"
+        }
+      },
+      "Barbarians": {
+        "id": 9,
+        "EnName": "Barbarians",
+        "JpName": "バーバリアン",
+        "ElixirCost": 5,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 147,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium",
+          "count": "x5",
+          "damage": 192,
+          "hitpoints": 757,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Wizard": {
+        "id": 18,
+        "EnName": "Wizard",
+        "JpName": "ウィザード",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 754,
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "area_damage": 281,
+          "hit_speed": "1.4 sec",
+          "speed": "Medium"
+        }
+      },
+      "Witch": {
+        "id": 8,
+        "EnName": "Witch",
+        "JpName": "ネクロマンサー",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 839,
+          "spawn_speed": "7 sec",
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "area_damage": 134,
+          "skeleton_level": 11,
+          "hit_speed": "1 sec",
+          "speed": "Medium"
+        }
+      },
+      "Royal-Hogs": {
+        "id": 60,
+        "EnName": "Royal Hogs",
+        "JpName": "ロイヤルホグ",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 61,
+          "hit_speed": "1.2 sec",
+          "speed": "Very Fast",
+          "count": "x4",
+          "damage": 74,
+          "hitpoints": 837,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Balloon": {
+        "id": 7,
+        "EnName": "Balloon",
+        "JpName": "エアバルーン",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 320,
+          "hit_speed": "2 sec",
+          "speed": "Medium",
+          "death_damage": 240,
+          "hitpoints": 1680,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short",
+          "damage": 640
+        }
+      },
+      "Prince": {
+        "id": 17,
+        "EnName": "Prince",
+        "JpName": "プリンス",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "charge_damage": 784,
+          "hitpoints": 1920,
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "damage": 392,
+          "damage_per_second": 280,
+          "hit_speed": "1.4 sec",
+          "speed": "Medium"
+        }
+      },
+      "Minion-Horde": {
+        "id": 23,
+        "EnName": "Minion Horde",
+        "JpName": "ガーゴイルの群れ",
+        "ElixirCost": 5,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 230,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "count": "x6",
+          "ranged_damage": 117,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Long"
+        }
+      },
+      "Ram-Rider": {
+        "id": 52,
+        "EnName": "Ram Rider",
+        "JpName": "ラムライダー",
+        "ElixirCost": 5,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "charge_damage": 500,
+          "hitpoints": 1696,
+          "rider_level": 11,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short",
+          "damage": 250,
+          "damage_per_second": 138,
+          "rider_count": "x1",
+          "hit_speed": "1.8 sec",
+          "speed": "Medium"
+        }
+      },
+      "Electro-Dragon": {
+        "id": 64,
+        "EnName": "Electro Dragon",
+        "JpName": "エレクトロドラゴン",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 950,
+          "chained_attacks": 3,
+          "stun_duration": "0.5 sec",
+          "speed": "Medium",
+          "ranged_damage": 192,
+          "hit_speed": "2.1 sec",
+          "targets": "AIR & GROUND",
+          "range": 3.5
+        }
+      },
+      "Rascals": {
+        "id": 54,
+        "EnName": "Rascals",
+        "JpName": "アウトロー",
+        "ElixirCost": 5,
+        "rarity": "COMMON",
+        "attack": false,
+        "defence": false,
+        "stats": {
+          "rascal_boy_level": 11,
+          "rascal_girl_level": 11,
+          "rascal_boy_count": "x1",
+          "rascal_girl_count": "x2"
+        }
+      },
+      "Bowler": {
+        "id": 35,
+        "EnName": "Bowler",
+        "JpName": "ボウラー",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 2080,
+          "targets": "GROUND",
+          "range": 4,
+          "area_damage": 288,
+          "hit_speed": "2.5 sec",
+          "speed": "Slow",
+          "projectile_range": 7.5
+        }
+      },
+      "Executioner": {
+        "id": 46,
+        "EnName": "Executioner",
+        "JpName": "執行人ファルチェ",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1280,
+          "targets": "AIR & GROUND",
+          "range": 4.5,
+          "area_damage": "169 x2",
+          "hit_speed": "2.4 sec",
+          "speed": "Medium",
+          "projectile_range": 7.5
+        }
+      },
+      "Cannon-Cart": {
+        "id": 55,
+        "EnName": "Cannon Cart",
+        "JpName": "移動砲台",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "shield_hitpoints": 824,
+          "hit_speed": "0.9 sec",
+          "speed": "Medium",
+          "hitpoints": 824,
+          "ranged_damage": 212,
+          "targets": "GROUND",
+          "range": 5.5
+        }
+      },
+      "Goblin-Machine": {
+        "id": 80,
+        "EnName": "Goblin Machine",
+        "JpName": "ゴブリンマシン",
+        "ElixirCost": 5,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 176,
+          "hit_speed": "1.2 sec",
+          "speed": "Medium",
+          "rocket_level": 11,
+          "damage": 212,
+          "hitpoints": 2304,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Archer-Queen": {
+        "id": 70,
+        "EnName": "Archer Queen",
+        "JpName": "アーチャークイーン",
+        "ElixirCost": 5,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1000,
+          "hit_speed": "1.2 sec",
+          "speed": "Medium",
+          "ranged_damage": 225,
+          "targets": "AIR & GROUND",
+          "range": 5
+        }
+      },
+      "Monk": {
+        "id": 72,
+        "EnName": "Monk",
+        "JpName": "モンク",
+        "ElixirCost": 5,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 175,
+          "hit_speed": "0.8 sec",
+          "speed": "Medium",
+          "combo_damage": 422,
+          "hitpoints": 2150,
+          "targets": "GROUND",
+          "range": "Melee: Medium",
+          "damage": 140
+        }
+      },
+      "Goblinstein": {
+        "id": 82,
+        "EnName": "Goblinstein",
+        "JpName": "ゴブリンシュタイン",
+        "ElixirCost": 5,
+        "rarity": "CHAMPION",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 721,
+          "hit_speed": "1.8 sec",
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "ranged_damage": 92,
+          "stun_duration": "0.5 sec",
+          "speed": "Medium",
+          "monster_level": 11
+        }
+      },
+      "Royal-Giant": {
+        "id": 25,
+        "EnName": "Royal Giant",
+        "JpName": "ロイヤルジャイアント",
+        "ElixirCost": 6,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 4597,
+          "hit_speed": "1.7 sec",
+          "speed": "Slow",
+          "ranged_damage": 446,
+          "targets": "BUILDINGS",
+          "range": 5
+        }
+      },
+      "Giant-Skeleton": {
+        "id": 21,
+        "EnName": "Giant Skeleton",
+        "JpName": "巨大スケルトン",
+        "ElixirCost": 6,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "death_damage": 1068,
+          "damage_per_second": 190,
+          "hit_speed": "1.4 sec",
+          "speed": "Medium",
+          "crown_tower_death_damage": 356,
+          "damage": 267,
+          "hitpoints": 3616,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Goblin-Giant": {
+        "id": 61,
+        "EnName": "Goblin Giant",
+        "JpName": "ゴブリンジャイアント",
+        "ElixirCost": 6,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 117,
+          "spear_goblin_count": "x2",
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "damage": 176,
+          "hitpoints": 3232,
+          "spear_goblin_level": 11,
+          "targets": "BUILDINGS",
+          "range": "Melee: Medium"
+        }
+      },
+      "Elite-Barbarians": {
+        "id": 44,
+        "EnName": "Elite Barbarians",
+        "JpName": "エリートバーバリアン",
+        "ElixirCost": 6,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 274,
+          "hit_speed": "1.4 sec",
+          "speed": "Fast",
+          "count": "x2",
+          "damage": 384,
+          "hitpoints": 1341,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Sparky": {
+        "id": 34,
+        "EnName": "Sparky",
+        "JpName": "スパーキー",
+        "ElixirCost": 6,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1452,
+          "targets": "GROUND",
+          "range": 5,
+          "area_damage": 1331,
+          "hit_speed": "4 sec",
+          "speed": "Slow"
+        }
+      },
+      "P.E.K.K.A": {
+        "id": 5,
+        "EnName": "P.E.K.K.A",
+        "JpName": "P.E.K.K.A",
+        "ElixirCost": 7,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 453,
+          "hit_speed": "1.8 sec",
+          "speed": "Slow",
+          "damage": 816,
+          "hitpoints": 3760,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Royal-Recruits": {
+        "id": 48,
+        "EnName": "Royal Recruits",
+        "JpName": "ロイヤルリクルート",
+        "ElixirCost": 7,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 102,
+          "shield_hitpoints": 240,
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "damage": 133,
+          "hitpoints": 547,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium",
+          "count": "x6"
+        }
+      },
+      "Mega-Knight": {
+        "id": 56,
+        "EnName": "Mega Knight",
+        "JpName": "メガナイト",
+        "ElixirCost": 7,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "jump_damage": 537,
+          "damage_per_second": 157,
+          "jump_range": "3.5-5",
+          "targets": "GROUND",
+          "range": "Melee: Medium",
+          "area_damage": 268,
+          "spawn_damage": 429,
+          "hitpoints": 3993,
+          "hit_speed": "1.7 sec",
+          "speed": "Medium"
+        }
+      },
+      "Electro-Giant": {
+        "id": 76,
+        "EnName": "Electro Giant",
+        "JpName": "エレクトロジャイアント",
+        "ElixirCost": 7,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "reflected_damage": 192,
+          "damage_per_second": 77,
+          "hit_speed": "2.1 sec",
+          "speed": "Slow",
+          "stun_duration": "0.5 sec",
+          "damage": 163,
+          "reflected_tower_damage": 128,
+          "hitpoints": 3856,
+          "targets": "BUILDINGS",
+          "range": "Melee: Medium"
+        }
+      },
+      "Lava-Hound": {
+        "id": 30,
+        "EnName": "Lava Hound",
+        "JpName": "ラヴァハウンド",
+        "ElixirCost": 7,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 3581,
+          "lava_pups_level": 11,
+          "targets": "BUILDINGS",
+          "range": 3.5,
+          "ranged_damage": 54,
+          "hit_speed": "1.3 sec",
+          "speed": "Slow"
+        }
+      },
+      "Golem": {
+        "id": 10,
+        "EnName": "Golem",
+        "JpName": "ゴーレム",
+        "ElixirCost": 8,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 124,
+          "golemite_level": 11,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short",
+          "death_damage": 224,
+          "hitpoints": 5120,
+          "hit_speed": "2.5 sec",
+          "speed": "Slow",
+          "deploy_time": "3 sec",
+          "damage": 312
+        }
+      },
+      "Three-Musketeers": {
+        "id": 29,
+        "EnName": "Three Musketeers",
+        "JpName": "三銃士",
+        "ElixirCost": 9,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 720,
+          "hit_speed": "1 sec",
+          "speed": "Medium",
+          "count": "x3",
+          "ranged_damage": 218,
+          "targets": "AIR & GROUND",
+          "range": 6
+        }
+      }
+    },
+    "Buildings": {
+      "Tombstone": {
+        "id": 93,
+        "EnName": "Tombstone",
+        "JpName": "墓石",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 580,
+          "skeleton_level": 11,
+          "lifetime": "30 sec",
+          "spawn_on_death": "Skeleton x4",
+          "spawn_speed": "4 sec"
+        }
+      },
+      "Cannon": {
+        "id": 84,
+        "EnName": "Cannon",
+        "JpName": "大砲",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 824,
+          "hit_speed": "1 sec",
+          "lifetime": "30 sec",
+          "ranged_damage": 212,
+          "targets": "GROUND",
+          "range": 5.5
+        }
+      },
+      "Goblin-Cage": {
+        "id": 95,
+        "EnName": "Goblin Cage",
+        "JpName": "ゴブリンの檻",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 780,
+          "spawn_on_death": "Goblin Brawler x1",
+          "lifetime": "20 sec",
+          "goblin_brawler_level": 11
+        }
+      },
+      "Bomb-Tower": {
+        "id": 88,
+        "EnName": "Bomb Tower",
+        "JpName": "ボムタワー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "death_damage": 222,
+          "hit_speed": "1.8 sec",
+          "range": 6,
+          "area_damage": 222,
+          "hitpoints": 1356,
+          "targets": "GROUND",
+          "lifetime": "30 sec"
+        }
+      },
+      "Mortar": {
+        "id": 86,
+        "EnName": "Mortar",
+        "JpName": "迫撃砲",
+        "ElixirCost": 4,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1369,
+          "targets": "GROUND",
+          "deploy_time": "3.5 sec",
+          "area_damage": 266,
+          "hit_speed": "4 sec",
+          "range": 11.5,
+          "lifetime": "30 sec"
+        }
+      },
+      "Tesla": {
+        "id": 90,
+        "EnName": "Tesla",
+        "JpName": "テスラ",
+        "ElixirCost": 4,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": 200,
+          "hit_speed": "1.1 sec",
+          "range": 5.5,
+          "damage": 220,
+          "hitpoints": 1152,
+          "targets": "AIR & GROUND",
+          "lifetime": "30 sec"
+        }
+      },
+      "Furnace": {
+        "id": 94,
+        "EnName": "Furnace",
+        "JpName": "オーブン",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 848,
+          "fire_spirit_level": 11,
+          "lifetime": "28 sec",
+          "spawn_on_death": "Fire Spirit x1",
+          "spawn_speed": "5 sec"
+        }
+      },
+      "Goblin-Drill": {
+        "id": 96,
+        "EnName": "Goblin Drill",
+        "JpName": "ゴブリンドリル",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "spawn_damage": 83,
+          "hitpoints": 1312,
+          "goblin_level": 11,
+          "lifetime": "10 sec",
+          "crown_tower_spawn_damage": 25,
+          "spawn_on_death": "Goblin x2",
+          "spawn_speed": "3 sec"
+        }
+      },
+      "Goblin-Hut": {
+        "id": 85,
+        "EnName": "Goblin Hut",
+        "JpName": "ゴブリンの小屋",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 848,
+          "spear_goblin_level": 11,
+          "lifetime": "29 sec",
+          "spawn_on_death": "Spear Goblin x1",
+          "spawn_speed": "1 sec"
+        }
+      },
+      "Inferno-Tower": {
+        "id": 87,
+        "EnName": "Inferno Tower",
+        "JpName": "インフェルノタワー",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "damage_per_second": "105-2120",
+          "hit_speed": "0.4 sec",
+          "range": 6,
+          "damage": "42-848",
+          "hitpoints": 1749,
+          "targets": "AIR & GROUND",
+          "lifetime": "30 sec"
+        }
+      },
+      "Barbarian-Hut": {
+        "id": 89,
+        "EnName": "Barbarian Hut",
+        "JpName": "バーバリアンの小屋",
+        "ElixirCost": 6,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1188,
+          "barbarian_level": 11,
+          "lifetime": "30 sec",
+          "spawn_on_death": "Barbarian x1",
+          "spawn_speed": "15 sec"
+        }
+      },
+      "X-Bow": {
+        "id": 92,
+        "EnName": "X-Bow",
+        "JpName": "クロスボウ",
+        "ElixirCost": 6,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1600,
+          "hit_speed": "0.3 sec",
+          "range": 11.5,
+          "lifetime": "30 sec",
+          "ranged_damage": 41,
+          "targets": "GROUND",
+          "deploy_time": "3.5 sec"
+        }
+      },
+      "Elixir-Collector": {
+        "id": 91,
+        "EnName": "Elixir Collector",
+        "JpName": "エリクサーポンプ",
+        "ElixirCost": 6,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "hitpoints": 1070,
+          "lifetime": "1 min 26 sec",
+          "production_speed": "12 sec"
+        }
+      }
+    },
+    "Spells": {
+      "Giant-Snowball": {
+        "id": 114,
+        "EnName": "Giant Snowball",
+        "JpName": "巨大雪玉",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 54,
+          "radius": 2.5,
+          "area_damage": 179,
+          "slowdown_duration": "3 sec"
+        }
+      },
+      "The-Log": {
+        "id": 108,
+        "EnName": "The Log",
+        "JpName": "ローリングウッド",
+        "ElixirCost": 2,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 44,
+          "width": 3.9,
+          "area_damage": 290,
+          "targets": "GROUND",
+          "range": 10.1
+        }
+      },
+      "Goblin-Curse": {
+        "id": 117,
+        "EnName": "Goblin Curse",
+        "JpName": "ゴブリンの呪い",
+        "ElixirCost": 2,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage_per_sec": 11,
+          "goblin_level": 11,
+          "radius": 3,
+          "damage_per_second": 30,
+          "damage_amplification": "+20%",
+          "duration": "6 sec"
+        }
+      },
+      "Zap": {
+        "id": 105,
+        "EnName": "Zap",
+        "JpName": "ザップ",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 58,
+          "radius": 2.5,
+          "area_damage": 192,
+          "stun_duration": "0.5 sec"
+        }
+      },
+      "Barbarian-Barrel": {
+        "id": 112,
+        "EnName": "Barbarian Barrel",
+        "JpName": "バーバリアンの樽",
+        "ElixirCost": 2,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "targets": "GROUND",
+          "range": 4.5,
+          "area_damage": 241,
+          "width": 2.6,
+          "barbarian_level": 11
+        }
+      },
+      "Rage": {
+        "id": 99,
+        "EnName": "Rage",
+        "JpName": "レイジ",
+        "ElixirCost": 2,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 58,
+          "duration": "5.5 sec",
+          "radius": 3,
+          "area_damage": 132,
+          "deploy_time": "0.5 sec",
+          "boost": "+35%"
+        }
+      },
+      "Mirror": {
+        "id": 103,
+        "EnName": "Mirror",
+        "JpName": "ミラー",
+        "ElixirCost": -1,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "mirrored_common_level": 12,
+          "mirrored_rare_level": 12,
+          "mirrored_epic_level": 12,
+          "mirrored_legendary_level": 12
+        }
+      },
+      "Arrows": {
+        "id": 98,
+        "EnName": "Arrows",
+        "JpName": "矢の雨",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 99,
+          "area_damage": 363,
+          "radius": 3.5
+        }
+      },
+      "Goblin-Barrel": {
+        "id": 101,
+        "EnName": "Goblin Barrel",
+        "JpName": "ゴブリンバレル",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "radius": 1.5,
+          "goblin_count": "x3",
+          "goblin_level": 11
+        }
+      },
+      "Clone": {
+        "id": 110,
+        "EnName": "Clone",
+        "JpName": "クローン",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "cloned_common_level": 11,
+          "cloned_rare_level": 11,
+          "cloned_epic_level": 11,
+          "cloned_legendary_level": 11,
+          "cloned_champion_level": 11,
+          "clone_hitpoints": 1,
+          "clone_shield_hitpoints": 1,
+          "radius": 3
+        }
+      },
+      "Earthquake": {
+        "id": 111,
+        "EnName": "Earthquake",
+        "JpName": "アースクエイク",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage_per_sec": 54,
+          "building_damage_per_sec": 287,
+          "radius": 3.5,
+          "damage_per_second": 82,
+          "slowdown_troops": "-50%",
+          "duration": "3 sec"
+        }
+      },
+      "Tornado": {
+        "id": 109,
+        "EnName": "Tornado",
+        "JpName": "トルネード",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage_per_sec": 58,
+          "radius": 5.5,
+          "damage_per_second": 188,
+          "duration": "1 sec"
+        }
+      },
+      "Royal-Delivery": {
+        "id": 115,
+        "EnName": "Royal Delivery",
+        "JpName": "ロイヤルデリバリー",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "count": "x1",
+          "royal_recruits_level": 11,
+          "area_damage": 437,
+          "radius": 3
+        }
+      },
+      "Void": {
+        "id": 116,
+        "EnName": "Void",
+        "JpName": "ヴォイド",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage_1_target": 48,
+          "crown_tower_damage_2_to_4_targets": 24,
+          "crown_tower_damage_5_or_more_targets": 16,
+          "radius": 2.5,
+          "damage_1_target": 320,
+          "damage_2_to_4_targets": 160,
+          "damage_5_or_more_targets": 75,
+          "duration": "4 sec"
+        }
+      },
+      "Fireball": {
+        "id": 97,
+        "EnName": "Fireball",
+        "JpName": "ファイアボール",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 207,
+          "area_damage": 689,
+          "radius": 2.5
+        }
+      },
+      "Freeze": {
+        "id": 102,
+        "EnName": "Freeze",
+        "JpName": "フリーズ",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 39,
+          "radius": 3,
+          "area_damage": 115,
+          "freeze_duration": "4 sec"
+        }
+      },
+      "Poison": {
+        "id": 106,
+        "EnName": "Poison",
+        "JpName": "ポイズン",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage_per_sec": 29,
+          "duration": "8 sec",
+          "damage_per_second": 91,
+          "slowdown_troops": "-15%",
+          "radius": 3.5
+        }
+      },
+      "Graveyard": {
+        "id": 107,
+        "EnName": "Graveyard",
+        "JpName": "スケルトンラッシュ",
+        "ElixirCost": 5,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "skeleton_level": 11,
+          "duration": "9 sec",
+          "spawn_speed": "0.5 sec",
+          "radius": 4
+        }
+      },
+      "Rocket": {
+        "id": 100,
+        "EnName": "Rocket",
+        "JpName": "ロケット",
+        "ElixirCost": 6,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 371,
+          "area_damage": 1484,
+          "radius": 2
+        }
+      },
+      "Lightning": {
+        "id": 104,
+        "EnName": "Lightning",
+        "JpName": "ライトニング",
+        "ElixirCost": 6,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "stats": {
+          "crown_tower_damage": 462,
+          "stun_duration": "0.5 sec",
+          "damage": 1537,
+          "count": "x3",
+          "radius": 3.5
+        }
+      }
+    }
+  },
+  "Evo": {
+    "Troops": {
+      "Ice-Spirit": {
+        "id": 31,
+        "EnName": "Ice Spirit",
+        "JpName": "アイススピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 230,
+          "targets": "AIR & GROUND",
+          "range": 2.5,
+          "area_damage": 163,
+          "freeze_duration": "1.2 sec",
+          "speed": "Very Fast",
+          "ice_blast_damage": 163
+        }
+      },
+      "Bats": {
+        "id": 50,
+        "EnName": "Bats",
+        "JpName": "コウモリ",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "damage_per_second": 62,
+          "hit_speed": "1.3 sec",
+          "speed": "Very Fast",
+          "count": "x5",
+          "max_hitpoints": 244,
+          "healing_per_sec": 78,
+          "damage": 81,
+          "hitpoints": 122,
+          "targets": "AIR & GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Skeletons": {
+        "id": 11,
+        "EnName": "Skeletons",
+        "JpName": "スケルトン",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "damage_per_second": 81,
+          "hit_speed": "1 sec",
+          "speed": "Fast",
+          "count": "x3",
+          "damage": 81,
+          "hitpoints": 81,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Bomber": {
+        "id": 14,
+        "EnName": "Bomber",
+        "JpName": "ボンバー",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "area_damage": 225,
+          "hit_speed": "1.8 sec",
+          "speed": "Medium",
+          "hitpoints": 332,
+          "targets": "GROUND",
+          "range": 4.5,
+          "bounce_damage": 225,
+          "bounces": "x2"
+        }
+      },
+      "Wall-Breakers": {
+        "id": 59,
+        "EnName": "Wall Breakers",
+        "JpName": "ウォールブレイカー",
+        "ElixirCost": 2,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 331,
+          "speed": "Very Fast",
+          "count": "x2",
+          "area_damage": 392,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short",
+          "runner": true
+        }
+      },
+      "Knight": {
+        "id": 1,
+        "EnName": "Knight",
+        "JpName": "ナイト",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "damage_per_second": 168,
+          "hit_speed": "1.2 sec",
+          "speed": "Medium",
+          "damage_reduction": "60%",
+          "damage": 202,
+          "hitpoints": 1766,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Archers": {
+        "id": 2,
+        "EnName": "Archers",
+        "JpName": "アーチャー",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 304,
+          "hit_speed": "0.9 sec",
+          "speed": "Medium",
+          "count": "x2",
+          "power_shot_range": 4.5,
+          "ranged_damage": 107,
+          "targets": "AIR & GROUND",
+          "range": 5,
+          "power_shot_damage": 215
+        }
+      },
+      "Dart-Goblin": {
+        "id": 41,
+        "EnName": "Dart Goblin",
+        "JpName": "吹き矢ゴブリン",
+        "ElixirCost": 3,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 260,
+          "hit_speed": "0.7 sec",
+          "speed": "Very Fast",
+          "crown_tower_damage_per_sec": "11-307",
+          "ranged_damage": 135,
+          "targets": "AIR & GROUND",
+          "range": 6.5,
+          "poison_radius": 1.5,
+          "poison_duration": "4 sec"
+        }
+      },
+      "Firecracker": {
+        "id": 65,
+        "EnName": "Firecracker",
+        "JpName": "ロケット砲士",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 304,
+          "hit_speed": "3 sec",
+          "speed": "Fast",
+          "damage_per_second": 192,
+          "ranged_damage": "64 x5",
+          "targets": "AIR & GROUND",
+          "range": 6,
+          "crown_tower_damage_per_sec": 60
+        }
+      },
+      "Musketeer": {
+        "id": 15,
+        "EnName": "Musketeer",
+        "JpName": "マスケット銃士",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 720,
+          "hit_speed": "1 sec",
+          "speed": "Medium",
+          "sniper_ammo": 3,
+          "sniper_range": "Infinite",
+          "ranged_damage": 218,
+          "targets": "AIR & GROUND",
+          "range": 6,
+          "sniper_damage": 392
+        }
+      },
+      "Valkyrie": {
+        "id": 12,
+        "EnName": "Valkyrie",
+        "JpName": "バルキリー",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "damage_per_second": 178,
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "tornado_radius": 5.5,
+          "tornado_duration": "0.5 sec",
+          "tornado_damage": 84,
+          "area_damage": 267,
+          "hitpoints": 2098,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Battle-Ram": {
+        "id": 37,
+        "EnName": "Battle Ram",
+        "JpName": "攻城バーバリアン",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "charge_damage": 572,
+          "evolved_barbarian_level": 11,
+          "speed": "Medium",
+          "pushback_damage": 212,
+          "damage": 286,
+          "hitpoints": 956,
+          "targets": "BUILDINGS",
+          "range": "Melee: Short"
+        }
+      },
+      "Hunter": {
+        "id": 45,
+        "EnName": "Hunter",
+        "JpName": "ハンター",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 1288,
+          "hit_speed": "2.2 sec",
+          "speed": "Medium",
+          "projectile_range": 6.5,
+          "net_range": 3.5,
+          "ranged_damage": "123 x10",
+          "targets": "AIR & GROUND",
+          "range": 4,
+          "net_duration": "4 sec"
+        }
+      },
+      "Lumberjack": {
+        "id": 36,
+        "EnName": "Lumberjack",
+        "JpName": "ランバージャック",
+        "ElixirCost": 4,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "damage_per_second": 320,
+          "hit_speed": "0.8 sec",
+          "speed": "Very Fast",
+          "ghost_level": 11,
+          "damage": 256,
+          "hitpoints": 1282,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Barbarians": {
+        "id": 9,
+        "EnName": "Barbarians",
+        "JpName": "バーバリアン",
+        "ElixirCost": 5,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "damage_per_second": 147,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium",
+          "count": "x5",
+          "boost": "+35%",
+          "boost_duration": "3 sec",
+          "damage": 192,
+          "hitpoints": 757,
+          "targets": "GROUND",
+          "range": "Melee: Short"
+        }
+      },
+      "Wizard": {
+        "id": 18,
+        "EnName": "Wizard",
+        "JpName": "ウィザード",
+        "ElixirCost": 5,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "hitpoints": 754,
+          "targets": "AIR & GROUND",
+          "range": 5.5,
+          "explosion_damage": 231,
+          "area_damage": 281,
+          "hit_speed": "1.4 sec",
+          "speed": "Medium",
+          "shield_hitpoints": 190
+        }
+      },
+      "Electro-Dragon": {
+        "id": 64,
+        "EnName": "Electro Dragon",
+        "JpName": "エレクトロドラゴン",
+        "ElixirCost": 5,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "hitpoints": 950,
+          "chained_attacks": "Infinite",
+          "stun_duration": "0.5 sec",
+          "speed": "Medium",
+          "extra_chain_damage": 128,
+          "ranged_damage": 192,
+          "hit_speed": "2.1 sec",
+          "targets": "AIR & GROUND",
+          "range": 3.5
+        }
+      },
+      "Royal-Giant": {
+        "id": 25,
+        "EnName": "Royal Giant",
+        "JpName": "ロイヤルジャイアント",
+        "ElixirCost": 6,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "hitpoints": 4597,
+          "hit_speed": "1.7 sec",
+          "speed": "Slow",
+          "recoil_damage": 119,
+          "ranged_damage": 446,
+          "targets": "BUILDINGS",
+          "range": 5
+        }
+      },
+      "Goblin-Giant": {
+        "id": 61,
+        "EnName": "Goblin Giant",
+        "JpName": "ゴブリンジャイアント",
+        "ElixirCost": 6,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "damage_per_second": 117,
+          "spear_goblin_count": "x2",
+          "hit_speed": "1.5 sec",
+          "speed": "Medium",
+          "activation": "50%",
+          "damage": 176,
+          "hitpoints": 3232,
+          "spear_goblin_level": 11,
+          "spawn_speed": "1.8 sec",
+          "goblin_level": 11,
+          "targets": "BUILDINGS",
+          "range": "Melee: Medium"
+        }
+      },
+      "P.E.K.K.A": {
+        "id": 5,
+        "EnName": "P.E.K.K.A",
+        "JpName": "P.E.K.K.A",
+        "ElixirCost": 7,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "damage_per_second": 453,
+          "hit_speed": "1.8 sec",
+          "speed": "Slow",
+          "heal_per_death": "142-565",
+          "max_hitpoints": 5640,
+          "damage": 816,
+          "hitpoints": 3760,
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      },
+      "Royal-Recruits": {
+        "id": 48,
+        "EnName": "Royal Recruits",
+        "JpName": "ロイヤルリクルート",
+        "ElixirCost": 7,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "damage_per_second": 102,
+          "shield_hitpoints": 240,
+          "targets": "GROUND",
+          "range": "Melee: Long",
+          "charge_damage": 266,
+          "damage": 133,
+          "hitpoints": 547,
+          "hit_speed": "1.3 sec",
+          "speed": "Medium",
+          "count": "x6"
+        }
+      },
+      "Mega-Knight": {
+        "id": 56,
+        "EnName": "Mega Knight",
+        "JpName": "メガナイト",
+        "ElixirCost": 7,
+        "rarity": "LEGENDARY",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "jump_damage": 537,
+          "hitpoints": 3993,
+          "hit_speed": "1.7 sec",
+          "speed": "Medium",
+          "knockback_distance": 4,
+          "area_damage": 268,
+          "spawn_damage": 429,
+          "jump_range": "3.5-5",
+          "targets": "GROUND",
+          "range": "Melee: Medium"
+        }
+      }
+    },
+    "Buildings": {
+      "Cannon": {
+        "id": 84,
+        "EnName": "Cannon",
+        "JpName": "大砲",
+        "ElixirCost": 3,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 824,
+          "hit_speed": "1 sec",
+          "lifetime": "30 sec",
+          "barrage_damage": 353,
+          "ranged_damage": 212,
+          "targets": "GROUND",
+          "range": 5.5,
+          "barrage_radius": 2.5
+        }
+      },
+      "Goblin-Cage": {
+        "id": 95,
+        "EnName": "Goblin Cage",
+        "JpName": "ゴブリンの檻",
+        "ElixirCost": 4,
+        "rarity": "RARE",
+        "attack": true,
+        "defence": true,
+        "cycles": 1,
+        "stats": {
+          "hitpoints": 780,
+          "spawn_on_death": "Goblin Brawler x1",
+          "lifetime": "20 sec",
+          "damage_per_second": 337,
+          "goblin_brawler_count": "x1",
+          "goblin_brawler_level": 11,
+          "capture_range": 3
+        }
+      },
+      "Mortar": {
+        "id": 86,
+        "EnName": "Mortar",
+        "JpName": "迫撃砲",
+        "ElixirCost": 4,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 1369,
+          "targets": "GROUND",
+          "deploy_time": "3.5 sec",
+          "goblin_level": 11,
+          "area_damage": 266,
+          "hit_speed": "4 sec",
+          "range": 11.5,
+          "lifetime": "30 sec"
+        }
+      },
+      "Tesla": {
+        "id": 90,
+        "EnName": "Tesla",
+        "JpName": "テスラ",
+        "ElixirCost": 4,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "damage_per_second": 200,
+          "hit_speed": "1.1 sec",
+          "range": 5.5,
+          "pulse_radius": 3,
+          "pulse_duration": "0.5 sec",
+          "pulse_damage": 148,
+          "damage": 220,
+          "hitpoints": 1152,
+          "targets": "AIR & GROUND",
+          "lifetime": "30 sec"
+        }
+      },
+      "Goblin-Drill": {
+        "id": 96,
+        "EnName": "Goblin Drill",
+        "JpName": "ゴブリンドリル",
+        "ElixirCost": 4,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 1312,
+          "goblin_level": 11,
+          "lifetime": "10 sec",
+          "spawn_on_submerge": "x1",
+          "crown_tower_spawn_damage": 25,
+          "spawn_on_death": "Goblin x2",
+          "spawn_speed": "3 sec",
+          "activation": "66%, 33%"
+        }
+      }
+    },
+    "Spells": {
+      "Giant-Snowball": {
+        "id": 114,
+        "EnName": "Giant Snowball",
+        "JpName": "巨大雪玉",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "crown_tower_damage": 54,
+          "radius": 2.5,
+          "area_damage": 179,
+          "slowdown_duration": "3 sec",
+          "roll_distance": 4.5
+        }
+      },
+      "Zap": {
+        "id": 105,
+        "EnName": "Zap",
+        "JpName": "ザップ",
+        "ElixirCost": 2,
+        "rarity": "COMMON",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "crown_tower_damage": 58,
+          "radius": 2.5,
+          "area_damage": 192,
+          "stun_duration": "0.5 sec",
+          "zaps": "x2"
+        }
+      },
+      "Goblin-Barrel": {
+        "id": 101,
+        "EnName": "Goblin Barrel",
+        "JpName": "ゴブリンバレル",
+        "ElixirCost": 3,
+        "rarity": "EPIC",
+        "attack": true,
+        "defence": true,
+        "cycles": 2,
+        "stats": {
+          "radius": 1.5,
+          "goblin_count": "x3",
+          "goblin_level": 11,
+          "decoy_goblin_level": 11
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "Troops": {
+    "Archers":{
+      "EnName": "Archers",
+      "JpName": "アーチャー",
+      "Hitpoints": 304,
+      "Damage": 107,
+      "Type": "Troop",
+      "Icon": "card_002_Archers.png"
+    },
+    "Goblins":{
+      "EnName": "Goblins",
+      "JpName": "ゴブリン",
+      "Hitpoints": 202,
+      "Damage": 120,
+      "Type": "Troop",
+      "Icon": "card_003_Goblins.png"
+    },
+    "Skeletons": {
+      "EnName": "Skeletons",
+      "JpName": "スケルトン",
+      "Hitpoints": 81,
+      "Damage": 81,
+      "Type": "Troop",
+      "Icon": "card_011_Skeletons.png"
+    },
+    "Knight":{
+      "EnName": "Knight",
+      "JpName": "ナイト",
+      "Hitpoints": 1766,
+      "Damage": 202,
+      "Type": "Troop",
+      "Icon": "card_001_Knight.png"
+    },
+    "MagicArcher":{
+      "EnName": "Magic Archer",
+      "JpName": "マジックアーチャー",
+      "Hitpoints": 531,
+      "Damage": 134,
+      "Type": "Troop",
+      "Icon": "card_063_Magic Archer.png"
+    },
+    "Musketeer": {
+      "EnName": "Musketeer",
+      "JpName": "マスケット銃士",
+      "Hitpoints": 720,
+      "Damage": 218,
+      "Type": "Troop",
+      "Icon": "card_015_Musketeer.png"
+    },
+    "MiniPekka": {
+      "EnName": "Mini P.E.K.K.A",
+      "JpName": "ミニP.E.K.K.A",
+      "Hitpoints": 1361,
+      "Damage": 754,
+      "Type": "Troop",
+      "Icon": "card_019_Mini P.E.K.K.A.png"
+    }
+  },
+  "Spells": {
+    "Fireball":{
+      "EnName": "Fireball",
+      "JpName": "ファイアボール",
+      "Damage": 689,
+      "TowerDamage": 207,
+      "Type": "Spell",
+      "Icon": "card_097_Fireball.png"
+    }
+  }
+}

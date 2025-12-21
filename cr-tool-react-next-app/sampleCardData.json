@@ -1,0 +1,85 @@
+{
+  "Normal": {
+    "Troops": {
+      "Ice-Spirit": {
+        "EnName": "Ice Spirit",
+        "JpName": "アイススピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "stats": {
+          "hitpoints": 230,
+          "targets": "AIR & GROUND",
+          "range": 2.5,
+          "area_damage": 110,
+          "freeze_duration": "1.2 sec",
+          "speed": "Very Fast"
+        }
+      }
+    },
+    "Buildings": {},
+    "Spells": {
+      "The-Log": {
+        "EnName": "The Log",
+        "JpName": "ローリングウッド",
+        "ElixirCost": 2,
+        "rarity": "LEGENDARY",
+        "stats": {
+          "crown_tower_damage": 44,
+          "width": 3.9,
+          "area_damage": 290,
+          "targets": "GROUND",
+          "range": 10.1
+        }
+      },
+      "Zap": {
+        "EnName": "Zap",
+        "JpName": "ザップ",
+        "elixir_cost": 2,
+        "rarity": "COMMON",
+        "stats": {
+          "crown_tower_damage": 58,
+          "radius": 2.5,
+          "area_damage": 192,
+          "stun_duration": "0.5 sec"
+        }
+      }
+    }
+  },
+  "Evo": {
+    "Troops": {
+      "Ice-Spirit": {
+        "EnName": "Ice Spirit",
+        "JpName": "アイススピリット",
+        "ElixirCost": 1,
+        "rarity": "COMMON",
+        "cycles": 2,
+        "stats": {
+          "hitpoints": 230,
+          "targets": "AIR & GROUND",
+          "range": 2.5,
+          "area_damage": 163,
+          "freeze_duration": "1.2 sec",
+          "speed": "Very Fast",
+          "ice_blast_damage": 163
+        }
+      }
+    },
+    "Buildings": {},
+    "Spells": {
+      "Zap": {
+        "EnName": "Zap",
+        "JpName": "ザップ",
+        "elixir_cost": 2,
+        "rarity": "COMMON",
+        "cycles": 2,
+        "stats": {
+          "crown_tower_damage": 58,
+          "radius": 2.5,
+          "area_damage": 192,
+          "stun_duration": "0.5 sec",
+          "zaps": "x2"
+        }
+      }
+    }
+  }
+}
