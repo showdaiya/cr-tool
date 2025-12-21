@@ -14,3 +14,9 @@ export const LOW_HP_THRESHOLD = 0.3;
  * 体感的な表示速度を向上させるため
  */
 export const OVERLAY_LIST_RENDER_DELAY_MS = 50;
+
+/**
+ * カード選択ダイアログの最大高さ (ビューポート高さに対する割合)
+ * モバイルデバイスでボタンが収まるように90%に設定
+ */
+export const CARD_DIALOG_MAX_HEIGHT = "90vh";
