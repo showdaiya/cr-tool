@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, KeyboardEvent } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AnyCard } from "@/types/CardTypes";
@@ -17,34 +17,62 @@ const SelectableCardListItem = memo(
     if (card.stats.area_damage) statsToDisplay.push(`範囲ダメ: ${card.stats.area_damage}`);
     if (card.stats.ranged_damage) statsToDisplay.push(`遠距離ダメ: ${card.stats.ranged_damage}`);
 
+    const typeLabel =
+      card.cardType === "Troop"
+        ? "ユニット"
+        : card.cardType === "Building"
+          ? "建物"
+          : "呪文";
+
     return (
       <li
+        role="button"
+        tabIndex={0}
+        aria-pressed={isSelected}
         onClick={() => onSelect(card)}
+        onKeyDown={(e: KeyboardEvent<HTMLLIElement>) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelect(card);
+          }
+        }}
         className={cn(
-          "cursor-pointer rounded-md border p-3 transition-colors",
+          "group rounded-lg border bg-card p-3 text-left transition",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           isSelected
-            ? "border-primary/60 bg-primary/5"
-            : "border-border hover:border-primary/40 hover:bg-muted",
+            ? "border-primary/50 ring-2 ring-primary/20"
+            : "border-border hover:border-primary/30 hover:bg-muted/40",
         )}
       >
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-between gap-2">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
             <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
+            <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
+              {card.EnName}
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <Badge variant="outline" className="text-[10px]">
+              {typeLabel}
+            </Badge>
+            <Badge variant="secondary" className="text-[10px]">
+              {card.ElixirCost}
+            </Badge>
             {card.isEvo && (
               <Badge variant="secondary" className="text-[10px]">
                 EVO
               </Badge>
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-3 text-[11px] text-muted-foreground">
-            <span className="min-w-[60px] text-right">エリクサー: {card.ElixirCost}</span>
-            {statsToDisplay.slice(0, 2).map((statText, index) => (
-              <span key={index} className="min-w-[90px] text-right">
-                {statText}
-              </span>
+        </div>
+
+        {statsToDisplay.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+            {statsToDisplay.slice(0, 3).map((statText, index) => (
+              <span key={index}>{statText}</span>
             ))}
           </div>
-        </div>
+        )}
       </li>
     );
   },

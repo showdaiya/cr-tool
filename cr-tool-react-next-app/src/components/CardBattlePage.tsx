@@ -11,14 +11,6 @@ import { useCardContext } from "@/context/CardContext";
 import { AnyCard } from "@/types/CardTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-const PageHeader = () => (
-  <div className="rounded-lg border bg-card p-4 text-center shadow-sm">
-    <h1 className="text-lg font-semibold leading-tight text-foreground">
-      クラロワ ダメージシミュレーター
-    </h1>
-    <p className="mt-1 text-xs text-muted-foreground">攻撃回数を入れて、残りHPをチェック</p>
-  </div>
-);
 
 type ActionButtonsProps = {
   onToggleInfo: () => void;
@@ -26,7 +18,7 @@ type ActionButtonsProps = {
 };
 
 const ActionButtons = ({ onToggleInfo, onReset }: ActionButtonsProps) => (
-  <div className="flex items-center justify-center gap-3">
+  <div className="flex items-center gap-2">
     <Button variant="secondary" size="sm" onClick={onToggleInfo}>
       <Info className="mr-2 h-4 w-4" />
       ヘルプ
@@ -120,25 +112,38 @@ const CardBattlePage = () => {
       {shouldShowNotification && <DefenseNotification onSelectDefenseCard={() => setIsOpen(true)} />}
 
       <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-6">
-        <PageHeader />
-
-        <ActionButtons onToggleInfo={() => setShowInfo((v) => !v)} onReset={resetCalculation} />
-
-        {showInfo && <InfoBox />}
+        <header className="rounded-xl border bg-card p-4 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1">
+              <h1 className="text-base font-semibold">クラロワ ダメージシミュレーター</h1>
+              <p className="text-xs text-muted-foreground">防衛を選ぶ → 攻撃を追加 → 回数を入力</p>
+            </div>
+            <ActionButtons onToggleInfo={() => setShowInfo((v) => !v)} onReset={resetCalculation} />
+          </div>
+          {showInfo && (
+            <div className="mt-3">
+              <InfoBox />
+            </div>
+          )}
+        </header>
 
         <div className="space-y-6">
-          <div id="defense-card-section" ref={defenseCardRef} className="space-y-3">
-            <div className="flex items-center gap-2">
-              <p className="text-lg font-bold">防衛カード</p>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="cursor-help text-xs text-muted-foreground">?</span>
-                </TooltipTrigger>
-                <TooltipContent>防衛側のHPや残量を確認できます</TooltipContent>
-              </Tooltip>
+          <section id="defense-card-section" ref={defenseCardRef} className="space-y-3">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <p className="text-base font-semibold">防衛カード</p>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" aria-label="防衛カードの説明">
+                      <span className="text-xs text-muted-foreground">?</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>防衛側のHPや残量を確認できます</TooltipContent>
+                </Tooltip>
+              </div>
             </div>
             <DefenceCard onSelectClick={() => setIsOpen(true)} />
-          </div>
+          </section>
 
           <AttackCardSection />
         </div>
