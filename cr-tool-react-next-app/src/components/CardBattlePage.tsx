@@ -64,7 +64,7 @@ const PageFooter = () => (
 );
 
 const CardBattlePage = () => {
-  const { defenceCard, resetState, setDefenceCard } = useCardContext();
+  const { defenceCard, resetState, setDefenceCard, totalDamage, remainingHP } = useCardContext();
   const [isOpen, setIsOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -125,6 +125,21 @@ const CardBattlePage = () => {
               <InfoBox />
             </div>
           )}
+
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="rounded-lg border bg-muted/20 px-3 py-2">
+              <p className="text-[11px] text-muted-foreground">合計ダメージ</p>
+              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+                {totalDamage}
+              </p>
+            </div>
+            <div className="rounded-lg border bg-muted/20 px-3 py-2">
+              <p className="text-[11px] text-muted-foreground">残りHP</p>
+              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+                {defenceCard ? remainingHP : "-"}
+              </p>
+            </div>
+          </div>
         </header>
 
         <div className="space-y-6">

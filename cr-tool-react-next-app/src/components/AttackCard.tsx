@@ -158,6 +158,7 @@ const AttackCardComponent = ({
                         size="icon"
                         className="h-8 w-8"
                         onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
+                        disabled={currentAttackNumber <= 0}
                         aria-label="回数を減らす"
                       >
                         <Minus className="h-4 w-4" />
@@ -167,9 +168,13 @@ const AttackCardComponent = ({
                         min={0}
                         max={100}
                         inputMode="numeric"
-                        value={currentAttackNumber}
+                        placeholder="0"
+                        value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
                         onChange={(e) => handleAttackNumberChange(damageKey, e)}
-                        className={cn("h-8 w-16 text-right text-sm")}
+                        className={cn(
+                          "h-8 w-16 text-right text-sm tabular-nums",
+                          currentAttackNumber === 0 && "text-muted-foreground",
+                        )}
                         aria-label="回数"
                       />
                       <Button
@@ -178,6 +183,7 @@ const AttackCardComponent = ({
                         size="icon"
                         className="h-8 w-8"
                         onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
+                        disabled={currentAttackNumber >= 100}
                         aria-label="回数を増やす"
                       >
                         <Plus className="h-4 w-4" />
