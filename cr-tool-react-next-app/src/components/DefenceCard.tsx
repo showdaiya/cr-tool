@@ -106,7 +106,17 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
               <span className="font-medium text-foreground">残りHP</span>
               <span className={cn("text-sm font-bold", getHpColorClass(hpPercentage))}>{remainingHP}</span>
             </div>
-            <Progress value={hpPercentage} indicatorClassName={hpIndicatorClass} />
+            {remainingHP <= 0 ? (
+              <div className="flex items-center justify-center rounded-lg bg-destructive/20 py-2">
+                <span className="animate-defeat text-sm font-bold text-destructive">💥 撃破！</span>
+              </div>
+            ) : (
+              <Progress
+                value={hpPercentage}
+                indicatorClassName={hpIndicatorClass}
+                className={cn(hpPercentage <= 20 && hpPercentage > 0 && "animate-hp-shake")}
+              />
+            )}
           </CardContent>
         )}
 

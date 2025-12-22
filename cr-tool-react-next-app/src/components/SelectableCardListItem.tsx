@@ -40,10 +40,11 @@ const SelectableCardListItem = memo(
           }
         }}
         className={cn(
-          "group rounded-xl border bg-card p-4 text-left shadow-sm transition",
+          "group rounded-xl border bg-card p-4 text-left shadow-sm transition-all duration-150",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "active:scale-[0.98]",
           isSelected
-            ? "border-primary/50 ring-2 ring-primary/20"
+            ? "border-primary/50 ring-2 ring-primary/20 animate-card-select"
             : "border-border hover:border-primary/30 hover:bg-muted/40",
         )}
       >

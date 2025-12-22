@@ -191,9 +191,9 @@ const AttackCardComponent = ({
                   </div>
                   </div>
 
-                  <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                  <div className="mt-2 flex items-center justify-between rounded-md bg-muted/30 px-2 py-1 text-xs text-muted-foreground">
                     <span>小計</span>
-                    <span className="font-semibold tabular-nums text-foreground">{subtotal}</span>
+                    <span className="font-bold tabular-nums text-foreground">{subtotal}</span>
                   </div>
                 </div>
               );
@@ -205,10 +205,10 @@ const AttackCardComponent = ({
           </p>
         )}
 
-        <div className="rounded-lg border bg-muted/20 px-3 py-2">
+        <div className="rounded-lg border border-accent/40 bg-accent/10 px-3 py-2">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>このカードの合計</span>
-            <span className="font-semibold tabular-nums text-foreground">
+            <span className="font-medium">このカードの合計</span>
+            <span className="text-sm font-bold tabular-nums text-accent-foreground">
               {damageOptions.reduce((sum, option) => {
                 const damageKey = option.key;
                 const damageValue = parseDamage(option.value);
