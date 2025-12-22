@@ -111,6 +111,11 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /cr-tool   # ベースパス設定
         run: npm run build
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -418,10 +423,10 @@ npm run test
 
 **解決策**:
 ```typescript
-// ❌ Bad
-<img src="/resized_cards/archers.png" />
+// ❌ Bad: ベースパスが欠落している
+<img src="/resized_cards/card_002_Archers.png" />
 
-// ✅ Good
+// ✅ Good: ベースパスを含めた正しいパス
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 <img src={`${BASE_PATH}/resized_cards/card_002_Archers.png`} />
 ```
