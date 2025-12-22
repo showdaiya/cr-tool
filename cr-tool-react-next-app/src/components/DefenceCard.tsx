@@ -39,15 +39,23 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
         ? "建物"
         : "呪文";
 
+  const getHpState = (percentage: number): "low" | "medium" | "high" => {
+    if (percentage <= 20) return "low";
+    if (percentage <= 50) return "medium";
+    return "high";
+  };
+
   const getHpColorClass = (percentage: number) => {
-    if (percentage <= 20) return "text-[#ef4444]";
-    if (percentage <= 50) return "text-[#eab308]";
+    const state = getHpState(percentage);
+    if (state === "low") return "text-[#ef4444]";
+    if (state === "medium") return "text-[#eab308]";
     return "text-[#22c55e]";
   };
 
   const hpIndicatorClass = (() => {
-    if (hpPercentage <= 20) return "bg-[#ef4444]";
-    if (hpPercentage <= 50) return "bg-[#eab308]";
+    const state = getHpState(hpPercentage);
+    if (state === "low") return "bg-[#ef4444]";
+    if (state === "medium") return "bg-[#eab308]";
     return "bg-[#22c55e]";
   })();
 
