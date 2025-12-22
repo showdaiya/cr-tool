@@ -111,8 +111,9 @@ export type HpState = "low" | "medium" | "high";
  * @returns HP状態 ("low" | "medium" | "high")
  */
 export const getHpState = (percentage: number): HpState => {
-  if (percentage <= 20) return "low";
-  if (percentage <= 50) return "medium";
+  const clamped = Math.max(0, Math.min(100, percentage));
+  if (clamped <= 20) return "low";
+  if (clamped <= 50) return "medium";
   return "high";
 };
 
