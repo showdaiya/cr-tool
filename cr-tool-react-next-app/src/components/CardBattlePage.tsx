@@ -10,6 +10,8 @@ import DefenseNotification from "./DefenseNotification";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard } from "@/types/CardTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { getInitialHp } from "@/utils/cardUtils";
+import { cn } from "@/lib/utils";
 
 
 type ActionButtonsProps = {
@@ -106,13 +108,21 @@ const CardBattlePage = () => {
   if (!mounted) return null;
 
   const shouldShowNotification = !isDefenseCardVisible || !defenceCard;
+  const initialHP = defenceCard ? getInitialHp(defenceCard) : 0;
+  const hpPercentage = initialHP > 0 ? Math.max(0, Math.min(100, (remainingHP / initialHP) * 100)) : 0;
+
+  const getHpColorClass = () => {
+    if (hpPercentage <= 20) return "text-[#ef4444]";
+    if (hpPercentage <= 50) return "text-[#eab308]";
+    return "text-[#22c55e]";
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {shouldShowNotification && <DefenseNotification onSelectDefenseCard={() => setIsOpen(true)} />}
 
       <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-6">
-        <header className="rounded-xl border bg-card p-4 shadow-sm">
+        <header className="rounded-2xl border border-accent/60 bg-gradient-to-br from-background via-card to-muted/50 p-4 shadow-md">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <h1 className="text-base font-semibold">クラロワ ダメージシミュレーター</h1>
@@ -126,28 +136,28 @@ const CardBattlePage = () => {
             </div>
           )}
 
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-lg border bg-muted/20 px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">防衛</p>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div className="rounded-xl border border-accent/40 bg-card/60 px-3 py-2 shadow-sm">
+              <p className="text-[11px] text-muted-foreground">🛡️ 防衛</p>
               <p className="mt-0.5 line-clamp-1 text-sm font-semibold text-foreground">
                 {defenceCard ? defenceCard.JpName : "未選択"}
               </p>
             </div>
-            <div className="rounded-lg border bg-muted/20 px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">攻撃カード数</p>
+            <div className="rounded-xl border border-accent/40 bg-card/60 px-3 py-2 shadow-sm">
+              <p className="text-[11px] text-muted-foreground">⚔️ 攻撃カード数</p>
               <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
                 {attackCards.length}
               </p>
             </div>
-            <div className="rounded-lg border bg-muted/20 px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">合計ダメージ</p>
+            <div className="rounded-xl border border-accent/40 bg-card/60 px-3 py-2 shadow-sm">
+              <p className="text-[11px] text-muted-foreground">💥 合計ダメージ</p>
               <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
                 {totalDamage}
               </p>
             </div>
-            <div className="rounded-lg border bg-muted/20 px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">残りHP</p>
-              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+            <div className="rounded-xl border border-accent/40 bg-card/60 px-3 py-2 shadow-sm">
+              <p className="text-[11px] text-muted-foreground">❤️ 残りHP</p>
+              <p className={cn("mt-0.5 text-sm font-semibold tabular-nums", getHpColorClass())}>
                 {defenceCard ? remainingHP : "-"}
               </p>
             </div>

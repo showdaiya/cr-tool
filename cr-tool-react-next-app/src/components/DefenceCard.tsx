@@ -8,7 +8,8 @@ import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCardContext } from "@/context/CardContext";
 import { getInitialHp, getCardImageFilename } from "@/utils/cardUtils";
-import { LOW_HP_THRESHOLD } from "@/constants";
+import { LOW_HP_THRESHOLD, MEDIUM_HP_THRESHOLD } from "@/constants";
+import { cn } from "@/lib/utils";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -39,9 +40,29 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
         ? "建物"
         : "呪文";
 
+  const getHpState = (percentage: number): "low" | "medium" | "high" => {
+    if (percentage <= LOW_HP_THRESHOLD * 100) return "low";
+    if (percentage <= MEDIUM_HP_THRESHOLD * 100) return "medium";
+    return "high";
+  };
+
+  const getHpColorClass = (percentage: number) => {
+    const state = getHpState(percentage);
+    if (state === "low") return "text-[#ef4444]";
+    if (state === "medium") return "text-[#eab308]";
+    return "text-[#22c55e]";
+  };
+
+  const hpIndicatorClass = (() => {
+    const state = getHpState(hpPercentage);
+    if (state === "low") return "bg-[#ef4444]";
+    if (state === "medium") return "bg-[#eab308]";
+    return "bg-[#22c55e]";
+  })();
+
   return (
-    <Card className="overflow-hidden shadow-sm">
-      <CardHeader className="flex items-center justify-between gap-3 border-b px-4 py-3">
+    <Card className="overflow-hidden border-accent/60 bg-gradient-to-b from-background to-muted/40 shadow-sm">
+      <CardHeader className="flex items-center justify-between gap-3 border-b border-accent/50 px-4 py-3">
         <div className="flex min-w-0 items-center gap-3">
           <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -83,17 +104,9 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
             </div>
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span className="font-medium text-foreground">残りHP</span>
-              <span
-                className="text-sm font-bold"
-                style={{
-                  color:
-                    remainingHP <= initialHP * LOW_HP_THRESHOLD ? "rgb(239 68 68)" : "rgb(34 197 94)",
-                }}
-              >
-                {remainingHP}
-              </span>
+              <span className={cn("text-sm font-bold", getHpColorClass(hpPercentage))}>{remainingHP}</span>
             </div>
-            <Progress value={hpPercentage} />
+            <Progress value={hpPercentage} indicatorClassName={hpIndicatorClass} />
           </CardContent>
         )}
 

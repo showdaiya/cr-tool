@@ -182,39 +182,41 @@ const SelectCardOverlay = ({
 
         {/* Scrollable content area: min-h-0 allows flex child to shrink below content size, flex-1 takes available space */}
         <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 pb-4">
-          <Input
-            placeholder="カード名で検索..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-10"
-          />
+          <div className="sticky top-0 z-10 space-y-3 bg-card/90 pb-3 backdrop-blur">
+            <Input
+              placeholder="カード名で検索..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="h-11 rounded-full px-4"
+            />
 
-          <div className="flex flex-wrap items-center gap-2">
-            <select
-              value={sortKey}
-              onChange={(e) => setSortKey(e.target.value as SortKey)}
-              className="h-10 rounded-md border border-input bg-background px-3 text-sm"
-            >
-              <option value="id">ID</option>
-              <option value="JpName">日本語名</option>
-              <option value="EnName">英語名</option>
-              <option value="ElixirCost">エリクサーコスト</option>
-              <option value="hitpoints">HP</option>
-              <option value="damage">ダメージ(単体)</option>
-              <option value="area_damage">ダメージ(範囲)</option>
-              <option value="ranged_damage">ダメージ(遠距離)</option>
-            </select>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-            >
-              {sortOrder === "asc" ? <ArrowUp className="mr-2 h-4 w-4" /> : <ArrowDown className="mr-2 h-4 w-4" />}
-              並び替え
-            </Button>
-            <Button variant="secondary" size="sm" onClick={() => setShowEvo(!showEvo)}>
-              {showEvo ? "通常表示" : "進化表示"}
-            </Button>
+            <div className="flex flex-wrap items-center gap-2">
+              <select
+                value={sortKey}
+                onChange={(e) => setSortKey(e.target.value as SortKey)}
+                className="h-11 rounded-full border border-input bg-background px-4 text-sm"
+              >
+                <option value="id">ID</option>
+                <option value="JpName">日本語名</option>
+                <option value="EnName">英語名</option>
+                <option value="ElixirCost">エリクサーコスト</option>
+                <option value="hitpoints">HP</option>
+                <option value="damage">ダメージ(単体)</option>
+                <option value="area_damage">ダメージ(範囲)</option>
+                <option value="ranged_damage">ダメージ(遠距離)</option>
+              </select>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+              >
+                {sortOrder === "asc" ? <ArrowUp className="mr-2 h-4 w-4" /> : <ArrowDown className="mr-2 h-4 w-4" />}
+                並び替え
+              </Button>
+              <Button variant="secondary" size="sm" onClick={() => setShowEvo(!showEvo)}>
+                {showEvo ? "通常表示" : "進化表示"}
+              </Button>
+            </div>
           </div>
 
           {showTabs ? (
@@ -229,8 +231,8 @@ const SelectCardOverlay = ({
               {allowedCardTypes.map((type) => (
                 <TabsContent key={type} value={type} className="mt-3">
                   {isListReady ? (
-                    <div className="overflow-y-auto rounded-md border bg-background">
-                      <ul className="divide-y">
+                    <div className="overflow-y-auto rounded-xl border bg-background p-3">
+                      <div className="grid grid-cols-2 gap-3">
                         {getFilteredAndSortedCards(type).map((card) => (
                           <SelectableCardListItem
                             key={`${card.id}-${card.EnName}-${card.isEvo}`}
@@ -239,10 +241,10 @@ const SelectCardOverlay = ({
                             onSelect={handleSelectCard}
                           />
                         ))}
-                        {getFilteredAndSortedCards(type).length === 0 && (
-                          <li className="py-6 text-center text-sm text-muted-foreground">該当なし</li>
-                        )}
-                      </ul>
+                      </div>
+                      {getFilteredAndSortedCards(type).length === 0 && (
+                        <div className="py-6 text-center text-sm text-muted-foreground">該当なし</div>
+                      )}
                     </div>
                   ) : (
                     <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>
@@ -251,8 +253,8 @@ const SelectCardOverlay = ({
               ))}
             </Tabs>
           ) : isListReady ? (
-            <div className="overflow-y-auto rounded-md border bg-background">
-              <ul className="divide-y">
+            <div className="overflow-y-auto rounded-xl border bg-background p-3">
+              <div className="grid grid-cols-2 gap-3">
                 {cardsToDisplay.map((card) => (
                   <SelectableCardListItem
                     key={`${card.id}-${card.EnName}-${card.isEvo}`}
@@ -261,10 +263,10 @@ const SelectCardOverlay = ({
                     onSelect={handleSelectCard}
                   />
                 ))}
-                {cardsToDisplay.length === 0 && (
-                  <li className="py-6 text-center text-sm text-muted-foreground">該当するカードがありません。</li>
-                )}
-              </ul>
+              </div>
+              {cardsToDisplay.length === 0 && (
+                <div className="py-6 text-center text-sm text-muted-foreground">該当するカードがありません。</div>
+              )}
             </div>
           ) : (
             <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>

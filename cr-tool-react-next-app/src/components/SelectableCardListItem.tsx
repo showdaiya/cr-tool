@@ -2,6 +2,9 @@ import { memo, KeyboardEvent } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AnyCard } from "@/types/CardTypes";
+import { getCardImageFilename } from "@/utils/cardUtils";
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 type SelectableCardListItemProps = {
   card: AnyCard;
@@ -37,42 +40,54 @@ const SelectableCardListItem = memo(
           }
         }}
         className={cn(
-          "group rounded-lg border bg-card p-3 text-left transition",
+          "group rounded-xl border bg-card p-4 text-left shadow-sm transition",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           isSelected
             ? "border-primary/50 ring-2 ring-primary/20"
             : "border-border hover:border-primary/30 hover:bg-muted/40",
         )}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
-            <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
-              {card.EnName}
-            </p>
+        <div className="grid grid-cols-[80px_1fr] gap-3">
+          <div className="flex items-center justify-center rounded-lg bg-muted/50 p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${BASE_PATH}/resized_cards/${getCardImageFilename(card)}`}
+              alt={card.JpName}
+              className="h-20 w-20 rounded-md object-contain shadow-sm"
+            />
           </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <Badge variant="outline" className="text-[10px]">
-              {typeLabel}
-            </Badge>
-            <Badge variant="secondary" className="text-[10px]">
-              {card.ElixirCost}
-            </Badge>
-            {card.isEvo && (
-              <Badge variant="secondary" className="text-[10px]">
-                EVO
-              </Badge>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
+                <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
+                  {card.EnName}
+                </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <Badge variant="outline" className="text-[10px]">
+                  {typeLabel}
+                </Badge>
+                <Badge variant="secondary" className="text-[10px]">
+                  {card.ElixirCost}
+                </Badge>
+                {card.isEvo && (
+                  <Badge variant="secondary" className="text-[10px]">
+                    EVO
+                  </Badge>
+                )}
+              </div>
+            </div>
+
+            {statsToDisplay.length > 0 && (
+              <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                {statsToDisplay.slice(0, 3).map((statText, index) => (
+                  <span key={index}>{statText}</span>
+                ))}
+              </div>
             )}
           </div>
         </div>
-
-        {statsToDisplay.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
-            {statsToDisplay.slice(0, 3).map((statText, index) => (
-              <span key={index}>{statText}</span>
-            ))}
-          </div>
-        )}
       </li>
     );
   },
