@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCardContext } from "@/context/CardContext";
-import { getInitialHp, getCardImageFilename } from "@/utils/cardUtils";
+import { getInitialHp, getCardImageFilename, getHpColorClass, getHpIndicatorClass } from "@/utils/cardUtils";
 import { cn } from "@/lib/utils";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -39,25 +39,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
         ? "建物"
         : "呪文";
 
-  const getHpState = (percentage: number): "low" | "medium" | "high" => {
-    if (percentage <= 20) return "low";
-    if (percentage <= 50) return "medium";
-    return "high";
-  };
-
-  const getHpColorClass = (percentage: number) => {
-    const state = getHpState(percentage);
-    if (state === "low") return "text-[#ef4444]";
-    if (state === "medium") return "text-[#eab308]";
-    return "text-[#22c55e]";
-  };
-
-  const hpIndicatorClass = (() => {
-    const state = getHpState(hpPercentage);
-    if (state === "low") return "bg-[#ef4444]";
-    if (state === "medium") return "bg-[#eab308]";
-    return "bg-[#22c55e]";
-  })();
+  const hpIndicatorClass = getHpIndicatorClass(hpPercentage);
 
   return (
     <Card className="overflow-hidden border-accent/60 bg-gradient-to-b from-background to-muted/40 shadow-sm">

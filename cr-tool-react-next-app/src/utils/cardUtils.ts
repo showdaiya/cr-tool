@@ -99,3 +99,43 @@ export const getStatValue = (card: AnyCard, key: string): number => {
   }
   return 0;
 };
+
+/**
+ * HP状態の種類
+ */
+export type HpState = "low" | "medium" | "high";
+
+/**
+ * HPパーセンテージから状態を判定します。
+ * @param percentage HPのパーセンテージ (0-100)
+ * @returns HP状態 ("low" | "medium" | "high")
+ */
+export const getHpState = (percentage: number): HpState => {
+  if (percentage <= 20) return "low";
+  if (percentage <= 50) return "medium";
+  return "high";
+};
+
+/**
+ * HPパーセンテージから対応するテキストカラークラスを取得します。
+ * @param percentage HPのパーセンテージ (0-100)
+ * @returns Tailwind CSSのテキストカラークラス
+ */
+export const getHpColorClass = (percentage: number): string => {
+  const state = getHpState(percentage);
+  if (state === "low") return "text-[#ef4444]";
+  if (state === "medium") return "text-[#eab308]";
+  return "text-[#22c55e]";
+};
+
+/**
+ * HPパーセンテージから対応する背景カラークラスを取得します。
+ * @param percentage HPのパーセンテージ (0-100)
+ * @returns Tailwind CSSの背景カラークラス
+ */
+export const getHpIndicatorClass = (percentage: number): string => {
+  const state = getHpState(percentage);
+  if (state === "low") return "bg-[#ef4444]";
+  if (state === "medium") return "bg-[#eab308]";
+  return "bg-[#22c55e]";
+};

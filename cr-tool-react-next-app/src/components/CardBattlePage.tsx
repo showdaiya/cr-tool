@@ -10,7 +10,7 @@ import DefenseNotification from "./DefenseNotification";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard } from "@/types/CardTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { getInitialHp } from "@/utils/cardUtils";
+import { getInitialHp, getHpColorClass } from "@/utils/cardUtils";
 import { cn } from "@/lib/utils";
 
 
@@ -111,12 +111,6 @@ const CardBattlePage = () => {
   const initialHP = defenceCard ? getInitialHp(defenceCard) : 0;
   const hpPercentage = initialHP > 0 ? Math.max(0, Math.min(100, (remainingHP / initialHP) * 100)) : 0;
 
-  const getHpColorClass = () => {
-    if (hpPercentage <= 20) return "text-[#ef4444]";
-    if (hpPercentage <= 50) return "text-[#eab308]";
-    return "text-[#22c55e]";
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {shouldShowNotification && <DefenseNotification onSelectDefenseCard={() => setIsOpen(true)} />}
@@ -157,7 +151,7 @@ const CardBattlePage = () => {
             </div>
             <div className="rounded-xl border border-accent/40 bg-card/60 px-3 py-2 shadow-sm">
               <p className="text-[11px] text-muted-foreground">❤️ 残りHP</p>
-              <p className={cn("mt-0.5 text-sm font-semibold tabular-nums", getHpColorClass())}>
+              <p className={cn("mt-0.5 text-sm font-semibold tabular-nums", getHpColorClass(hpPercentage))}>
                 {defenceCard ? remainingHP : "-"}
               </p>
             </div>
