@@ -151,44 +151,44 @@ const AttackCardComponent = ({
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
-                        disabled={currentAttackNumber <= 0}
-                        aria-label="回数を減らす"
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <Input
-                        type="number"
-                        min={0}
-                        max={100}
+                  <div className="flex items-center gap-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="h-11 w-11 rounded-full"
+                      onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
+                      disabled={currentAttackNumber <= 0}
+                      aria-label="回数を減らす"
+                    >
+                      <Minus className="h-5 w-5" />
+                    </Button>
+                    <Input
+                      type="number"
+                      min={0}
+                      max={100}
                         inputMode="numeric"
                         placeholder="0"
                         value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
                         onChange={(e) => handleAttackNumberChange(damageKey, e)}
                         className={cn(
-                          "h-8 w-16 text-right text-sm tabular-nums",
+                          "h-11 w-20 rounded-full border-2 text-right text-sm tabular-nums",
                           currentAttackNumber === 0 && "text-muted-foreground",
                         )}
-                        aria-label="回数"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
-                        disabled={currentAttackNumber >= 100}
-                        aria-label="回数を増やす"
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
+                      aria-label="回数"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="h-11 w-11 rounded-full"
+                      onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
+                      disabled={currentAttackNumber >= 100}
+                      aria-label="回数を増やす"
+                    >
+                      <Plus className="h-5 w-5" />
+                    </Button>
+                  </div>
                   </div>
 
                   <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
