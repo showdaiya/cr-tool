@@ -399,7 +399,7 @@ npm run test
 **解決策**:
 1. `NEXT_PUBLIC_BASE_PATH=/cr-tool` が設定されているか確認
 2. `next.config.js` の `basePath` と `assetPrefix` が正しいか確認
-3. 画像パスが `${BASE_PATH}/cards/...` になっているか確認
+3. 画像パスが `${BASE_PATH}/resized_cards/...` になっているか確認
 
 ### 問題2: GitHub Pages でリロード時に 404
 
