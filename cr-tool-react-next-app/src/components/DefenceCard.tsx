@@ -106,7 +106,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
               <span className={cn("text-sm font-bold", getHpColorClass(hpPercentage))}>{remainingHP}</span>
             </div>
             <Progress value={hpPercentage} indicatorClassName={hpIndicatorClass} />
-      </CardContent>
+          </CardContent>
         )}
 
       <CardContent className="flex justify-end border-t px-4 py-3">
