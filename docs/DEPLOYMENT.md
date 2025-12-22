@@ -419,11 +419,11 @@ npm run test
 **解決策**:
 ```typescript
 // ❌ Bad
-<img src="/cards/archers.png" />
+<img src="/resized_cards/archers.png" />
 
 // ✅ Good
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
-<img src={`${BASE_PATH}/cards/archers.png`} />
+<img src={`${BASE_PATH}/resized_cards/card_002_Archers.png`} />
 ```
 
 **原因2**: 画像ファイルが `public/` に存在しない
@@ -431,7 +431,7 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 **解決策**:
 ```bash
 # 画像ファイルの存在確認
-ls -la cr-tool-react-next-app/public/cards/
+ls -la cr-tool-react-next-app/public/resized_cards/
 ```
 
 ### 問題5: CSS が反映されない

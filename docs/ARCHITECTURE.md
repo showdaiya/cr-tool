@@ -42,7 +42,7 @@ cr-tool/
 │   │   │   └── cardUtils.ts          # カード関連ヘルパー関数
 │   │   └── constants.ts              # 定数定義
 │   ├── public/                       # 静的ファイル
-│   │   └── cards/                    # カード画像 (PNG)
+│   │   └── resized_cards/            # カード画像 (PNG)
 │   ├── tests/                        # テストファイル
 │   │   └── ui.components.test.tsx    # UIコンポーネントテスト
 │   ├── next.config.js                # Next.js設定 (Static Export)

@@ -120,6 +120,8 @@ vercel --prod
 - [PROJECT_PLAN.md](./PROJECT_PLAN.md) - プロジェクト計画書
 - [CODING_STANDARDS.md](./CODING_STANDARDS.md) - コーディング規約
 - [docs/FEATURES.md](./docs/FEATURES.md) - 機能一覧
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) - アーキテクチャドキュメント
+- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) - デプロイメントガイド
 
 ## 🤝 コントリビューション
 
