@@ -114,7 +114,7 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
-          enablement: true
+          enablement: true                  # GitHub Pagesを自動有効化
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
