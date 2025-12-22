@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCardContext } from "@/context/CardContext";
 import { getInitialHp, getCardImageFilename } from "@/utils/cardUtils";
+import { LOW_HP_THRESHOLD, MEDIUM_HP_THRESHOLD } from "@/constants";
 import { cn } from "@/lib/utils";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -40,8 +41,8 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
         : "呪文";
 
   const getHpState = (percentage: number): "low" | "medium" | "high" => {
-    if (percentage <= 20) return "low";
-    if (percentage <= 50) return "medium";
+    if (percentage <= LOW_HP_THRESHOLD * 100) return "low";
+    if (percentage <= MEDIUM_HP_THRESHOLD * 100) return "medium";
     return "high";
   };
 

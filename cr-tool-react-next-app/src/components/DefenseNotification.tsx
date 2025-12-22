@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCardContext } from "@/context/CardContext";
 import { getInitialHp } from "@/utils/cardUtils";
-import { LOW_HP_THRESHOLD } from "@/constants";
+import { LOW_HP_THRESHOLD, MEDIUM_HP_THRESHOLD } from "@/constants";
 import { cn } from "@/lib/utils";
 
 type DefenseNotificationProps = {
@@ -65,7 +65,14 @@ const DefenseNotification = ({ onSelectDefenseCard }: DefenseNotificationProps) 
 
   const initialHP = getInitialHp(defenceCard);
   const hpPercentage = initialHP > 0 ? (remainingHP / initialHP) * 100 : 0;
-  const hpColor = hpPercentage <= LOW_HP_THRESHOLD * 100 ? "text-red-500" : "text-green-500";
+  
+  const getHpColor = (percentage: number) => {
+    if (percentage <= LOW_HP_THRESHOLD * 100) return "text-red-500";
+    if (percentage <= MEDIUM_HP_THRESHOLD * 100) return "text-yellow-500";
+    return "text-green-500";
+  };
+  
+  const hpColor = getHpColor(hpPercentage);
 
   return (
     <div
