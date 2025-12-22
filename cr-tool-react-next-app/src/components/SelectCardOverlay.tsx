@@ -174,13 +174,14 @@ const SelectCardOverlay = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => (!open ? onClose() : null)}>
-      <DialogContent className="max-h-[80vh] overflow-hidden p-0">
-        <DialogHeader className="px-6 py-4">
+      <DialogContent className="flex max-h-[90vh] flex-col overflow-hidden p-0">
+        <DialogHeader className="shrink-0 px-6 py-4">
           <DialogTitle>{modalTitle}</DialogTitle>
           <DialogDescription>検索してカードを選択してください。</DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-4 px-6 pb-4">
+        {/* Scrollable content area: min-h-0 allows flex child to shrink below content size, flex-1 takes available space */}
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 pb-4">
           <Input
             placeholder="カード名で検索..."
             value={searchQuery}
@@ -228,7 +229,7 @@ const SelectCardOverlay = ({
               {allowedCardTypes.map((type) => (
                 <TabsContent key={type} value={type} className="mt-3">
                   {isListReady ? (
-                    <div className="max-h-80 overflow-y-auto rounded-md border bg-background">
+                    <div className="overflow-y-auto rounded-md border bg-background">
                       <ul className="divide-y">
                         {getFilteredAndSortedCards(type).map((card) => (
                           <SelectableCardListItem
@@ -250,7 +251,7 @@ const SelectCardOverlay = ({
               ))}
             </Tabs>
           ) : isListReady ? (
-            <div className="max-h-80 overflow-y-auto rounded-md border bg-background">
+            <div className="overflow-y-auto rounded-md border bg-background">
               <ul className="divide-y">
                 {cardsToDisplay.map((card) => (
                   <SelectableCardListItem
@@ -270,7 +271,7 @@ const SelectCardOverlay = ({
           )}
         </div>
 
-        <DialogFooter className={cn("border-t px-6 py-3")}>
+        <DialogFooter className={cn("shrink-0 border-t px-6 py-3")}>
           <Button variant="ghost" onClick={onClose}>
             キャンセル
           </Button>
