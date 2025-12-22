@@ -5,9 +5,12 @@ export const DEFAULT_DEFENCE_CARD_NAME = "Knight";
 
 /**
  * HP表示の色が変わる閾値 (割合)
- * この値以下の場合、赤色で表示される
+ * LOW_HP_THRESHOLD以下: 赤色
+ * MEDIUM_HP_THRESHOLD以下: 黄色
+ * それより上: 緑色
  */
-export const LOW_HP_THRESHOLD = 0.3;
+export const LOW_HP_THRESHOLD = 0.2;
+export const MEDIUM_HP_THRESHOLD = 0.5;
 
 /**
  * カード選択オーバーレイでリスト表示を遅延させる時間 (ミリ秒)
