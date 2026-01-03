@@ -689,6 +689,27 @@ git diff abc1234..def5678   # コミット間の差分
 
 ---
 
+## mainへの取り込みは「GitHub操作」が必須か？
+
+**結論**: ローカルで `main` に取り込んで `git push` できていれば、GitHub上で追加の「mainへマージ」操作は不要（すでにリモートmainが更新されている）。
+
+**取り込み方法の選択肢**:
+- ローカルで merge → push（速い）
+- GitHubのPRを作成してMerge（レビュー/CIを挟めて安全）
+
+**おすすめ運用（学習 + 安全）**:
+- 基本はPRで取り込む（レビュー/CIの結果が残る）
+- 個人作業で急ぐ時はローカルmerge+pushも可（ただしCI確認は必ず行う）
+
+**使用例（fast-forwardのみ許可して安全に取り込む）**:
+```powershell
+git --no-pager status -sb && git checkout main && git pull --ff-only && git merge --ff-only fix/playwright-stabilize-e2e && git push
+```
+
+**学んだ日**: 2026-01-03
+
+---
+
 # GitHub - Actions
 
 ## 概要
