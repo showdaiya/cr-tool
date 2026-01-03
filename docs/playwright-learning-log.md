@@ -241,6 +241,22 @@ await expect.poll(async () => {
 
 ---
 
+### `getByRole` を安定させるためのHTMLセマンティクス
+**説明**: Playwrightの `getByRole('button', { name })` は「アクセシブルネーム」に依存するため、クリック可能要素は `role="button"` を付けた `div/li` より、素直に `<button>` を使った方が安定しやすい。
+
+**使用例**:
+```tsx
+<button type="button" onClick={...}>...</button>
+```
+
+**関連**:
+- テストは `dialog.getByRole('button', { name: /.../ })` のように書けて読みやすい
+- UI側のセマンティクス改善が、そのままテストの安定化につながる
+
+**学んだ日**: 2026-01-03
+
+---
+
 ## data-testid
 
 **説明**: テスト専用の識別子
