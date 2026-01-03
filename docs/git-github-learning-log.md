@@ -455,6 +455,34 @@ A --- B --- C --- D' --- E'
 
 ---
 
+## `git merge --ff-only <branch>`
+
+**説明**: 現在のブランチに、指定ブランチを「fast-forwardできる場合のみ」取り込む（マージコミットを作らない）。
+
+**使いどころ**: `main` に作業ブランチを取り込むとき、履歴を直線に保ちつつ、安全側（できない時は失敗）で進めたい場合。
+
+**使用例**:
+```powershell
+# mainを最新化してから、ブランチをfast-forwardで取り込む
+git checkout main
+git pull --ff-only
+git merge --ff-only fix/playwright-stabilize-e2e
+git push
+
+# 取り込み確認
+git status -sb
+git log -5 --oneline
+```
+
+**よくあるエラーと対処**:
+- `fatal: Not possible to fast-forward, aborting.`: `main` とブランチが分岐している（fast-forward不可）。この場合は「通常のmergeでマージコミットを作る」か「PRで取り込む」など運用方針を決めて対応する。
+
+**関連**: `git pull --ff-only` と組み合わせると、ローカル/リモート両方で「fast-forwardのみ許可」できて事故が減る。
+
+**学んだ日**: 2026-01-03
+
+---
+
 ## `git fetch`
 
 **説明**: リモートの情報を取得（ローカルには反映しない）

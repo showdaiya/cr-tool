@@ -80,6 +80,22 @@ npx playwright --version
 
 ---
 
+## `&&`
+
+**説明**: コマンドを連結して実行する演算子（左のコマンドが成功したときだけ右を実行）。
+
+**使用例**:
+```powershell
+git --no-pager status -sb && git checkout main && git pull --ff-only
+```
+
+**関連コマンドとの違い**:
+- `;`: 成功/失敗に関係なく順番に実行する。
+
+**学んだ日**: 2026-01-03
+
+---
+
 # PowerShell - ファイル操作
 
 ## `Get-Content`
