@@ -709,7 +709,51 @@ jobs:
 
 **カスタマイズ**:
 - `.github/copilot-instructions.md`: プロジェクト固有の指示
-- Skills: 特定タスクの自動化
+- Skills: 特定タスクの自動化（例: 学習ログ更新）
+
+### Skills管理（Copilot CLI の `/skills`）
+
+**説明**: Copilot CLIではVS Codeの「Reload」ではなく、CLI内の `/skills` コマンドでskillの追加・再読込を行う。
+
+**使用例**:
+```text
+/skills list
+/skills add .github\skills\update-learning-logs
+/skills reload
+/skills info update-learning-logs
+```
+
+**関連コマンドとの違い**:
+- `/skills add <path>`: skillを登録する
+- `/skills reload`: 登録済みskillを再読込する
+- `/skills list`: 登録済みskillを一覧表示する
+
+### `/add-dir` との違い
+
+**説明**: `/add-dir` は「Copilotがファイルアクセスして良いディレクトリ（許可リスト）」を追加するコマンドで、skill登録とは別。
+
+**よくある混同**:
+```text
+/add-dir .github\skills\update-learning-logs   # ❌ skillは追加されない
+/skills add .github\skills\update-learning-logs # ✅ skill追加
+```
+
+### SKILL.md（YAML frontmatter）の互換性
+
+**説明**: `SKILL.md` のYAML frontmatterは環境によって厳格に検証されることがある。
+
+**ポイント**:
+- 必須: `name`, `description`
+- Copilot CLIでは追加キー（例: `metadata`）があると読み込みに失敗するケースがある
+- 互換性重視なら frontmatter は最小構成（`name`,`description`のみ）にして、追加情報は本文に書く
+
+### 複数ファイル更新（multi-file）
+
+**説明**: 1回のskill実行で複数の学習ログ（PowerShell/cmd, Git/GitHub, AWS, TS, Next.js, Playwright）をまとめて更新できる。
+
+**注意**:
+- commitする場合は、生成物（例: `playwright-report/`, `test-results/`）を誤ってstageしない
+- `git add <対象ファイル>` の明示指定が安全
 
 **学んだ日**: 2026-01-03
 

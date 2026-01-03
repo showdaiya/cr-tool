@@ -1,9 +1,6 @@
 ---
 name: update-learning-logs
 description: Update the project learning logs (PowerShell/cmd, Git/GitHub/Copilot, AWS, TypeScript, Next.js/React, Playwright) by merging new knowledge into existing categories across one or more files.
-metadata:
-  tags: ["docs", "learning", "knowledge-base", "multi-file"]
-  version: "1.0.0"
 ---
 
 # Goal
