@@ -36,6 +36,7 @@ type SelectCardOverlayProps = {
   isOpen: boolean;
   onClose: () => void;
   modalTitle: string;
+  selectionMode: "attack" | "defence";
   cardFilter: (card: AnyCard) => boolean;
   allowedCardTypes: CardTypeFilter[];
   onConfirm: (selected: AnyCard | AttackCardState) => void;
@@ -46,6 +47,7 @@ const SelectCardOverlay = ({
   isOpen,
   onClose,
   modalTitle,
+  selectionMode,
   cardFilter,
   allowedCardTypes,
   onConfirm,
@@ -58,9 +60,7 @@ const SelectCardOverlay = ({
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const [showEvo, setShowEvo] = useState(false);
   const [isListReady, setIsListReady] = useState(false);
-  const [currentTab, setCurrentTab] = useState<CardTypeFilter | "All">(
-    allowedCardTypes.length > 1 ? allowedCardTypes[0] : "All",
-  );
+  const [currentTab, setCurrentTab] = useState<CardTypeFilter | "All">("All");
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -79,8 +79,8 @@ const SelectCardOverlay = ({
     setSortKey("id");
     setSortOrder("asc");
     setShowEvo(false);
-    setCurrentTab(allowedCardTypes.length > 1 ? allowedCardTypes[0] : "All");
-  }, [initialSelectedCard, allowedCardTypes]);
+    setCurrentTab("All");
+  }, [initialSelectedCard]);
 
   useEffect(() => {
     if (!isOpen) resetLocalState();
@@ -95,15 +95,15 @@ const SelectCardOverlay = ({
   }, []);
 
   const handleConfirmClick = () => {
-    if (selectedCard) {
-      if (modalTitle === "攻撃カードを選択") {
-        const attackState: AttackCardState = { cardId: selectedCard.id, attackNumbers: {} };
-        onConfirm(attackState);
-      } else {
-        onConfirm(selectedCard);
-      }
-      onClose();
+    if (!selectedCard) return;
+
+    if (selectionMode === "attack") {
+      const attackState: AttackCardState = { cardId: selectedCard.id, attackNumbers: {} };
+      onConfirm(attackState);
+    } else {
+      onConfirm(selectedCard);
     }
+    onClose();
   };
 
   const sortCards = useCallback(
@@ -144,13 +144,15 @@ const SelectCardOverlay = ({
 
   const getFilteredAndSortedCards = useCallback(
     (targetType: CardTypeFilter | "All") => {
+      const query = searchQuery.trim().toLowerCase();
       const filtered = allCards.filter(
         (card) =>
           cardFilter(card) &&
           (targetType === "All" || card.cardType === targetType) &&
           (showEvo ? card.isEvo : !card.isEvo) &&
-          (card.JpName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            card.EnName.toLowerCase().includes(searchQuery.toLowerCase())),
+          (card.JpName.toLowerCase().includes(query) ||
+            card.EnName.toLowerCase().includes(query) ||
+            String(card.id).includes(query)),
       );
 
       let applicableSortKey = sortKey;
@@ -184,7 +186,7 @@ const SelectCardOverlay = ({
         <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 pb-4">
           <div className="sticky top-0 z-10 space-y-3 bg-card/90 pb-3 backdrop-blur">
             <Input
-              placeholder="カード名で検索..."
+              placeholder="カード名 / IDで検索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-11 rounded-full px-4"
@@ -222,12 +224,38 @@ const SelectCardOverlay = ({
           {showTabs ? (
             <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
               <TabsList className="w-full justify-start">
+                <TabsTrigger value="All" className="capitalize">
+                  すべて
+                </TabsTrigger>
                 {allowedCardTypes.map((type) => (
                   <TabsTrigger key={type} value={type} className="capitalize">
                     {type === "Troop" ? "ユニット" : type === "Building" ? "建物" : "呪文"}
                   </TabsTrigger>
                 ))}
               </TabsList>
+
+              <TabsContent value="All" className="mt-3">
+                {isListReady ? (
+                  <div className="overflow-y-auto rounded-xl border bg-background p-3">
+                    <div className="grid grid-cols-1 gap-3">
+                      {getFilteredAndSortedCards("All").map((card) => (
+                        <SelectableCardListItem
+                          key={`${card.id}-${card.EnName}-${card.isEvo}`}
+                          card={card}
+                          isSelected={selectedCard?.id === card.id}
+                          onSelect={handleSelectCard}
+                        />
+                      ))}
+                    </div>
+                    {getFilteredAndSortedCards("All").length === 0 && (
+                      <div className="py-6 text-center text-sm text-muted-foreground">該当なし</div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>
+                )}
+              </TabsContent>
+
               {allowedCardTypes.map((type) => (
                 <TabsContent key={type} value={type} className="mt-3">
                   {isListReady ? (

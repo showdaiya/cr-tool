@@ -87,15 +87,10 @@ const AttackCardSection = () => {
             isOpen={isSelectingCard}
             onClose={handleCancel}
             modalTitle="攻撃カードを選択"
+            selectionMode="attack"
             cardFilter={(card) => card.attack === true}
             allowedCardTypes={["Troop", "Building", "Spell"]}
-            onConfirm={(selected) => {
-              if ("cardId" in selected && "attackNumbers" in selected) {
-                handleSelectCard(selected as AttackCardState);
-              } else {
-                console.error("Unexpected AnyCard received for attack selection.");
-              }
-            }}
+            onConfirm={(selected) => handleSelectCard(selected as AttackCardState)}
           />
         )}
       </CardContent>

@@ -189,15 +189,10 @@ const CardBattlePage = () => {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           modalTitle="防衛カードを選択"
+          selectionMode="defence"
           cardFilter={(card) => card.defence === true}
           allowedCardTypes={["Troop", "Building"]}
-          onConfirm={(selected) => {
-            if ("cardId" in selected && "attackNumbers" in selected) {
-              console.error("Unexpected AttackCardState received for defence selection.");
-            } else {
-              setDefenceCard(selected as AnyCard);
-            }
-          }}
+          onConfirm={(selected) => setDefenceCard(selected as AnyCard)}
           initialSelectedCard={defenceCard}
         />
       </main>

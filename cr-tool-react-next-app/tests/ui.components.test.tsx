@@ -128,6 +128,7 @@ describe("SelectCardOverlay (shadcn)", () => {
         isOpen
         onClose={vi.fn()}
         modalTitle="攻撃カードを選択"
+        selectionMode="attack"
         cardFilter={(card) => card.attack === true}
         allowedCardTypes={["Troop", "Building", "Spell"]}
         onConfirm={vi.fn()}
@@ -153,6 +154,7 @@ describe("SelectCardOverlay (shadcn)", () => {
         isOpen
         onClose={vi.fn()}
         modalTitle="防衛カードを選択"
+        selectionMode="defence"
         cardFilter={(card) => card.defence === true}
         allowedCardTypes={["Troop", "Building"]}
         onConfirm={vi.fn()}
