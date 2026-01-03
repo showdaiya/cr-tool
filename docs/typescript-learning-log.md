@@ -35,6 +35,26 @@ TypeScript (.ts) → コンパイル → JavaScript (.js)
 
 ---
 
+## tsconfigの `include` / `exclude`
+
+**説明**: TypeScriptが型チェック対象にするファイルを制御する設定。Next.jsの `next build` の型チェックでも、この範囲設定が効く。
+
+**ポイント**:
+- E2Eやツール設定（例: `playwright.config.ts`）をNextアプリの型チェックに含めたくない場合は `exclude` に入れる
+- CIでdevDependenciesが入らない/最小インストールの場合、ツール用依存が見つからず型エラーになりやすい
+
+**使用例**:
+```json
+{
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "playwright.config.ts", "e2e/**"]
+}
+```
+
+**学んだ日**: 2026-01-03
+
+---
+
 ## 基本の型
 
 **説明**: TypeScriptの基本的な型

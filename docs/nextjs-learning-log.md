@@ -271,6 +271,30 @@ function Child() {
 
 ---
 
+## next build の型チェック範囲（tsconfigのexclude）
+
+**説明**: `next build` は「Linting and checking validity of types」でTypeScriptの型チェックも行うため、アプリ本体以外の `.ts`（例: `playwright.config.ts`）が対象に入っていると、CI環境でdevDependenciesが入っていない場合に型エラーで落ちることがある。
+
+**今回の事象**:
+- `playwright.config.ts` が型チェック対象に含まれて `Cannot find module '@playwright/test'` で失敗
+
+**対処（最小diff）**: Nextアプリの `tsconfig.json` の `exclude` に、アプリのビルドに不要なファイル/ディレクトリを追加する。
+
+**使用例**:
+```json
+{
+  "exclude": [
+    "node_modules",
+    "playwright.config.ts",
+    "e2e/**"
+  ]
+}
+```
+
+**学んだ日**: 2026-01-03
+
+---
+
 # Next.js - App Router
 
 ## ディレクトリ構造
