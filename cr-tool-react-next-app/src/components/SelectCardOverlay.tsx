@@ -232,7 +232,7 @@ const SelectCardOverlay = ({
                 <TabsContent key={type} value={type} className="mt-3">
                   {isListReady ? (
                     <div className="overflow-y-auto rounded-xl border bg-background p-3">
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         {getFilteredAndSortedCards(type).map((card) => (
                           <SelectableCardListItem
                             key={`${card.id}-${card.EnName}-${card.isEvo}`}
@@ -254,7 +254,7 @@ const SelectCardOverlay = ({
             </Tabs>
           ) : isListReady ? (
             <div className="overflow-y-auto rounded-xl border bg-background p-3">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {cardsToDisplay.map((card) => (
                   <SelectableCardListItem
                     key={`${card.id}-${card.EnName}-${card.isEvo}`}

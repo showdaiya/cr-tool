@@ -1,4 +1,4 @@
-import { memo, KeyboardEvent } from "react";
+import { memo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AnyCard } from "@/types/CardTypes";
@@ -28,19 +28,12 @@ const SelectableCardListItem = memo(
           : "呪文";
 
     return (
-      <li
-        role="button"
-        tabIndex={0}
+      <button
+        type="button"
         aria-pressed={isSelected}
         onClick={() => onSelect(card)}
-        onKeyDown={(e: KeyboardEvent<HTMLLIElement>) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onSelect(card);
-          }
-        }}
         className={cn(
-          "group rounded-xl border bg-card p-4 text-left shadow-sm transition-all duration-150",
+          "group w-full rounded-xl border bg-card p-4 text-left shadow-sm transition-all duration-150",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "active:scale-[0.98]",
           isSelected
@@ -58,14 +51,14 @@ const SelectableCardListItem = memo(
             />
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
               <div className="min-w-0">
                 <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
                 <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
                   {card.EnName}
                 </p>
               </div>
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className="text-[10px]">
                   {typeLabel}
                 </Badge>
@@ -89,7 +82,7 @@ const SelectableCardListItem = memo(
             )}
           </div>
         </div>
-      </li>
+      </button>
     );
   },
 );
