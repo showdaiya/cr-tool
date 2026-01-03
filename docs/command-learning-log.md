@@ -74,6 +74,7 @@ npx playwright --version
 
 **よくあるエラーと対処**:
 - `No tests found` が出たら、引数（特にWindowsの `\`）が「正規表現として解釈」されていないか確認し、`e2e/damage-calculation.spec.ts` のように `/` 区切りで指定する。
+- さらに確実にするなら、ファイルパス指定を避けて `--project` + `--grep "テスト名"` で絞り込む（例: `npx playwright test --project="iPhone 17 (assumed)" --grep "モバイルサイズでも主要要素が表示される"`）。
 
 **学んだ日**: 2026-01-03
 

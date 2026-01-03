@@ -121,6 +121,29 @@ export default defineConfig({
 });
 ```
 
+### devices（プリセット）+ override で「想定デバイス」を追加する
+**説明**: `devices['iPhone 12']` のようなプリセットをベースにしつつ、`viewport`/`deviceScaleFactor` だけ上書きすると、既存のUA/touch設定などを保ったままサイズ違いの検証ができる。
+
+**使用例**:
+```typescript
+import { defineConfig, devices } from "@playwright/test";
+
+export default defineConfig({
+  projects: [
+    {
+      name: "iPhone 17 (assumed)",
+      use: {
+        ...devices["iPhone 12"],
+        viewport: { width: 402, height: 874 },
+        deviceScaleFactor: 3,
+      },
+    },
+  ],
+});
+```
+
+**注意**: project名にスペースや括弧がある場合は `--project="iPhone 17 (assumed)"` のようにクォートすると安全。
+
 **学んだ日**: 2026-01-03
 
 ---
@@ -348,6 +371,8 @@ npx playwright test tests/login.spec.ts
 npx playwright test --project=chromium --grep "ログイン"
 
 # Windows注意: テストファイル指定は "e2e/damage-calculation.spec.ts" のように / 区切りが安全（\d などが正規表現として解釈されて "No tests found" になり得る）
+# 迷ったらファイルパス指定をやめて、`--project` + `--grep "テスト名"` で絞ると安全。
+# project名にスペース/括弧がある場合は `--project="iPhone 17 (assumed)"` のようにクォートする。
 
 # レポート表示
 npx playwright show-report
