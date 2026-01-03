@@ -23,5 +23,10 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "react_project_src_public/**"]
+  "exclude": [
+    "node_modules",
+    "react_project_src_public/**",
+    "playwright.config.ts",
+    "e2e/**"
+  ]
 }
