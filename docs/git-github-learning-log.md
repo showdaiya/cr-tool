@@ -591,6 +591,18 @@ git diff abc1234..def5678   # コミット間の差分
 | `LICENSE` | ライセンス |
 | `.github/` | GitHub固有設定（Actions、テンプレート等） |
 
+### `.gitignore`（生成物をコミットしない）
+**説明**: テスト実行で生成される成果物（例: `playwright-report/`, `test-results/`）は、リポジトリを汚しやすいので通常は追跡しない。
+
+**使用例**:
+```gitignore
+# Playwright
+**/playwright-report/
+**/test-results/
+```
+
+**関連**: 生成物が混ざりそうな作業では `git add <対象ファイル>` の明示指定が安全。
+
 **学んだ日**: 2026-01-03
 
 ---

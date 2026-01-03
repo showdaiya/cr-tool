@@ -218,6 +218,25 @@ page.locator("div").last();
 | `getByText` | ⭐⭐ | 可読性高い |
 | CSS | ⭐ | 壊れやすい |
 
+### `filter({ hasText })` の落とし穴
+**説明**: `locator('button').filter({ hasText: /.../ })` は「見た目のテキスト」ではなく、要素の構造やアクセシブルネームの解釈次第で期待通りにマッチしないことがある（flakyになりやすい）。
+
+**推奨**: ロール/名前で絞る（ダイアログ内などスコープも狭める）。
+```ts
+const dialog = page.getByRole('dialog');
+const goblinCards = dialog.getByRole('button', { name: /ゴブリン/ });
+```
+
+### `expect.poll` で「どちらか成立」を待つ
+**説明**: 検索結果が「カードが出る」or「該当なし」のどちらでも良い場合、DOM更新を待ちながら判定できる。
+```ts
+await expect.poll(async () => {
+  const count = await goblinCards.count();
+  if (count > 0) return true;
+  return await dialog.getByText('該当なし').isVisible().catch(() => false);
+}).toBeTruthy();
+```
+
 **学んだ日**: 2026-01-03
 
 ---
@@ -310,7 +329,9 @@ npx playwright test --debug
 
 # 特定のテストだけ実行
 npx playwright test tests/login.spec.ts
-npx playwright test -g "ログイン"
+npx playwright test --project=chromium --grep "ログイン"
+
+# Windows注意: テストファイル指定は "e2e/damage-calculation.spec.ts" のように / 区切りが安全（\d などが正規表現として解釈されて "No tests found" になり得る）
 
 # レポート表示
 npx playwright show-report

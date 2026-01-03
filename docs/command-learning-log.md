@@ -58,6 +58,27 @@ copy   → Copy-Item
 
 ---
 
+## `npx`
+**説明**: npmに同梱される「ローカルに入っているCLIを実行する」ためのコマンド（例: Playwright）。
+
+**使用例**:
+```powershell
+# Playwright の実行
+npx playwright test
+
+# バージョン確認
+node -v
+npm -v
+npx playwright --version
+```
+
+**よくあるエラーと対処**:
+- `No tests found` が出たら、引数（特にWindowsの `\`）が「正規表現として解釈」されていないか確認し、`e2e/damage-calculation.spec.ts` のように `/` 区切りで指定する。
+
+**学んだ日**: 2026-01-03
+
+---
+
 # PowerShell - ファイル操作
 
 ## `Get-Content`
