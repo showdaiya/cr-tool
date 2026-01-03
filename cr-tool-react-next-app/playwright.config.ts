@@ -62,6 +62,15 @@ export default defineConfig({
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
     },
+    {
+      // iPhone 17 (想定) を手動チェックしやすくするためのプロジェクト
+      name: 'iPhone 17 (assumed)',
+      use: {
+        ...devices['iPhone 12'],
+        viewport: { width: 402, height: 874 },
+        deviceScaleFactor: 3,
+      },
+    }
   ],
 
   // 開発サーバー設定
