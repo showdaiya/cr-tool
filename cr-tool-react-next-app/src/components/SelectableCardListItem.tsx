@@ -33,7 +33,7 @@ const SelectableCardListItem = memo(
         aria-pressed={isSelected}
         onClick={() => onSelect(card)}
         className={cn(
-          "group w-full rounded-xl border bg-card p-4 text-left shadow-sm transition-all duration-150",
+          "group w-full rounded-xl border bg-card p-3 text-left shadow-sm transition-all duration-150",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "active:scale-[0.98]",
           isSelected
@@ -41,41 +41,41 @@ const SelectableCardListItem = memo(
             : "border-border hover:border-primary/30 hover:bg-muted/40",
         )}
       >
-        <div className="grid grid-cols-[80px_1fr] gap-3">
-          <div className="flex items-center justify-center rounded-lg bg-muted/50 p-2">
+        <div className="flex items-start gap-3">
+          <div className="shrink-0 rounded-lg bg-muted/50 p-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`${BASE_PATH}/resized_cards/${getCardImageFilename(card)}`}
               alt={card.JpName}
-              className="h-20 w-20 rounded-md object-contain shadow-sm"
+              className="h-16 w-16 rounded-md object-contain shadow-sm"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+
+          <div className="min-w-0 flex-1">
+            <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
                 <p className="line-clamp-1 text-sm font-semibold">{card.JpName}</p>
-                <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
-                  {card.EnName}
-                </p>
+                <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{card.EnName}</p>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="outline" className="text-[10px]">
-                  {typeLabel}
-                </Badge>
+              <Badge variant="secondary" className="shrink-0 text-[11px]">
+                {card.ElixirCost}
+              </Badge>
+            </div>
+
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <Badge variant="outline" className="text-[10px]">
+                {typeLabel}
+              </Badge>
+              {card.isEvo && (
                 <Badge variant="secondary" className="text-[10px]">
-                  {card.ElixirCost}
+                  EVO
                 </Badge>
-                {card.isEvo && (
-                  <Badge variant="secondary" className="text-[10px]">
-                    EVO
-                  </Badge>
-                )}
-              </div>
+              )}
             </div>
 
             {statsToDisplay.length > 0 && (
-              <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
-                {statsToDisplay.slice(0, 3).map((statText, index) => (
+              <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                {statsToDisplay.slice(0, 2).map((statText, index) => (
                   <span key={index}>{statText}</span>
                 ))}
               </div>
