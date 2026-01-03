@@ -43,3 +43,11 @@ next-env.d.ts
 
 /react_project_src_public
 /sample
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
