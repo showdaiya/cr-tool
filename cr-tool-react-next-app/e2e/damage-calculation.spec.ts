@@ -25,8 +25,8 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
     // Loading完了を待つ
     await page.waitForTimeout(1000);
     
-    // ユニットタブが選択されていることを確認
-    await expect(page.getByRole('tab', { name: 'ユニット' })).toHaveAttribute('data-state', 'active');
+    // カード種別フィルタが「すべて」になっていることを確認
+    await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('All');
     
     // カードを選択
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
@@ -52,25 +52,25 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
     }
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // 呪文タブをクリック
-    await page.getByRole('tab', { name: '呪文' }).click();
-    await expect(page.getByRole('tab', { name: '呪文' })).toHaveAttribute('data-state', 'active');
+    // 呪文を選択
+    await page.getByRole('combobox', { name: 'カード種別' }).selectOption('Spell');
     
     // Loading完了を待つ
     await page.waitForTimeout(1500);
     
-    // 呪文タブが選択されていることを確認できればOK（カードデータに依存しない）
-    const activeTab = page.getByRole('tab', { name: '呪文' });
-    await expect(activeTab).toHaveAttribute('data-state', 'active');
+    // 呪文が選択されていることを確認
+    await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('Spell');
   });
 
   test('建物タブで建物カードを選択できる', async ({ page }) => {
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // 建物タブをクリック
-    await page.getByRole('tab', { name: '建物' }).click();
-    await expect(page.getByRole('tab', { name: '建物' })).toHaveAttribute('data-state', 'active');
+    // 建物を選択
+    await page.getByRole('combobox', { name: 'カード種別' }).selectOption('Building');
+    
+    // 建物が選択されていることを確認
+    await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('Building');
     
     // Loading完了を待つ
     await page.waitForTimeout(1000);
@@ -303,11 +303,12 @@ test.describe('ソートと検索', () => {
     await page.waitForTimeout(1000);
     
     // 並び替えボタンをクリック（昇順/降順の切り替え）
-    const sortButton = page.getByRole('button', { name: '並び替え' });
+    // 初期状態は昇順なので「降順に変更」ボタンがあるはず
+    const sortButton = page.getByRole('button', { name: /順に変更/ });
     await sortButton.click();
     
     // ボタンが存在することを確認（切り替え後も存在する）
-    await expect(page.getByRole('button', { name: '並び替え' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /順に変更/ })).toBeVisible();
   });
 
 });

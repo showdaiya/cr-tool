@@ -207,10 +207,10 @@ const AttackCardComponent = ({
           </p>
         )}
 
-        <div className="rounded-lg border border-accent/40 bg-accent/10 px-3 py-2">
+        <div className="rounded-lg border bg-muted/50 px-3 py-2">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span className="font-medium">このカードの合計</span>
-            <span className="text-sm font-bold tabular-nums text-accent-foreground">
+            <span className="text-sm font-bold tabular-nums text-foreground">
               {damageOptions.reduce((sum, option) => {
                 const damageKey = option.key;
                 const damageValue = parseDamage(option.value);

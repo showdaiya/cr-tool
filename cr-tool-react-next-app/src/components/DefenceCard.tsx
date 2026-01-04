@@ -61,8 +61,8 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
   })();
 
   return (
-    <Card className="overflow-hidden border-accent/60 bg-gradient-to-b from-background to-muted/40 shadow-sm">
-      <CardHeader className="flex items-center justify-between gap-3 border-b border-accent/50 px-4 py-3">
+    <Card className="overflow-hidden border shadow-sm">
+      <CardHeader className="flex items-center justify-between gap-3 border-b px-4 py-3">
         <div className="flex min-w-0 items-center gap-3">
           <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
             {/* eslint-disable-next-line @next/next/no-img-element */}
