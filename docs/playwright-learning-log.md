@@ -148,6 +148,36 @@ export default defineConfig({
 
 ---
 
+## （トラブル）Vitest が Playwright の e2e を拾って失敗する
+
+**症状**: `vitest run` 実行時に `e2e/*.spec.ts` が対象になり、以下のように落ちる。
+- `Playwright Test did not expect test.describe() to be called here.`
+
+**原因**: Playwrightの `test.describe` は `@playwright/test` の実行環境でのみ動作するため、Vitestが読み込むとエラーになる。
+
+**対処**: Vitest側で `e2e/**` を除外する（デフォルトのexcludeを上書きしないように `configDefaults.exclude` に追加する）。
+
+**使用例**:
+```ts
+import { defineConfig, configDefaults } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    exclude: [...configDefaults.exclude, "e2e/**", "**/e2e/**"],
+  },
+});
+```
+
+**VERIFY**:
+```powershell
+npm run test
+```
+- `tests/**` だけが走り、`e2e/**` が実行されないこと
+
+**学んだ日**: 2026-01-04
+
+---
+
 # テストの書き方
 
 ## 基本構造

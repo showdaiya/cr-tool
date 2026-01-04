@@ -237,6 +237,23 @@ function Child() {
 
 ---
 
+## UIの分岐は「表示文字列」に依存させない
+
+**説明**: `modalTitle === "攻撃カードを選択"` のように表示文言で分岐すると、コピー変更や翻訳で壊れる。
+分岐用のprops（例: `selectionMode`）を用意して、表示とロジックを分離する。
+
+**使用例（考え方）**:
+```tsx
+<SelectCardOverlay
+  modalTitle="攻撃カードを選択"
+  selectionMode="attack"
+/>
+```
+
+**学んだ日**: 2026-01-04
+
+---
+
 # Next.js - 基礎概念
 
 ## Next.jsとは

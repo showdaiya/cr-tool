@@ -96,6 +96,30 @@ git --no-pager status -sb && git checkout main && git pull --ff-only
 
 ---
 
+## `pushd` / `popd`
+
+**説明**: カレントディレクトリを一時的に移動し、最後に元の場所へ戻すためのコマンド。
+
+**基礎知識**:
+- `pushd <path>` で「現在の場所」をスタックに積んでから移動する
+- `popd` でスタックから取り出して元の場所へ戻る
+
+**使用例**:
+```powershell
+pushd cr-tool-react-next-app
+npm run lint
+npm run test
+popd
+```
+
+**使いどころ**:
+- ルート→サブディレクトリへ移動して作業し、確実に戻りたいとき
+- スクリプト/CIで `cd` を多用して作業ディレクトリが崩れるのを防ぐとき
+
+**学んだ日**: 2026-01-04
+
+---
+
 # PowerShell - ファイル操作
 
 ## `Get-Content`

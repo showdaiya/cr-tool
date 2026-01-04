@@ -491,6 +491,9 @@ git log -5 --oneline
 ```powershell
 git fetch origin
 git fetch --all    # 全リモート
+
+# 参照の掃除（消えたブランチも追従）
+git fetch --prune
 ```
 
 **`git pull` との違い**:
@@ -501,7 +504,22 @@ git fetch --all    # 全リモート
 
 **使いどころ**: 「リモートに何があるか確認したいけど、まだマージしたくない」とき
 
-**学んだ日**: 2026-01-03
+### 取り込み前の安全確認（ahead/behind を数える）
+**説明**: `pull` する前に「ローカルが遅れているか/進んでいるか」を数で確認すると、安全に判断できる。
+
+**使用例**:
+```powershell
+# main と origin/main の差分（左=ローカルのみ、右=リモートのみ）
+git --no-pager rev-list --left-right --count HEAD...origin/main
+
+# 例: "0 0" → 完全に一致、"0 2" → リモートが2コミット進んでる
+```
+
+**補足**:
+- `git status -sb` でも `ahead 2` / `behind 1` の表示で概況を掴める
+- default branch が `main` とは限らない場合は `origin/HEAD` を見る（`git symbolic-ref --short refs/remotes/origin/HEAD`）
+
+**学んだ日**: 2026-01-04
 
 ---
 
