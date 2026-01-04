@@ -412,6 +412,34 @@ npx playwright show-report
 
 ---
 
+## UI変更に伴うE2Eテストの修正
+
+**説明**: UIコンポーネントの変更（例: Tabs → Select）により、既存のE2Eテストが壊れることがある。テストはUIの実装詳細ではなく「ユーザーが何をするか」に合わせて修正する。
+
+**今回の事象**:
+- `SelectCardOverlay`がTabsコンポーネントからSelectドロップダウンに変更
+- `getByRole('tab', { name: 'ユニット' })` が見つからなくなった
+
+**対処**:
+```typescript
+// Before: Tabs
+await page.getByRole('tab', { name: 'ユニット' }).click();
+await expect(page.getByRole('tab', { name: 'ユニット' })).toHaveAttribute('data-state', 'active');
+
+// After: Select (combobox)
+await page.getByRole('combobox', { name: 'カード種別' }).selectOption('Troop');
+await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('Troop');
+```
+
+**ポイント**:
+- `<select>` 要素は `getByRole('combobox')` でアクセス
+- `aria-label` を付けておくとセレクタが安定（`aria-label="カード種別"`）
+- `.selectOption('value')` で選択、`.toHaveValue('value')` で検証
+
+**学んだ日**: 2026-01-04
+
+---
+
 ## コード生成
 
 **説明**: ブラウザ操作からテストコードを自動生成

@@ -383,7 +383,96 @@ function ClientComponent() {
 
 ---
 
-# Next.js - データフェッチ
+# Next.js - CSS / Tailwind
+
+## CSS変数でカラーパレットを一元管理
+
+**説明**: Tailwindと組み合わせて、`globals.css`でCSS変数を定義し、全体のカラーパレットを一箇所で管理できる。ダークモード対応も `.dark` クラスで切り替え可能。
+
+**使用例**:
+```css
+/* globals.css */
+:root {
+  --primary: 222 47% 11%;       /* HSL値 */
+  --primary-foreground: 210 40% 98%;
+  --background: 220 30% 98%;
+  --border: 214.3 31.8% 91.4%;
+}
+
+.dark {
+  --primary: 210 40% 98%;
+  --background: 222 47% 11%;
+  --border: 217.2 32.6% 17.5%;
+}
+```
+
+**Tailwind側 (tailwind.config.js)**:
+```js
+theme: {
+  extend: {
+    colors: {
+      primary: "hsl(var(--primary))",
+      background: "hsl(var(--background))",
+      border: "hsl(var(--border))",
+    },
+  },
+},
+```
+
+**メリット**:
+- カラー変更が1箇所で済む
+- ダークモード切り替えが容易
+- Tailwindのユーティリティと併用可能（`bg-primary`, `text-foreground`等）
+
+**学んだ日**: 2026-01-04
+
+---
+
+## グラデーション vs 単色背景
+
+**説明**: UIのシンプル化でグラデーション背景を単色に変更する際の考え方。
+
+| 観点 | グラデーション | 単色 |
+|------|---------------|------|
+| 視覚的印象 | リッチ・装飾的 | クリーン・モダン |
+| 実装 | `bg-gradient-to-br from-X via-Y to-Z` | `bg-card` |
+| 保守性 | 色変更時に複数箇所調整 | 変数1つで済む |
+| パフォーマンス | わずかに重い | 軽い |
+
+**変更例**:
+```tsx
+// Before: グラデーション
+<header className="bg-gradient-to-br from-background via-card to-muted/50">
+
+// After: 単色
+<header className="bg-card">
+```
+
+**学んだ日**: 2026-01-04
+
+---
+
+## ボーダーのアクセント強度を控えめにする
+
+**説明**: `border-accent/60` のような強いアクセントボーダーを `border`（デフォルト）に変更することで、視覚的ノイズを減らせる。
+
+**変更例**:
+```tsx
+// Before: アクセント強め
+<div className="rounded-xl border border-accent/40 bg-card/60 shadow-sm">
+
+// After: シンプル
+<div className="rounded-lg border bg-background">
+```
+
+**ポイント**:
+- `rounded-2xl` → `rounded-xl` や `rounded-lg` で丸みも控えめに
+- `shadow-md` → `shadow-sm` でシャドウも軽く
+- 装飾を減らすことで「情報」に集中しやすくなる
+
+**学んだ日**: 2026-01-04
+
+---
 
 ## Server Componentでのフェッチ
 
