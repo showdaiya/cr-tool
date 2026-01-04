@@ -259,7 +259,7 @@ test.describe('ソートと検索', () => {
     await page.waitForTimeout(1000);
     
     // 検索
-    const searchInput = page.getByPlaceholder('カード名で検索...');
+    const searchInput = page.getByPlaceholder('カード名 / IDで検索...');
     await searchInput.fill('ゴブリン');
     await page.waitForTimeout(500);
     
@@ -288,12 +288,12 @@ test.describe('ソートと検索', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.waitForTimeout(1000);
     
-    // 進化表示ボタンをクリック
-    const evoButton = page.getByRole('button', { name: '進化表示' });
+    // 通常ボタンをクリックして進化表示に切り替え
+    const evoButton = page.getByRole('button', { name: '通常' });
     await evoButton.click();
     
     // ボタンのテキストが変わることを確認
-    await expect(page.getByRole('button', { name: '通常表示' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '進化' })).toBeVisible();
   });
 
   test('並び替えを変更できる', async ({ page }) => {

@@ -121,7 +121,7 @@ test.describe('防衛カード選択', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
     
     // 検索入力欄を確認
-    const searchInput = page.getByPlaceholder('カード名で検索...');
+    const searchInput = page.getByPlaceholder('カード名 / IDで検索...');
     await expect(searchInput).toBeVisible();
     
     // 検索してみる
@@ -270,7 +270,7 @@ test.describe('ダメージ計算フロー（統合テスト）', () => {
     await page.waitForTimeout(1000);
     
     // 検索して選択
-    await page.getByPlaceholder('カード名で検索...').fill('ナイト');
+    await page.getByPlaceholder('カード名 / IDで検索...').fill('ナイト');
     await page.waitForTimeout(500);
     
     // カードをクリック（存在する場合）

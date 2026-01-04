@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SelectableCardListItem from "./SelectableCardListItem";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard, AttackCardState } from "@/types/CardTypes";
@@ -174,115 +173,97 @@ const SelectCardOverlay = ({
     }
   };
 
+  const getCardTypeLabel = (type: CardTypeFilter | "All") => {
+    if (type === "All") return "すべて";
+    if (type === "Troop") return "ユニット";
+    if (type === "Building") return "建物";
+    return "呪文";
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => (!open ? onClose() : null)}>
-      <DialogContent className="flex max-h-[90vh] flex-col overflow-hidden p-0">
-        <DialogHeader className="shrink-0 px-6 py-4">
-          <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogDescription>検索してカードを選択してください。</DialogDescription>
+      <DialogContent
+        className="flex max-h-[90vh] flex-col overflow-hidden p-0"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
+        <DialogHeader className="shrink-0 px-4 py-3">
+          <DialogTitle className="text-base">{modalTitle}</DialogTitle>
+          <DialogDescription className="text-xs">検索してカードを選択してください。</DialogDescription>
         </DialogHeader>
 
-        {/* Scrollable content area: min-h-0 allows flex child to shrink below content size, flex-1 takes available space */}
-        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 pb-4">
-          <div className="sticky top-0 z-10 space-y-3 bg-card/90 pb-3 backdrop-blur">
+        {/* Scrollable content area */}
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 pb-3">
+          <div className="sticky top-0 z-10 space-y-2 bg-card/90 pb-2 backdrop-blur">
             <Input
               placeholder="カード名 / IDで検索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-11 rounded-full px-4"
+              className="h-9 rounded-full px-3 text-sm"
             />
 
-            <div className="flex flex-wrap items-center gap-2">
+            {/* コンパクトなフィルタ行 */}
+            <div className="flex items-center gap-1.5">
+              {/* カード種別フィルタ（ドロップダウン） */}
+              {showTabs && (
+                <select
+                  value={currentTab}
+                  onChange={(e) => handleTabChange(e.target.value)}
+                  className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+                  aria-label="カード種別"
+                >
+                  <option value="All">すべて</option>
+                  {allowedCardTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {getCardTypeLabel(type)}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {/* 並び替えドロップダウン */}
               <select
                 value={sortKey}
                 onChange={(e) => setSortKey(e.target.value as SortKey)}
-                className="h-11 rounded-full border border-input bg-background px-4 text-sm"
+                className="h-8 flex-1 min-w-0 rounded-md border border-input bg-background px-2 text-xs"
+                aria-label="並び替え"
               >
                 <option value="id">ID</option>
                 <option value="JpName">日本語名</option>
                 <option value="EnName">英語名</option>
-                <option value="ElixirCost">エリクサーコスト</option>
+                <option value="ElixirCost">コスト</option>
                 <option value="hitpoints">HP</option>
-                <option value="damage">ダメージ(単体)</option>
-                <option value="area_damage">ダメージ(範囲)</option>
-                <option value="ranged_damage">ダメージ(遠距離)</option>
+                <option value="damage">単体</option>
+                <option value="area_damage">範囲</option>
+                <option value="ranged_damage">遠距離</option>
               </select>
+
+              {/* 昇順/降順ボタン */}
               <Button
-                variant="outline"
-                size="sm"
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 shrink-0"
                 onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                aria-label={sortOrder === "asc" ? "降順に変更" : "昇順に変更"}
               >
-                {sortOrder === "asc" ? <ArrowUp className="mr-2 h-4 w-4" /> : <ArrowDown className="mr-2 h-4 w-4" />}
-                並び替え
+                {sortOrder === "asc" ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
               </Button>
-              <Button variant="secondary" size="sm" onClick={() => setShowEvo(!showEvo)}>
-                {showEvo ? "通常表示" : "進化表示"}
+
+              {/* 進化切り替えボタン */}
+              <Button
+                variant={showEvo ? "secondary" : "ghost"}
+                size="sm"
+                className="h-8 shrink-0 px-2 text-xs"
+                onClick={() => setShowEvo(!showEvo)}
+              >
+                {showEvo ? "進化" : "通常"}
               </Button>
             </div>
           </div>
 
-          {showTabs ? (
-            <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
-              <TabsList className="w-full justify-start">
-                <TabsTrigger value="All" className="capitalize">
-                  すべて
-                </TabsTrigger>
-                {allowedCardTypes.map((type) => (
-                  <TabsTrigger key={type} value={type} className="capitalize">
-                    {type === "Troop" ? "ユニット" : type === "Building" ? "建物" : "呪文"}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              <TabsContent value="All" className="mt-3">
-                {isListReady ? (
-                  <div className="overflow-y-auto rounded-xl border bg-background p-3">
-                    <div className="grid grid-cols-1 gap-3">
-                      {getFilteredAndSortedCards("All").map((card) => (
-                        <SelectableCardListItem
-                          key={`${card.id}-${card.EnName}-${card.isEvo}`}
-                          card={card}
-                          isSelected={selectedCard?.id === card.id}
-                          onSelect={handleSelectCard}
-                        />
-                      ))}
-                    </div>
-                    {getFilteredAndSortedCards("All").length === 0 && (
-                      <div className="py-6 text-center text-sm text-muted-foreground">該当なし</div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>
-                )}
-              </TabsContent>
-
-              {allowedCardTypes.map((type) => (
-                <TabsContent key={type} value={type} className="mt-3">
-                  {isListReady ? (
-                    <div className="overflow-y-auto rounded-xl border bg-background p-3">
-                      <div className="grid grid-cols-1 gap-3">
-                        {getFilteredAndSortedCards(type).map((card) => (
-                          <SelectableCardListItem
-                            key={`${card.id}-${card.EnName}-${card.isEvo}`}
-                            card={card}
-                            isSelected={selectedCard?.id === card.id}
-                            onSelect={handleSelectCard}
-                          />
-                        ))}
-                      </div>
-                      {getFilteredAndSortedCards(type).length === 0 && (
-                        <div className="py-6 text-center text-sm text-muted-foreground">該当なし</div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>
-                  )}
-                </TabsContent>
-              ))}
-            </Tabs>
-          ) : isListReady ? (
-            <div className="overflow-y-auto rounded-xl border bg-background p-3">
-              <div className="grid grid-cols-1 gap-3">
+          {/* カードリスト */}
+          {isListReady ? (
+            <div className="overflow-y-auto rounded-lg border bg-background p-2">
+              <div className="grid grid-cols-1 gap-2">
                 {cardsToDisplay.map((card) => (
                   <SelectableCardListItem
                     key={`${card.id}-${card.EnName}-${card.isEvo}`}
@@ -293,19 +274,19 @@ const SelectCardOverlay = ({
                 ))}
               </div>
               {cardsToDisplay.length === 0 && (
-                <div className="py-6 text-center text-sm text-muted-foreground">該当するカードがありません。</div>
+                <div className="py-4 text-center text-xs text-muted-foreground">該当するカードがありません。</div>
               )}
             </div>
           ) : (
-            <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">Loading...</div>
+            <div className="flex h-20 items-center justify-center text-xs text-muted-foreground">Loading...</div>
           )}
         </div>
 
-        <DialogFooter className={cn("shrink-0 border-t px-6 py-3")}>
-          <Button variant="ghost" onClick={onClose}>
+        <DialogFooter className={cn("shrink-0 border-t px-4 py-2")}>
+          <Button variant="ghost" size="sm" onClick={onClose}>
             キャンセル
           </Button>
-          <Button className="ml-2" onClick={handleConfirmClick} disabled={!selectedCard}>
+          <Button size="sm" className="ml-2" onClick={handleConfirmClick} disabled={!selectedCard}>
             選択
           </Button>
         </DialogFooter>

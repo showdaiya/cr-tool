@@ -133,67 +133,69 @@ const AttackCardComponent = ({
               const subtotal = damageValue * currentAttackNumber;
 
               return (
-                <div key={damageKey} className="rounded-lg border bg-card p-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <p className="line-clamp-2 text-sm font-medium">
+                <div key={damageKey} className="rounded-lg border bg-card p-2">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0 flex-1">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <p className="truncate text-xs font-medium">
+                              {translateDamageType(damageKey as DamageType)}
+                            </p>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
                             {translateDamageType(damageKey as DamageType)}
-                          </p>
-                        </TooltipTrigger>
-                        <TooltipContent side="top">
-                          {translateDamageType(damageKey as DamageType)}
-                        </TooltipContent>
-                      </Tooltip>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        1回あたり <span className="font-semibold text-foreground">{damageValue}</span>
-                      </p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <p className="text-[10px] text-muted-foreground">
+                          1回 <span className="font-semibold text-foreground">{damageValue}</span>
+                        </p>
+                      </div>
+
+                      <div className="flex shrink-0 items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded-full"
+                          onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
+                          disabled={currentAttackNumber <= 0}
+                          aria-label="回数を減らす"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <Input
+                          type="number"
+                          min={0}
+                          max={100}
+                          inputMode="numeric"
+                          placeholder="0"
+                          value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
+                          onChange={(e) => handleAttackNumberChange(damageKey, e)}
+                          className={cn(
+                            "h-8 w-12 rounded-md border text-center text-xs tabular-nums",
+                            currentAttackNumber === 0 && "text-muted-foreground",
+                          )}
+                          aria-label="回数"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 rounded-full"
+                          onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
+                          disabled={currentAttackNumber >= 100}
+                          aria-label="回数を増やす"
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
 
-                  <div className="flex items-center gap-3">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="h-11 w-11 rounded-full"
-                      onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
-                      disabled={currentAttackNumber <= 0}
-                      aria-label="回数を減らす"
-                    >
-                      <Minus className="h-5 w-5" />
-                    </Button>
-                    <Input
-                      type="number"
-                      min={0}
-                      max={100}
-                        inputMode="numeric"
-                        placeholder="0"
-                        value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
-                        onChange={(e) => handleAttackNumberChange(damageKey, e)}
-                        className={cn(
-                          "h-11 w-20 rounded-full border-2 text-right text-sm tabular-nums",
-                          currentAttackNumber === 0 && "text-muted-foreground",
-                        )}
-                      aria-label="回数"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="h-11 w-11 rounded-full"
-                      onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
-                      disabled={currentAttackNumber >= 100}
-                      aria-label="回数を増やす"
-                    >
-                      <Plus className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  </div>
-
-                  <div className="mt-2 flex items-center justify-between rounded-md bg-muted/30 px-2 py-1 text-xs text-muted-foreground">
-                    <span>小計</span>
-                    <span className="font-bold tabular-nums text-foreground">{subtotal}</span>
+                    <div className="flex items-center justify-between rounded bg-muted/30 px-2 py-0.5 text-[10px] text-muted-foreground">
+                      <span>小計</span>
+                      <span className="font-bold tabular-nums text-foreground">{subtotal}</span>
+                    </div>
                   </div>
                 </div>
               );
