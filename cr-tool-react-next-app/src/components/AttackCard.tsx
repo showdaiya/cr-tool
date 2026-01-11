@@ -9,7 +9,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -94,8 +93,8 @@ const AttackCardComponent = ({
 
   return (
     <Card className="shadow-sm">
-      <CardHeader className="flex flex-row items-center gap-3">
-        <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
+      <CardHeader className="flex flex-row items-center gap-3 border-b px-3 py-2">
+        <div className="h-8 w-8 shrink-0 overflow-hidden rounded-md border bg-muted">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${BASE_PATH}/resized_cards/${getCardImageFilename(cardData)}`}
@@ -103,29 +102,32 @@ const AttackCardComponent = ({
             className="h-full w-full object-contain"
           />
         </div>
-        <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <CardTitle className="line-clamp-1 text-sm">{cardData.JpName}</CardTitle>
-          <CardDescription className="flex items-center gap-2 text-[11px]">
-            <Badge variant="secondary" className="text-[10px]">
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <div className="flex items-center gap-2">
+            <CardTitle className="line-clamp-1 text-sm">{cardData.JpName}</CardTitle>
+            <Badge variant="secondary" className="text-[10px] px-1.5 h-4 font-normal">
               {badgeText}
             </Badge>
-            {cardData.isEvo && (
-              <Badge variant="outline" className="text-[10px]">
-                EVO
-              </Badge>
-            )}
-          </CardDescription>
+          </div>
+          {cardData.isEvo && (
+            <Badge variant="outline" className="w-fit text-[9px] px-1 h-3.5">
+              EVO
+            </Badge>
+          )}
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-[11px]">
-            ID: {cardData.id}
-          </Badge>
+        <div className="flex gap-1">
+          <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={onEditClick}>
+            編集
+          </Button>
+          <Button variant="ghost" size="sm" className="h-7 px-2 text-xs hover:text-destructive" onClick={onRemove}>
+            削除
+          </Button>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="px-3 py-1">
         {damageOptions.length > 0 ? (
-          <div className="space-y-3">
+          <div className="divide-y">
             {damageOptions.map((option) => {
               const damageKey = option.key;
               const damageValue = parseDamage(option.value);
@@ -133,69 +135,63 @@ const AttackCardComponent = ({
               const subtotal = damageValue * currentAttackNumber;
 
               return (
-                <div key={damageKey} className="rounded-lg border bg-card p-2">
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="min-w-0 flex-1">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <p className="truncate text-xs font-medium">
-                              {translateDamageType(damageKey as DamageType)}
-                            </p>
-                          </TooltipTrigger>
-                          <TooltipContent side="top">
-                            {translateDamageType(damageKey as DamageType)}
-                          </TooltipContent>
-                        </Tooltip>
-                        <p className="text-[10px] text-muted-foreground">
-                          1回 <span className="font-semibold text-foreground">{damageValue}</span>
+                <div key={damageKey} className="flex items-center justify-between gap-2 py-2">
+                  <div className="min-w-0 flex-1">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <p className="truncate text-xs font-medium">
+                          {translateDamageType(damageKey as DamageType)}
                         </p>
-                      </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        {translateDamageType(damageKey as DamageType)}
+                      </TooltipContent>
+                    </Tooltip>
+                    <p className="text-[10px] text-muted-foreground">
+                      ダメージ: <span className="font-medium text-foreground">{damageValue}</span>
+                      {currentAttackNumber > 0 && (
+                        <span className="ml-2">→ 小計: <span className="font-semibold text-foreground">{subtotal}</span></span>
+                      )}
+                    </p>
+                  </div>
 
-                      <div className="flex shrink-0 items-center gap-1">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded-full"
-                          onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
-                          disabled={currentAttackNumber <= 0}
-                          aria-label="回数を減らす"
-                        >
-                          <Minus className="h-4 w-4" />
-                        </Button>
-                        <Input
-                          type="number"
-                          min={0}
-                          max={100}
-                          inputMode="numeric"
-                          placeholder="0"
-                          value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
-                          onChange={(e) => handleAttackNumberChange(damageKey, e)}
-                          className={cn(
-                            "h-8 w-12 rounded-md border text-center text-xs tabular-nums",
-                            currentAttackNumber === 0 && "text-muted-foreground",
-                          )}
-                          aria-label="回数"
-                        />
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 rounded-full"
-                          onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
-                          disabled={currentAttackNumber >= 100}
-                          aria-label="回数を増やす"
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded bg-muted/30 px-2 py-0.5 text-[10px] text-muted-foreground">
-                      <span>小計</span>
-                      <span className="font-bold tabular-nums text-foreground">{subtotal}</span>
-                    </div>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="h-7 w-7 rounded-full"
+                      onClick={() => setAttackCount(damageKey, currentAttackNumber - 1)}
+                      disabled={currentAttackNumber <= 0}
+                      aria-label="回数を減らす"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </Button>
+                    <Input
+                      type="number"
+                      min={0}
+                      max={100}
+                      inputMode="numeric"
+                      placeholder="0"
+                      value={currentAttackNumber === 0 ? "" : String(currentAttackNumber)}
+                      onChange={(e) => handleAttackNumberChange(damageKey, e)}
+                      className={cn(
+                        "h-7 w-10 rounded-md border text-center text-xs tabular-nums px-0",
+                        currentAttackNumber === 0 && "text-muted-foreground",
+                      )}
+                      aria-label="回数"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="h-7 w-7 rounded-full"
+                      onClick={() => setAttackCount(damageKey, currentAttackNumber + 1)}
+                      disabled={currentAttackNumber >= 100}
+                      aria-label="回数を増やす"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </Button>
                   </div>
                 </div>
               );
@@ -207,27 +203,16 @@ const AttackCardComponent = ({
           </p>
         )}
 
-        <div className="rounded-lg border bg-muted/50 px-3 py-2">
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span className="font-medium">このカードの合計</span>
-            <span className="text-sm font-bold tabular-nums text-foreground">
-              {damageOptions.reduce((sum, option) => {
-                const damageKey = option.key;
-                const damageValue = parseDamage(option.value);
-                const count = attackCard.attackNumbers?.[damageKey] ?? 0;
-                return sum + damageValue * count;
-              }, 0)}
-            </span>
-          </div>
-        </div>
-
-        <div className="flex justify-end gap-2 pt-1">
-          <Button variant="outline" size="sm" onClick={onEditClick}>
-            編集
-          </Button>
-          <Button variant="destructive" size="sm" onClick={onRemove}>
-            削除
-          </Button>
+        <div className="mt-1 flex items-center justify-between border-t border-dashed pt-2 pb-1 text-xs text-muted-foreground">
+          <span className="font-medium">合計</span>
+          <span className="text-sm font-bold tabular-nums text-foreground">
+            {damageOptions.reduce((sum, option) => {
+              const damageKey = option.key;
+              const damageValue = parseDamage(option.value);
+              const count = attackCard.attackNumbers?.[damageKey] ?? 0;
+              return sum + damageValue * count;
+            }, 0)}
+          </span>
         </div>
       </CardContent>
     </Card>

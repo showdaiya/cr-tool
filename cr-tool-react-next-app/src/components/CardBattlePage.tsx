@@ -121,8 +121,8 @@ const CardBattlePage = () => {
     <div className="min-h-screen bg-background text-foreground">
       {shouldShowNotification && <DefenseNotification onSelectDefenseCard={() => setIsOpen(true)} />}
 
-      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-6">
-        <header className="rounded-xl border bg-card p-4 shadow-sm">
+      <main className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-4">
+        <header className="rounded-xl border bg-card px-3 py-3 shadow-sm">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <h1 className="text-base font-semibold">クラロワ ダメージシミュレーター</h1>
@@ -136,30 +136,33 @@ const CardBattlePage = () => {
             </div>
           )}
 
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <div className="rounded-lg border bg-background px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">🛡️ 防衛</p>
-              <p className="mt-0.5 line-clamp-1 text-sm font-semibold text-foreground">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground" aria-label="防衛カード">🛡️</span>
+              <span className="font-semibold text-foreground">
                 {defenceCard ? defenceCard.JpName : "未選択"}
-              </p>
+              </span>
             </div>
-            <div className="rounded-lg border bg-background px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">⚔️ 攻撃カード数</p>
-              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+            <div className="h-4 w-px bg-border" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground" aria-label="攻撃カード数">⚔️</span>
+              <span className="font-semibold tabular-nums text-foreground">
                 {attackCards.length}
-              </p>
+              </span>
             </div>
-            <div className="rounded-lg border bg-background px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">💥 合計ダメージ</p>
-              <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+            <div className="h-4 w-px bg-border" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground" aria-label="合計ダメージ">💥</span>
+              <span className="font-semibold tabular-nums text-foreground">
                 {totalDamage}
-              </p>
+              </span>
             </div>
-            <div className="rounded-lg border bg-background px-3 py-2">
-              <p className="text-[11px] text-muted-foreground">❤️ 残りHP</p>
-              <p className={cn("mt-0.5 text-sm font-semibold tabular-nums", getHpColorClass())}>
+            <div className="h-4 w-px bg-border" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground" aria-label="残りHP">❤️</span>
+              <span className={cn("font-semibold tabular-nums", getHpColorClass())}>
                 {defenceCard ? remainingHP : "-"}
-              </p>
+              </span>
             </div>
           </div>
         </header>

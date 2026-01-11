@@ -36,11 +36,11 @@ test.describe('ホームページ - 基本表示', () => {
   });
 
   test('ステータスパネルが表示される', async ({ page }) => {
-    // 4つのステータス項目を確認
-    await expect(page.getByText('🛡️ 防衛')).toBeVisible();
-    await expect(page.getByText('⚔️ 攻撃カード数')).toBeVisible();
-    await expect(page.getByText('💥 合計ダメージ')).toBeVisible();
-    await expect(page.getByText('❤️ 残りHP')).toBeVisible();
+    // 4つのステータス項目を確認（aria-labelで識別）
+    await expect(page.locator('[aria-label="防衛カード"]')).toBeVisible();
+    await expect(page.locator('[aria-label="攻撃カード数"]')).toBeVisible();
+    await expect(page.locator('[aria-label="合計ダメージ"]')).toBeVisible();
+    await expect(page.locator('[aria-label="残りHP"]')).toBeVisible();
   });
 
   test('防衛カードセクションが表示される', async ({ page }) => {
@@ -204,14 +204,12 @@ test.describe('攻撃カード操作', () => {
     await expect(page.getByRole('heading', { name: '攻撃カードを選択' })).toBeVisible();
   });
 
-  test('攻撃カード選択ダイアログにタブが表示される', async ({ page }) => {
+  test('攻撃カード選択ダイアログにカード種別選択が表示される', async ({ page }) => {
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // タブ（ユニット、建物、呪文）が存在
-    await expect(page.getByRole('tab', { name: 'ユニット' })).toBeVisible();
-    await expect(page.getByRole('tab', { name: '建物' })).toBeVisible();
-    await expect(page.getByRole('tab', { name: '呪文' })).toBeVisible();
+    // カード種別選択（Select/combobox）が存在
+    await expect(page.getByLabel('カード種別')).toBeVisible();
   });
 
 });

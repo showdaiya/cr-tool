@@ -54,9 +54,9 @@ const AttackCardSection = () => {
         </Button>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3">
         {attackCards.length > 0 ? (
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {attackCards.map((card, index) => (
               <AttackCard
                 key={`${card.cardId}-${index}`}
@@ -68,7 +68,7 @@ const AttackCardSection = () => {
             ))}
           </div>
         ) : (
-          <div className="rounded-lg border border-dashed bg-muted/30 p-4">
+          <div className="rounded-lg border border-dashed bg-muted/30 p-3">
             <p className="text-sm font-medium">攻撃カードがまだありません</p>
             <p className="mt-1 text-xs text-muted-foreground">
               「追加」から攻撃カードを選んで、回数を入力してください。

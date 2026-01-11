@@ -62,7 +62,7 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
 
   return (
     <Card className="overflow-hidden border shadow-sm">
-      <CardHeader className="flex items-center justify-between gap-3 border-b px-4 py-3">
+      <CardHeader className="flex items-center justify-between gap-3 border-b px-3 py-2">
         <div className="flex min-w-0 items-center gap-3">
           <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,35 +93,38 @@ const DefenceCardComponent = ({ onSelectClick }: DefenceCardProps) => {
 
       {(defenceCard.cardType === "Troop" || defenceCard.cardType === "Building") &&
         initialHP > 0 && (
-          <CardContent className="space-y-2 px-4 py-3">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>初期HP</span>
-              <span className="text-sm font-medium text-foreground">{initialHP}</span>
+          <CardContent className="space-y-2 px-3 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">初期HP</span>
+                <span className="font-medium text-foreground">{initialHP}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">ダメージ</span>
+                <span className="font-semibold text-destructive">{totalDamage}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">残り</span>
+                <span className={cn("font-bold", getHpColorClass(hpPercentage))}>{remainingHP}</span>
+              </div>
             </div>
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>受けたダメージ</span>
-              <span className="text-sm font-semibold text-destructive">{totalDamage}</span>
-            </div>
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span className="font-medium text-foreground">残りHP</span>
-              <span className={cn("text-sm font-bold", getHpColorClass(hpPercentage))}>{remainingHP}</span>
-            </div>
+
             {remainingHP <= 0 ? (
-              <div className="flex items-center justify-center rounded-lg bg-destructive/20 py-2">
+              <div className="flex items-center justify-center rounded-lg bg-destructive/10 py-2">
                 <span className="animate-defeat text-sm font-bold text-destructive">💥 撃破！</span>
               </div>
             ) : (
               <Progress
                 value={hpPercentage}
                 indicatorClassName={hpIndicatorClass}
-                className={cn(hpPercentage <= 20 && hpPercentage > 0 && "animate-hp-shake")}
+                className={cn("h-2", hpPercentage <= 20 && hpPercentage > 0 && "animate-hp-shake")}
               />
             )}
           </CardContent>
         )}
 
-      <CardContent className="flex justify-end border-t px-4 py-3">
-        <Button variant="outline" size="sm" onClick={onSelectClick}>
+      <CardContent className="flex justify-end border-t px-3 py-2">
+        <Button variant="ghost" size="sm" onClick={onSelectClick} className="h-8 text-xs">
           変更
         </Button>
       </CardContent>

@@ -92,8 +92,8 @@ describe("DefenceCard (shadcn)", () => {
       </TooltipProvider>,
     );
     expect(screen.getByText("初期HP")).toBeInTheDocument();
-    expect(screen.getByText("受けたダメージ")).toBeInTheDocument();
-    expect(screen.getByText("残りHP")).toBeInTheDocument();
+    expect(screen.getByText("ダメージ")).toBeInTheDocument();
+    expect(screen.getByText("残り")).toBeInTheDocument();
     expect(screen.getByText("800")).toBeInTheDocument(); // remainingHP
   });
 });

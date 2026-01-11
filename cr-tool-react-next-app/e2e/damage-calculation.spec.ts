@@ -142,8 +142,8 @@ test.describe('ダメージ計算 - HP表示', () => {
       
       // HP関連の表示を確認
       await expect(page.getByText('初期HP')).toBeVisible();
-      await expect(page.getByText('受けたダメージ')).toBeVisible();
-      await expect(page.getByText('残りHP').first()).toBeVisible();
+      await expect(page.getByText('ダメージ', { exact: true })).toBeVisible();
+      await expect(page.getByText('残り', { exact: true })).toBeVisible();
     }
   });
 
