@@ -254,6 +254,129 @@ function Child() {
 
 ---
 
+## Radix UI ダイアログの自動フォーカス制御
+
+**説明**: Radix UIの`Dialog`はデフォルトでダイアログ内の最初のフォーカス可能な要素に自動フォーカスする。スマホでは検索欄にフォーカスが当たるとキーボードが自動で開いてしまい、画面が圧迫される問題がある。
+
+**対処法**: `DialogContent`に`onOpenAutoFocus`を渡して`preventDefault()`する。
+
+**使用例**:
+```tsx
+import { DialogContent } from "@/components/ui/dialog";
+
+<DialogContent
+  onOpenAutoFocus={(e) => e.preventDefault()}
+>
+  <Input placeholder="検索..." />
+  {/* ... */}
+</DialogContent>
+```
+
+**ポイント**:
+- PCでは自動フォーカスが便利なこともあるが、スマホ優先なら無効化が有効
+- 必要に応じてユーザーがタップしてフォーカスを当てられるので操作性は維持される
+
+**学んだ日**: 2026-01-04
+
+**関連リンク**: [Radix UI Dialog - onOpenAutoFocus](https://www.radix-ui.com/primitives/docs/components/dialog)
+
+---
+
+## フィルタUIのモバイル省スペース化（タブ→ドロップダウン）
+
+**説明**: 横並びのタブ（Tabs/TabsList）はPC画面では見やすいが、スマホ幅では画面を圧迫しやすい。選択肢が多い場合はドロップダウン（select要素）に変更することで省スペース化できる。
+
+**Before（タブ）**:
+```tsx
+<Tabs value={currentTab} onValueChange={handleTabChange}>
+  <TabsList>
+    <TabsTrigger value="All">すべて</TabsTrigger>
+    <TabsTrigger value="Troop">ユニット</TabsTrigger>
+    <TabsTrigger value="Building">建物</TabsTrigger>
+    <TabsTrigger value="Spell">呪文</TabsTrigger>
+  </TabsList>
+  <TabsContent value="All">...</TabsContent>
+  {/* ... */}
+</Tabs>
+```
+
+**After（ドロップダウン）**:
+```tsx
+<select
+  value={currentTab}
+  onChange={(e) => handleTabChange(e.target.value)}
+  className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+>
+  <option value="All">すべて</option>
+  <option value="Troop">ユニット</option>
+  <option value="Building">建物</option>
+  <option value="Spell">呪文</option>
+</select>
+
+{/* TabsContentは不要になり、currentTabで直接フィルタ */}
+{cardsToDisplay.map((card) => ...)}
+```
+
+**ポイント**:
+- Tabsコンポーネントのimportも不要になりバンドルサイズ削減
+- 同時に並び替えUIもコンパクト化（h-8、text-xs）すると効果的
+- 条件分岐を増やさずにCSS/コンポーネント変更だけで対応できる
+
+**学んだ日**: 2026-01-04
+
+---
+
+## モバイル向けUI最適化 - Box-in-Box廃止とフラット化
+
+**説明**: ネストしたカードレイアウト（card > 内側のcard）はPC画面では整理されて見えるが、モバイルでは余白が増えて情報密度が下がる。「divider（罫線区切り）」や「インラインフレックス」に変更することで、コンパクトで見やすいUIになる。
+
+**Before（ネストしたカード）**:
+```tsx
+<Card>
+  <CardContent className="space-y-3">
+    {items.map((item) => (
+      <div key={item.id} className="rounded-lg border bg-card p-2">
+        <div className="flex flex-col gap-2">
+          {/* 内容 */}
+        </div>
+      </div>
+    ))}
+  </CardContent>
+</Card>
+```
+
+**After（dividerベースのフラットレイアウト）**:
+```tsx
+<Card>
+  <CardContent className="px-3 py-1">
+    <div className="divide-y">
+      {items.map((item) => (
+        <div key={item.id} className="flex items-center justify-between gap-2 py-2">
+          {/* 内容 - ボーダーなし、divideで区切り */}
+        </div>
+      ))}
+    </div>
+  </CardContent>
+</Card>
+```
+
+**ポイント**:
+- `divide-y`: 親に付けると子要素間に自動でボーダーが入る
+- `py-2` で縦余白、`px-3` で横余白を最小限に
+- 小計などの追加情報は条件付き表示（`{count > 0 && <span>小計: {subtotal}</span>}`）
+
+**関連Tailwindクラス**:
+| クラス | 効果 |
+|--------|------|
+| `divide-y` | 子要素間に水平ボーダー |
+| `border-dashed` | 破線ボーダー（視覚的に軽い区切り） |
+| `text-[10px]` | 極小フォント（10px） |
+| `h-7 w-7` | コンパクトなボタンサイズ |
+
+**学んだ日**: 2026-01-11
+
+---
+
 # Next.js - 基礎概念
 
 ## Next.jsとは
@@ -383,96 +506,7 @@ function ClientComponent() {
 
 ---
 
-# Next.js - CSS / Tailwind
-
-## CSS変数でカラーパレットを一元管理
-
-**説明**: Tailwindと組み合わせて、`globals.css`でCSS変数を定義し、全体のカラーパレットを一箇所で管理できる。ダークモード対応も `.dark` クラスで切り替え可能。
-
-**使用例**:
-```css
-/* globals.css */
-:root {
-  --primary: 222 47% 11%;       /* HSL値 */
-  --primary-foreground: 210 40% 98%;
-  --background: 220 30% 98%;
-  --border: 214.3 31.8% 91.4%;
-}
-
-.dark {
-  --primary: 210 40% 98%;
-  --background: 222 47% 11%;
-  --border: 217.2 32.6% 17.5%;
-}
-```
-
-**Tailwind側 (tailwind.config.js)**:
-```js
-theme: {
-  extend: {
-    colors: {
-      primary: "hsl(var(--primary))",
-      background: "hsl(var(--background))",
-      border: "hsl(var(--border))",
-    },
-  },
-},
-```
-
-**メリット**:
-- カラー変更が1箇所で済む
-- ダークモード切り替えが容易
-- Tailwindのユーティリティと併用可能（`bg-primary`, `text-foreground`等）
-
-**学んだ日**: 2026-01-04
-
----
-
-## グラデーション vs 単色背景
-
-**説明**: UIのシンプル化でグラデーション背景を単色に変更する際の考え方。
-
-| 観点 | グラデーション | 単色 |
-|------|---------------|------|
-| 視覚的印象 | リッチ・装飾的 | クリーン・モダン |
-| 実装 | `bg-gradient-to-br from-X via-Y to-Z` | `bg-card` |
-| 保守性 | 色変更時に複数箇所調整 | 変数1つで済む |
-| パフォーマンス | わずかに重い | 軽い |
-
-**変更例**:
-```tsx
-// Before: グラデーション
-<header className="bg-gradient-to-br from-background via-card to-muted/50">
-
-// After: 単色
-<header className="bg-card">
-```
-
-**学んだ日**: 2026-01-04
-
----
-
-## ボーダーのアクセント強度を控えめにする
-
-**説明**: `border-accent/60` のような強いアクセントボーダーを `border`（デフォルト）に変更することで、視覚的ノイズを減らせる。
-
-**変更例**:
-```tsx
-// Before: アクセント強め
-<div className="rounded-xl border border-accent/40 bg-card/60 shadow-sm">
-
-// After: シンプル
-<div className="rounded-lg border bg-background">
-```
-
-**ポイント**:
-- `rounded-2xl` → `rounded-xl` や `rounded-lg` で丸みも控えめに
-- `shadow-md` → `shadow-sm` でシャドウも軽く
-- 装飾を減らすことで「情報」に集中しやすくなる
-
-**学んだ日**: 2026-01-04
-
----
+# Next.js - データフェッチ
 
 ## Server Componentでのフェッチ
 
