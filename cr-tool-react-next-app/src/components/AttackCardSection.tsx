@@ -56,15 +56,17 @@ const AttackCardSection = () => {
 
       <CardContent className="space-y-3">
         {attackCards.length > 0 ? (
-          <div className="grid gap-3">
+          <div>
             {attackCards.map((card, index) => (
-              <AttackCard
-                key={`${card.cardId}-${index}`}
-                attackCard={card}
-                index={index}
-                onEditClick={() => handleEditCard(index)}
-                onRemove={() => removeAttackCard(index)}
-              />
+              <div key={`${card.cardId}-${index}`}>
+                {index > 0 && <hr className="border-border" />}
+                <AttackCard
+                  attackCard={card}
+                  index={index}
+                  onEditClick={() => handleEditCard(index)}
+                  onRemove={() => removeAttackCard(index)}
+                />
+              </div>
             ))}
           </div>
         ) : (

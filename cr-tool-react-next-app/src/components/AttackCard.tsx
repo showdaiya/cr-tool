@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, ChangeEvent } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -92,8 +92,8 @@ const AttackCardComponent = ({
   );
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="flex flex-row items-center gap-3 border-b px-3 py-2">
+    <Card className="border-0 shadow-none">
+      <CardHeader className="flex flex-row items-center gap-3 px-3 py-2">
         <div className="h-8 w-8 shrink-0 overflow-hidden rounded-md border bg-muted">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -116,11 +116,11 @@ const AttackCardComponent = ({
           )}
         </div>
         <div className="flex gap-1">
-          <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={onEditClick}>
-            編集
+          <Button variant="ghost" size="icon" className="h-7 w-7" onClick={onEditClick} aria-label="編集">
+            <Pencil className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" className="h-7 px-2 text-xs hover:text-destructive" onClick={onRemove}>
-            削除
+          <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={onRemove} aria-label="削除">
+            <Trash2 className="h-4 w-4" />
           </Button>
         </div>
       </CardHeader>
