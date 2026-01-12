@@ -10,11 +10,14 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // リセットして初期状態にする
     await page.getByRole('button', { name: 'リセット' }).click();
-    await page.waitForTimeout(300);
+    // リセット完了を待つ（どちらかのボタンが表示されるまで）
+    const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
+    const changeButton = page.getByRole('button', { name: '変更' });
+    await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 5000 });
   });
 
   test('攻撃カードを追加できる', async ({ page }) => {
@@ -22,14 +25,14 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // Loading完了を待つ
-    await page.waitForTimeout(1000);
+    // カードリストが表示されるまで待つ
+    const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
     
     // カード種別フィルタが「すべて」になっていることを確認
     await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('All');
     
     // カードを選択
-    const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -55,11 +58,11 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
     // 呪文を選択
     await page.getByRole('combobox', { name: 'カード種別' }).selectOption('Spell');
     
-    // Loading完了を待つ
-    await page.waitForTimeout(1500);
-    
     // 呪文が選択されていることを確認
     await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('Spell');
+    
+    // カードリストが更新されるまで待つ（呪文カードが表示される）
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
   });
 
   test('建物タブで建物カードを選択できる', async ({ page }) => {
@@ -72,8 +75,8 @@ test.describe('ダメージ計算 - 攻撃カード追加と削除', () => {
     // 建物が選択されていることを確認
     await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValue('Building');
     
-    // Loading完了を待つ
-    await page.waitForTimeout(1000);
+    // カードリストが更新されるまで待つ
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
   });
 
 });
@@ -82,14 +85,16 @@ test.describe('ダメージ計算 - 回数入力', () => {
 
   test('攻撃カード追加後に回数を増減できる', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // 攻撃カードを追加
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
     
+    // カードリストが表示されるまで待つ
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -120,21 +125,24 @@ test.describe('ダメージ計算 - HP表示', () => {
 
   test('防衛カード選択後にHP情報が表示される', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // 防衛カード選択ボタンまたは変更ボタンをクリック
     const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
     const changeButton = page.getByRole('button', { name: '変更' });
     
+    await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 10000 });
     if (await selectButton.isVisible().catch(() => false)) {
       await selectButton.click();
     } else {
       await changeButton.first().click();
     }
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
     
+    // カードリストが表示されるまで待つ
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -153,11 +161,14 @@ test.describe('カード編集と削除', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // リセットして初期状態にする
     await page.getByRole('button', { name: 'リセット' }).click();
-    await page.waitForTimeout(300);
+    // リセット完了を待つ（どちらかのボタンが表示されるまで）
+    const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
+    const changeButton = page.getByRole('button', { name: '変更' });
+    await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 5000 });
   });
 
   test('攻撃カードを削除できる', async ({ page }) => {
@@ -165,9 +176,11 @@ test.describe('カード編集と削除', () => {
     // 攻撃カードを追加
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
     
+    // カードリストが表示されるまで待つ
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -189,9 +202,11 @@ test.describe('カード編集と削除', () => {
     // 攻撃カードを追加
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
     
+    // カードリストが表示されるまで待つ
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -213,15 +228,18 @@ test.describe('カード編集と削除', () => {
     const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
     const changeButtonInitial = page.getByRole('button', { name: '変更' });
     
+    await expect(selectButton.or(changeButtonInitial)).toBeVisible({ timeout: 10000 });
     if (await selectButton.isVisible().catch(() => false)) {
       await selectButton.click();
     } else {
       await changeButtonInitial.first().click();
     }
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
     
+    // カードリストが表示されるまで待つ
     const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+    await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+    
     if (await cards.count() > 0) {
       await cards.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -242,7 +260,7 @@ test.describe('ソートと検索', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   test('カード名で検索できる', async ({ page }) => {
@@ -256,15 +274,15 @@ test.describe('ソートと検索', () => {
       await addButtonAlt.first().click();
     }
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
+    
+    // カードリストが表示されるまで待つ
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
     
     // 検索
     const searchInput = page.getByPlaceholder('カード名 / IDで検索...');
     await searchInput.fill('ゴブリン');
-    await page.waitForTimeout(500);
     
     // ゴブリン系のカードが表示されるか確認（または該当なし）
-    // hasText はボタンのアクセシブルネームに対して期待通りに効かないケースがあるため、role/name で判定する
     const goblinCards = page.getByRole('dialog').getByRole('button', { name: /ゴブリン/ });
     const noResult = page.getByRole('dialog').getByText('該当なし');
 
@@ -272,7 +290,7 @@ test.describe('ソートと検索', () => {
       const count = await goblinCards.count();
       if (count > 0) return true;
       return await noResult.isVisible().catch(() => false);
-    }).toBeTruthy();
+    }, { timeout: 10000 }).toBeTruthy();
   });
 
   test('進化表示を切り替えできる', async ({ page }) => {
@@ -286,7 +304,9 @@ test.describe('ソートと検索', () => {
       await addButtonAlt.first().click();
     }
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
+    
+    // カードリストが表示されるまで待つ
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
     
     // 通常ボタンをクリックして進化表示に切り替え
     const evoButton = page.getByRole('button', { name: '通常' });
@@ -300,7 +320,9 @@ test.describe('ソートと検索', () => {
     
     await page.getByRole('button', { name: '攻撃カードを追加' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
-    await page.waitForTimeout(1000);
+    
+    // カードリストが表示されるまで待つ
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
     
     // 並び替えボタンをクリック（昇順/降順の切り替え）
     // 初期状態は昇順なので「降順に変更」ボタンがあるはず
