@@ -575,6 +575,70 @@ await expect(page.getByRole('button', { name: '進化' })).toBeVisible();
 
 ---
 
+## テキストマッチの厳密化（exact: true）
+
+**説明**: `getByText('ダメージ')` のような部分マッチは、ページ内に「ダメージ」を含む複数の要素がある場合に "strict mode violation" エラーになる。`{ exact: true }` を付けると完全一致になり、意図した要素だけにマッチする。
+
+**事象**:
+```
+Error: strict mode violation: getByText('ダメージ') resolved to 4 elements:
+  1) <h1>クラロワ ダメージシミュレーター</h1>
+  2) <span>ダメージ</span>
+  3) <p>...合計ダメージを計算します。</p>
+  4) <p>© 2024-2025 クラロワ ダメージシミュレーター</p>
+```
+
+**対処**:
+```typescript
+// Before: 部分マッチ（複数ヒット）
+await expect(page.getByText('ダメージ')).toBeVisible();
+
+// After: 完全一致
+await expect(page.getByText('ダメージ', { exact: true })).toBeVisible();
+```
+
+**他の回避策**:
+- `.first()` で最初の要素を取得（非推奨：順序依存になる）
+- より具体的なセレクタを使う（例: `locator('span').getByText('ダメージ')`）
+- `aria-label` を付けて `getByLabel()` で取得
+
+**学んだ日**: 2026-01-11
+
+---
+
+## aria-labelベースのセレクタ
+
+**説明**: UIラベルが絵文字や記号のみの場合、`getByText()` が不安定になる。`aria-label` を付けて `getByLabel()` や `locator('[aria-label="..."]')` でアクセスすると安定する。
+
+**事象**:
+- ステータスパネルが `🛡️ 防衛` のようなテキストから、絵文字のみ（`🛡️`）に変更
+- `getByText('🛡️ 防衛')` がマッチしなくなった
+
+**対処（HTML側）**:
+```tsx
+<span className="text-muted-foreground" aria-label="防衛カード">🛡️</span>
+```
+
+**対処（テスト側）**:
+```typescript
+// Before: テキストマッチ
+await expect(page.getByText('🛡️ 防衛')).toBeVisible();
+
+// After: aria-labelでアクセス
+await expect(page.locator('[aria-label="防衛カード"]')).toBeVisible();
+// または
+await expect(page.getByLabel('防衛カード')).toBeVisible();
+```
+
+**ポイント**:
+- `aria-label` はアクセシビリティにも貢献（スクリーンリーダー対応）
+- `getByLabel()` は `<label>` 要素とinputの紐付けにも使える
+- テストと実装両方でセマンティクスが向上する
+
+**学んだ日**: 2026-01-11
+
+---
+
 ## コード生成
 
 **説明**: ブラウザ操作からテストコードを自動生成

@@ -12,6 +12,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import SelectableCardListItem from "./SelectableCardListItem";
 import { useCardContext } from "@/context/CardContext";
 import { AnyCard, AttackCardState } from "@/types/CardTypes";
@@ -57,7 +64,7 @@ const SelectCardOverlay = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("id");
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
-  const [showEvo, setShowEvo] = useState(false);
+  const [evoFilter, setEvoFilter] = useState<"normal" | "evo">("normal");
   const [isListReady, setIsListReady] = useState(false);
   const [currentTab, setCurrentTab] = useState<CardTypeFilter | "All">("All");
 
@@ -77,7 +84,7 @@ const SelectCardOverlay = ({
     setSearchQuery("");
     setSortKey("id");
     setSortOrder("asc");
-    setShowEvo(false);
+    setEvoFilter("normal");
     setCurrentTab("All");
   }, [initialSelectedCard]);
 
@@ -148,7 +155,7 @@ const SelectCardOverlay = ({
         (card) =>
           cardFilter(card) &&
           (targetType === "All" || card.cardType === targetType) &&
-          (showEvo ? card.isEvo : !card.isEvo) &&
+          (evoFilter === "evo" ? card.isEvo : !card.isEvo) &&
           (card.JpName.toLowerCase().includes(query) ||
             card.EnName.toLowerCase().includes(query) ||
             String(card.id).includes(query)),
@@ -161,7 +168,7 @@ const SelectCardOverlay = ({
 
       return sortCards(filtered, applicableSortKey, sortOrder);
     },
-    [allCards, cardFilter, showEvo, searchQuery, sortKey, sortOrder, sortCards],
+    [allCards, cardFilter, evoFilter, searchQuery, sortKey, sortOrder, sortCards],
   );
 
   const showTabs = allowedCardTypes.length > 1;
@@ -248,15 +255,16 @@ const SelectCardOverlay = ({
                 {sortOrder === "asc" ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
               </Button>
 
-              {/* 進化切り替えボタン */}
-              <Button
-                variant={showEvo ? "secondary" : "ghost"}
-                size="sm"
-                className="h-8 shrink-0 px-2 text-xs"
-                onClick={() => setShowEvo(!showEvo)}
-              >
-                {showEvo ? "進化" : "通常"}
-              </Button>
+              {/* 進化切り替えプルダウン */}
+              <Select value={evoFilter} onValueChange={(value: "normal" | "evo") => setEvoFilter(value)}>
+                <SelectTrigger className="h-8 w-20 shrink-0 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="normal">通常</SelectItem>
+                  <SelectItem value="evo">進化</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
