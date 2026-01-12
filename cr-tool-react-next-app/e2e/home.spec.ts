@@ -11,7 +11,7 @@ test.describe('ホームページ - 基本表示', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     // ページの読み込み完了を待つ
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   test('アプリタイトルが表示される', async ({ page }) => {
@@ -66,13 +66,16 @@ test.describe('防衛カード選択', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // リセットして初期状態にする
     const resetButton = page.getByRole('button', { name: 'リセット' });
     if (await resetButton.isVisible()) {
       await resetButton.click();
-      await page.waitForTimeout(300);
+      // リセット完了を待つ（どちらかのボタンが表示されるまで）
+      const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
+      const changeButton = page.getByRole('button', { name: '変更' });
+      await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 5000 });
     }
   });
 
@@ -81,10 +84,8 @@ test.describe('防衛カード選択', () => {
     const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
     const changeButton = page.getByRole('button', { name: '変更' });
     
-    const selectVisible = await selectButton.isVisible().catch(() => false);
-    const changeVisible = await changeButton.isVisible().catch(() => false);
-    
-    expect(selectVisible || changeVisible).toBeTruthy();
+    // 状態ベースの待機: どちらかのボタンが表示されるまで待つ
+    await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 10000 });
   });
 
   test('防衛カード選択ダイアログが開く', async ({ page }) => {
@@ -126,7 +127,8 @@ test.describe('防衛カード選択', () => {
     
     // 検索してみる
     await searchInput.fill('ナイト');
-    await page.waitForTimeout(500);
+    // 検索結果が更新されるのを待つ
+    await expect(page.getByRole('dialog').locator('button').first()).toBeVisible({ timeout: 10000 });
   });
 
   test('防衛カード選択ダイアログでカードを選択できる', async ({ page }) => {
@@ -141,11 +143,11 @@ test.describe('防衛カード選択', () => {
     }
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // Loading完了を待つ
-    await page.waitForTimeout(1000);
+    // カードリストが表示されるまで待つ
+    const cardItems = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト|アーチャー|ゴブリン/ });
+    await cardItems.first().waitFor({ state: 'visible', timeout: 10000 });
     
     // 最初のカードをクリック（存在する場合）
-    const cardItems = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト|アーチャー|ゴブリン/ });
     const count = await cardItems.count();
     
     if (count > 0) {
@@ -182,7 +184,7 @@ test.describe('攻撃カード操作', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   test('攻撃カードがない状態で追加ボタンが表示される', async ({ page }) => {
@@ -218,7 +220,7 @@ test.describe('ヘルプ機能', () => {
 
   test('ヘルプボタンをクリックすると説明が表示される', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // ヘルプボタンをクリック
     await page.getByRole('button', { name: 'ヘルプ' }).click();
@@ -230,7 +232,7 @@ test.describe('ヘルプ機能', () => {
 
   test('ヘルプを再度クリックすると非表示になる', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // ヘルプを開く
     await page.getByRole('button', { name: 'ヘルプ' }).click();
@@ -247,16 +249,16 @@ test.describe('ダメージ計算フロー（統合テスト）', () => {
 
   test('防衛カードを選択するとステータスが更新される', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // リセットして初期状態にする
     await page.getByRole('button', { name: 'リセット' }).click();
-    await page.waitForTimeout(500);
-    
-    // 防衛カード選択ボタンまたは変更ボタンをクリック
+    // リセット完了を待つ（どちらかのボタンが表示されるまで）
     const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
     const changeButton = page.getByRole('button', { name: '変更' });
+    await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 5000 });
     
+    // 防衛カード選択ボタンまたは変更ボタンをクリック
     if (await selectButton.isVisible().catch(() => false)) {
       await selectButton.click();
     } else {
@@ -264,15 +266,14 @@ test.describe('ダメージ計算フロー（統合テスト）', () => {
     }
     await expect(page.getByRole('dialog')).toBeVisible();
     
-    // Loading完了を待つ
-    await page.waitForTimeout(1000);
+    // カードリストが表示されるまで待つ
+    const knightCard = page.getByRole('dialog').locator('button').filter({ hasText: 'ナイト' });
+    await knightCard.first().waitFor({ state: 'visible', timeout: 10000 });
     
     // 検索して選択
     await page.getByPlaceholder('カード名 / IDで検索...').fill('ナイト');
-    await page.waitForTimeout(500);
     
     // カードをクリック（存在する場合）
-    const knightCard = page.getByRole('dialog').locator('button').filter({ hasText: 'ナイト' });
     if (await knightCard.count() > 0) {
       await knightCard.first().click();
       await page.getByRole('button', { name: '選択' }).click();
@@ -287,14 +288,13 @@ test.describe('ダメージ計算フロー（統合テスト）', () => {
 
   test('リセットボタンで攻撃カードがクリアされる', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // リセットボタンをクリック
     await page.getByRole('button', { name: 'リセット' }).click();
-    await page.waitForTimeout(500);
     
     // 攻撃カードがない状態を確認
-    await expect(page.getByText('攻撃カードがまだありません')).toBeVisible();
+    await expect(page.getByText('攻撃カードがまだありません')).toBeVisible({ timeout: 5000 });
   });
 
 });
@@ -305,7 +305,7 @@ test.describe('レスポンシブ対応', () => {
     // モバイルビューポート設定
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // 主要要素が表示される
     await expect(page.locator('h1').filter({ hasText: 'クラロワ ダメージシミュレーター' })).toBeVisible();
@@ -322,7 +322,7 @@ test.describe('レスポンシブ対応', () => {
     // タブレットビューポート設定
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     await expect(page.locator('h1').filter({ hasText: 'クラロワ ダメージシミュレーター' })).toBeVisible();
     
