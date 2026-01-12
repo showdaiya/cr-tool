@@ -377,6 +377,93 @@ import { DialogContent } from "@/components/ui/dialog";
 
 ---
 
+## 独立した水平線（Separator）でカード間を区切る
+
+**説明**: Tailwindの`divide-y`は親要素の角丸（`rounded-lg`）の影響を受けて、水平線の端が曲がってしまうことがある。独立した`<hr>`要素を使うことで、より制御しやすく保守性の高いレイアウトになる。
+
+**Before（divide-y：角丸の影響を受ける）**:
+```tsx
+<Card className="rounded-lg">
+  <div className="divide-y">
+    {items.map((item) => (
+      <div key={item.id}>...</div>
+    ))}
+  </div>
+</Card>
+```
+
+**After（独立した水平線）**:
+```tsx
+<Card>
+  <div>
+    {items.map((item, index) => (
+      <div key={item.id}>
+        {index > 0 && <hr className="border-border" />}
+        <ItemComponent item={item} />
+      </div>
+    ))}
+  </div>
+</Card>
+```
+
+**ポイント**:
+- `index > 0 &&` で最初のアイテムの前には水平線を出さない
+- `border-border` でテーマに沿った色を使用
+- 各水平線が独立しているため、スタイル変更が容易
+
+**学んだ日**: 2026-01-12
+
+---
+
+## テキストボタンからアイコンボタンへの変更
+
+**説明**: 編集・削除などのアクションボタンをアイコンのみにすることで、省スペース化とモバイル対応が向上する。アクセシビリティのため`aria-label`を必ず付ける。
+
+**Before（テキストボタン）**:
+```tsx
+<div className="flex gap-1">
+  <Button variant="ghost" size="sm" onClick={onEdit}>
+    編集
+  </Button>
+  <Button variant="ghost" size="sm" onClick={onRemove}>
+    削除
+  </Button>
+</div>
+```
+
+**After（アイコンボタン）**:
+```tsx
+import { Pencil, Trash2 } from "lucide-react";
+
+<div className="flex gap-1">
+  <Button variant="ghost" size="icon" className="h-7 w-7" onClick={onEdit} aria-label="編集">
+    <Pencil className="h-4 w-4" />
+  </Button>
+  <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={onRemove} aria-label="削除">
+    <Trash2 className="h-4 w-4" />
+  </Button>
+</div>
+```
+
+**ポイント**:
+- `size="icon"` でアイコンボタン用のサイズ設定
+- `aria-label` は必須（スクリーンリーダー対応、テスト用セレクタ）
+- 削除ボタンは `text-destructive` で赤色にして視覚的に警告
+- lucide-reactのアイコンを使用（Pencil, Trash2）
+
+**テスト修正時の注意**:
+```tsx
+// Before: テキストで検索
+expect(screen.getByText("編集")).toBeInTheDocument();
+
+// After: aria-labelで検索
+expect(screen.getByLabelText("編集")).toBeInTheDocument();
+```
+
+**学んだ日**: 2026-01-12
+
+---
+
 # Next.js - 基礎概念
 
 ## Next.jsとは
