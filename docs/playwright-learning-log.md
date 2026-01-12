@@ -230,10 +230,115 @@ await page.check('input[type="checkbox"]');
 // 待機
 await page.waitForURL("/dashboard");
 await page.waitForSelector(".loaded");
-await page.waitForTimeout(1000);  // 非推奨：明示的な待機
+await page.waitForTimeout(1000);  // ⚠️ 非推奨：下記参照
 ```
 
 **学んだ日**: 2026-01-03
+
+---
+
+## waitForTimeout はアンチパターン
+
+**説明**: `page.waitForTimeout(ms)` は固定時間待機であり、フレーキーテストの主原因。状態ベースの待機を使うべき。
+
+**問題点**:
+- 環境によって必要な時間が変わる（CI vs ローカル）
+- 無駄に長く待つか、足りなくてfailする
+- ブラウザごとに差がある（特にFirefox/WebKit）
+
+**代替パターン**:
+```typescript
+// ❌ Bad: 固定時間待機
+await page.waitForTimeout(1000);
+const cards = page.getByRole('dialog').locator('button');
+if (await cards.count() > 0) { ... }
+
+// ✅ Good: 状態ベース待機
+const cards = page.getByRole('dialog').locator('button').filter({ hasText: /ナイト/ });
+await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+if (await cards.count() > 0) { ... }
+```
+
+**よくあるパターンと置き換え**:
+```typescript
+// ダイアログ内のカードリスト表示待ち
+await cards.first().waitFor({ state: 'visible', timeout: 10000 });
+
+// どちらかのボタンが表示されるまで待つ
+const selectButton = page.getByRole('button', { name: '選択' });
+const changeButton = page.getByRole('button', { name: '変更' });
+await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 10000 });
+
+// ページ読み込み完了（networkidleよりdomcontentloadedが安定）
+await page.waitForLoadState('domcontentloaded');
+```
+
+**学んだ日**: 2026-01-12
+
+---
+
+## locator.or() で複数要素のどちらかを待つ
+
+**説明**: 状態によって表示されるボタンが異なる場合、`or()` で「どちらか」を待機できる。
+
+**使用例**:
+```typescript
+// 「防衛カードを選択」または「変更」ボタンのどちらかを待つ
+const selectButton = page.getByRole('button', { name: '防衛カードを選択' });
+const changeButton = page.getByRole('button', { name: '変更' });
+
+await expect(selectButton.or(changeButton)).toBeVisible({ timeout: 10000 });
+
+// その後、どちらが表示されているか判定してクリック
+if (await selectButton.isVisible().catch(() => false)) {
+  await selectButton.click();
+} else {
+  await changeButton.first().click();
+}
+```
+
+**ポイント**:
+- `or()` は Playwright 1.33+ で利用可能
+- `expect(...).toBeVisible()` と組み合わせて状態ベース待機
+- `isVisible()` は即時判定（待機しない）なので、先に `toBeVisible()` で待ってから使う
+
+**学んだ日**: 2026-01-12
+
+---
+
+## networkidle vs domcontentloaded
+
+**説明**: `page.waitForLoadState()` のオプションによってブラウザ互換性が異なる。
+
+**オプション比較**:
+```typescript
+// ネットワークが落ち着くまで待つ（厳格だが遅い・不安定）
+await page.waitForLoadState('networkidle');
+
+// DOM構築完了まで待つ（高速・安定）
+await page.waitForLoadState('domcontentloaded');
+
+// 全リソース読み込み完了まで待つ
+await page.waitForLoadState('load');
+```
+
+**Firefoxでの問題**:
+- `networkidle` はFirefoxで「ネットワークが完全に静まった」判定が不安定
+- WebSocket接続やポーリングがあると永遠に待つことがある
+- タイムアウトエラー: `page.waitForLoadState: Test timeout of 30000ms exceeded`
+
+**推奨**:
+```typescript
+// ❌ Firefoxで不安定
+await page.waitForLoadState('networkidle');
+
+// ✅ クロスブラウザで安定
+await page.waitForLoadState('domcontentloaded');
+// その後、必要な要素の表示を明示的に待つ
+await expect(page.getByRole('button', { name: 'リセット' })).toBeVisible();
+```
+
+**学んだ日**: 2026-01-12
 
 ---
 
@@ -440,67 +545,33 @@ await expect(page.getByRole('combobox', { name: 'カード種別' })).toHaveValu
 
 ---
 
-## テキストマッチの厳密化（exact: true）
+## ボタンテキスト変更とE2Eセレクタの同期
 
-**説明**: `getByText('ダメージ')` のような部分マッチは、ページ内に「ダメージ」を含む複数の要素がある場合に "strict mode violation" エラーになる。`{ exact: true }` を付けると完全一致になり、意図した要素だけにマッチする。
+**説明**: UIのボタンテキストを変更した場合、E2Eテストの `getByRole('button', { name: '...' })` も同期して更新が必要。
 
-**事象**:
-```
-Error: strict mode violation: getByText('ダメージ') resolved to 4 elements:
-  1) <h1>クラロワ ダメージシミュレーター</h1>
-  2) <span>ダメージ</span>
-  3) <p>...合計ダメージを計算します。</p>
-  4) <p>© 2024-2025 クラロワ ダメージシミュレーター</p>
-```
+**今回の事象**:
+- 「進化表示」ボタン → 「通常」/「進化」に短縮
+- テストが `getByRole('button', { name: '進化表示' })` で要素が見つからずfail
 
 **対処**:
 ```typescript
-// Before: 部分マッチ（複数ヒット）
-await expect(page.getByText('ダメージ')).toBeVisible();
+// Before
+const evoButton = page.getByRole('button', { name: '進化表示' });
+await evoButton.click();
+await expect(page.getByRole('button', { name: '通常表示' })).toBeVisible();
 
-// After: 完全一致
-await expect(page.getByText('ダメージ', { exact: true })).toBeVisible();
-```
-
-**他の回避策**:
-- `.first()` で最初の要素を取得（非推奨：順序依存になる）
-- より具体的なセレクタを使う（例: `locator('span').getByText('ダメージ')`）
-- `aria-label` を付けて `getByLabel()` で取得
-
-**学んだ日**: 2026-01-11
-
----
-
-## aria-labelベースのセレクタ
-
-**説明**: UIラベルが絵文字や記号のみの場合、`getByText()` が不安定になる。`aria-label` を付けて `getByLabel()` や `locator('[aria-label="..."]')` でアクセスすると安定する。
-
-**事象**:
-- ステータスパネルが `🛡️ 防衛` のようなテキストから、絵文字のみ（`🛡️`）に変更
-- `getByText('🛡️ 防衛')` がマッチしなくなった
-
-**対処（HTML側）**:
-```tsx
-<span className="text-muted-foreground" aria-label="防衛カード">🛡️</span>
-```
-
-**対処（テスト側）**:
-```typescript
-// Before: テキストマッチ
-await expect(page.getByText('🛡️ 防衛')).toBeVisible();
-
-// After: aria-labelでアクセス
-await expect(page.locator('[aria-label="防衛カード"]')).toBeVisible();
-// または
-await expect(page.getByLabel('防衛カード')).toBeVisible();
+// After
+const evoButton = page.getByRole('button', { name: '通常' });
+await evoButton.click();
+await expect(page.getByRole('button', { name: '進化' })).toBeVisible();
 ```
 
 **ポイント**:
-- `aria-label` はアクセシビリティにも貢献（スクリーンリーダー対応）
-- `getByLabel()` は `<label>` 要素とinputの紐付けにも使える
-- テストと実装両方でセマンティクスが向上する
+- UI変更時は該当テキストをgrep検索して影響範囲を確認
+- `getByPlaceholder` も同様（例: 「カード名で検索...」→「カード名 / IDで検索...」）
+- テスト側のセレクタはUIの実装に依存するため、変更時は必ず同期
 
-**学んだ日**: 2026-01-11
+**学んだ日**: 2026-01-04
 
 ---
 
